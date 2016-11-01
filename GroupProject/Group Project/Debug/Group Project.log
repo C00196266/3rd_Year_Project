@@ -1,0 +1,7 @@
+﻿  Player.cpp
+c:\users\nover\desktop\group project\group project\player.cpp(18): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\nover\desktop\group project\group project\player.cpp(19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\nover\desktop\group project\group project\player.cpp(43): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\group project\group project\player.cpp(57): warning C4018: '<': signed/unsigned mismatch
+  Group Project.vcxproj -> C:\Users\nover\Desktop\Group Project\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\nover\Desktop\Group Project\Debug\Group Project.pdb (Partial PDB)

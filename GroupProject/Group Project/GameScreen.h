@@ -1,0 +1,32 @@
+#ifndef GAMESCREEN_H
+#define GAMESCREEN_H
+
+////////////////////////////////////////////////////////////
+// Headers
+////////////////////////////////////////////////////////////
+
+#include "Player.h"
+#include "Tile.h"
+
+////////////////////////////////////////////////////////////
+///	\brief Class Manages what is on the game screen and draws
+/// it.
+///
+////////////////////////////////////////////////////////////
+
+class GameScreen {
+public:
+	GameScreen();
+	//~GameScreen();
+
+	void update();
+
+	void draw(sf::RenderWindow &window);
+
+private:
+	Player m_player;
+	
+	vector<shared_ptr<Tile>> m_tiles;
+};
+
+#endif
