@@ -46,6 +46,14 @@ private:
 
 	sf::Vector2f m_velocity;
 
+	const float m_maxSpeed = 7.5f;
+
+	sf::Vector2f m_acceleration;
+
+	const float gravity = 9.81f;
+
+	bool isJumping;
+
 	int direction;
 
 	sf::Image m_image;
@@ -56,6 +64,11 @@ private:
 
 	const int LEFT = 0;
 	const int RIGHT = 1;
+
+	// used to apply gravity to the player
+	sf::Clock clock;
+	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f); // updates 60 times a second
+	sf::Time timeSinceLastUpdate; // time between updates
 };
 
 #endif

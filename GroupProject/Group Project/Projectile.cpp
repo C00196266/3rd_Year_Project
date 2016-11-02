@@ -79,10 +79,10 @@ void Projectile::setAlive(bool state) {
 
 void Projectile::fire() {
 	if (m_direction == LEFT) {
-		m_velocity.x = -2.0f;
+		m_velocity.x = -10.0f;
 	}
 	else {
-		m_velocity.x = 2.0f;
+		m_velocity.x = 10.0f;
 	}
 	ttl = 200;
 }

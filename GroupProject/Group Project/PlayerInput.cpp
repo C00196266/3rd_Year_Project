@@ -83,59 +83,9 @@ void PlayerInput::getButtonPressed() {
 		// Start is pressed
 		if (sf::Joystick::isButtonPressed(0, START)) {
 			pressedStart = true;
-			allowButtonPress = false;
-		}
-
-		// joystick is moved up
-		if (joyY < -60) {
-			moveUp = true;
-			allowButtonPress = false;
-		}
-
-		// joystick is moved down
-		if (joyY > 60) {
-			moveDown = true;
-			allowButtonPress = false;
-		}
-
-		// joystick is moved left
-		if (joyX < -60) {
-			moveLeft = true;
-			allowButtonPress = false;
-		}
-
-		// joystick is moved right
-		if (joyX > 60) {
-			moveRight = true;
-			allowButtonPress = false;
-		}
-
-		// down on the D-pad is pressed
-		if (dPadY < -99.9) {
-			moveDown = true;
-			allowButtonPress = false;
-		}
-
-		// up on the D-pad is pressed
-		if (dPadY > 99.9) {
-			moveUp = true;
-			allowButtonPress = false;
-		}
-
-		// left on the D-pad is pressed
-		if (dPadX < -99.9) {
-			moveLeft = true;
-			allowButtonPress = false;
-		}
-
-		// right on the D-pad is pressed
-		if (dPadX > 99.9) {
-			moveRight = true;
-			allowButtonPress = false;
-		}
+		}	
 	}
 
-	// if allowButtonPress == false
 	else {
 		if (pressedA == true) {
 			pressedA = false;
@@ -169,27 +119,43 @@ void PlayerInput::getButtonPressed() {
 			pressedStart = false;
 		}
 
-		if (moveRight == true) {
-			moveRight = false;
-		}
-
-		if (moveLeft == true) {
-			moveLeft = false;
-		}
-
-		if (moveUp == true) {
-			moveUp = false;
-		}
-
-		if (moveDown == true) {
-			moveDown = false;
-		}
-
 		// timer used for the delay between button presses, to prevent the game from reading in multiple button presses at the same time
 		timer++;
-		if (timer > 42 && allowButtonPress == false) {
+		if (timer > 2) {
 			timer = 0;
 			allowButtonPress = true;
 		}
+	}
+
+	// joystick is moved up or up on the D-pad is pressed
+	if (joyY < -60 || dPadY > 99.9) {
+		moveUp = true;
+	}
+	else {
+		moveUp = false;
+	}
+
+	// joystick is moved down or down on the D-pad is pressed
+	if (joyY > 60 || dPadY < -99.9) {
+		moveDown = true;
+	}
+	else {
+		moveDown = false;
+	}
+
+	// joystick is moved left or left on the D-pad is pressed
+	if (joyX < -60 || dPadX < -99.9) {
+		moveLeft = true;
+	}
+	else {
+		moveLeft = false;
+	}
+
+	// joystick is moved right or right on the D-pad is pressed
+	if (joyX > 60 || dPadX > 99.9) {
+		moveRight = true;
+	}
+	else {
+		moveRight = false;
 	}
 }

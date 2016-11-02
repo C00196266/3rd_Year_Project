@@ -4,6 +4,7 @@ int main() {
 	bool running = true;
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Group Project");
+	window.setFramerateLimit(60.0f);
 
 	GameScreen theGameScreen;
 
