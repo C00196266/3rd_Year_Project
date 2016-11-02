@@ -1,8 +1,6 @@
 
-#include "SFML\Graphics.hpp"
-#include "SFML\Window.hpp"
-#include "Menu.h"
-#include <iostream>
+
+#include "GameStateManager.h"
 
 int main()
 {
@@ -11,16 +9,14 @@ int main()
 	sf::Font thefont;
 	if (!thefont.loadFromFile("arial.ttf"))
 	{
-		std::cout << "WHY WONT THIS WORK" << std::endl;
+		std::cout << "Font failed to Load" << std::endl;
 	}
-
-	Menu testMenu(thefont);
+	GameStateManager gameManger(thefont);
 	bool exit = false;
 	while (exit == false)
 	{
-		testMenu.update();
-		testMenu.draw(window);
+		window.clear();
+		exit = gameManger.gameLoop(window);
 		window.display();
-		std::cout << "Running" << std::endl;
 	}
 }

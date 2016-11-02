@@ -1,2 +1,11 @@
-﻿  3rdYearProject.vcxproj -> C:\Users\Matthew\Desktop\3rd_Year_Project - Copy\3rdYearProject\Debug\3rdYearProject.exe
-  3rdYearProject.vcxproj -> C:\Users\Matthew\Desktop\3rd_Year_Project - Copy\3rdYearProject\Debug\3rdYearProject.pdb (Partial PDB)
+﻿  OptionsMenu.cpp
+  Menu.cpp
+c:\users\gameuser\desktop\uptodateversion\3rd_year_project\3rdyearproject\3rdyearproject\menu.cpp(37): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\uptodateversion\3rd_year_project\3rdyearproject\3rdyearproject\menu.cpp(55): warning C4018: '<': signed/unsigned mismatch
+  MainMenu.cpp
+  Main.cpp
+  GameStateManager.cpp
+  Button.cpp
+  Generating Code...
+  3rdYearProject.vcxproj -> C:\Users\gameuser\Desktop\UpToDateVersion\3rd_Year_Project\3rdYearProject\Debug\3rdYearProject.exe
+  3rdYearProject.vcxproj -> C:\Users\gameuser\Desktop\UpToDateVersion\3rd_Year_Project\3rdYearProject\Debug\3rdYearProject.pdb (Partial PDB)

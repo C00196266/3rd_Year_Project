@@ -29,7 +29,7 @@ void Button::init()
 	m_text.setCharacterSize(20);
 	m_text.setPosition(m_pos);
 	m_text.setOrigin(m_text.getGlobalBounds().width / 2, m_text.getGlobalBounds().height / 2);
-	m_text.setFillColor(sf::Color::Black);
+	m_text.setFillColor(sf::Color::Green);
 	setSelected(false);
 }
 
@@ -57,4 +57,10 @@ void Button::setSelected(bool isSelected)
 		m_sprite.setColor(sf::Color(255, 255, 255, 200));
 		m_text.setFillColor(sf::Color(255, 255, 255, 255));
 	}
+}
+
+void Button::setString(std::string newStr)
+{
+	m_str = newStr;
+	m_text.setString(m_str);
 }

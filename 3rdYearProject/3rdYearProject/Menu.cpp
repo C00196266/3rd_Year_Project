@@ -2,23 +2,20 @@
 
 Menu::Menu()
 {
-
-}
-
-Menu::Menu(sf::Font &thefont)
-{
-	//Test Menu
-	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(500, 100), std::string("Test Button"), thefont, "button.png")));
-	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(500, 200), std::string("Test Button 2"), thefont, "button.png")));
-	buttonsVector.at(0)->setSelected(true);
 	selectedIndex = 0;
 	keyPressTimer = 0;
 }
 
+/*
+Menu::Menu(sf::Font &thefont)
+{
+	//Test Menu
+
+}
+*/
 void Menu::changeSelected()
 {
-	if (keyPressTimer > minKeyPressTime)
-	{
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
 			if (selectedIndex > 0)
@@ -50,9 +47,7 @@ void Menu::changeSelected()
 				buttonsVector.at(selectedIndex)->setSelected(true);
 			}
 			keyPressTimer = 0;
-		}	
-	}
-	keyPressTimer++;
+		}			
 }
 
 void Menu::draw(sf::RenderWindow &window)
@@ -65,5 +60,9 @@ void Menu::draw(sf::RenderWindow &window)
 
 void Menu::update()
 {
-	changeSelected();
+	if (keyPressTimer > minKeyPressTime)
+	{
+		changeSelected();
+	}
+	keyPressTimer++;
 }
