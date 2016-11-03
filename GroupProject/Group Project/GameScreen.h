@@ -7,6 +7,7 @@
 
 #include "Player.h"
 #include "Tile.h"
+#include "GameState.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -19,7 +20,7 @@ public:
 	GameScreen();
 	//~GameScreen();
 
-	void update();
+	void update(GameStates &currentGameState);
 
 	void draw(sf::RenderWindow &window);
 

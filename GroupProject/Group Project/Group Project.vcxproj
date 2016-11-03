@@ -118,8 +118,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameEntryPoint.cpp" />
     <ClCompile Include="GameScreen.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="OptionsMenu.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerInput.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -127,8 +132,14 @@
     <ClCompile Include="Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="GameEntryPoint.h" />
     <ClInclude Include="GameScreen.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameStateManager.h" />
+    <ClInclude Include="MainMenu.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="OptionsMenu.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerInput.h" />
     <ClInclude Include="Projectile.h" />

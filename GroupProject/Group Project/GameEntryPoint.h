@@ -2,6 +2,6 @@
 #define GAMEENTRYPOINT_H
 
 #include "stdafx.h"
-#include "GameScreen.h"
+#include "GameStateManager.h"
 
 #endif

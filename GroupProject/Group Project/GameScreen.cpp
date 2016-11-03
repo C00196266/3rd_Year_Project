@@ -6,7 +6,7 @@ GameScreen::GameScreen() {
 	}
 }
 
-void GameScreen::update() {
+void GameScreen::update(GameStates &currentGameState) {
 	m_player.update();
 }
 
