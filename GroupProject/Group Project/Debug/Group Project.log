@@ -1,31 +1,5 @@
-﻿  Tile.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\tile.cpp(16): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\tile.cpp(17): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\tile.cpp(33): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\tile.cpp(34): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-  stdafx.cpp
-  Projectile.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\projectile.cpp(11): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\projectile.cpp(12): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\projectile.cpp(39): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\projectile.cpp(40): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-  PlayerInput.cpp
-  Player.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\player.cpp(18): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\player.cpp(19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\player.cpp(63): warning C4018: '<': signed/unsigned mismatch
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\player.cpp(82): warning C4018: '<': signed/unsigned mismatch
-  OptionsMenu.cpp
-  Menu.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\menu.cpp(37): warning C4018: '<': signed/unsigned mismatch
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\menu.cpp(55): warning C4018: '<': signed/unsigned mismatch
+﻿  OptionsMenu.cpp
   MainMenu.cpp
-  GameStateManager.cpp
-  GameScreen.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\gamescreen.cpp(16): warning C4018: '<': signed/unsigned mismatch
-  GameEntryPoint.cpp
-c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\gameentrypoint.cpp(7): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-  Button.cpp
   Generating Code...
   Group Project.vcxproj -> C:\Users\New User\Desktop\New folder\3rd_Year_Project\GroupProject\Debug\Group Project.exe
   Group Project.vcxproj -> C:\Users\New User\Desktop\New folder\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
