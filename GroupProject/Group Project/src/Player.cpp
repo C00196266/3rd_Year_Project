@@ -20,6 +20,8 @@ Player::Player() {
 
 	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height /2));
 
+	m_inAir = false;
+
 	isJumping = false;
 
 	direction = RIGHT;
@@ -44,13 +46,12 @@ void Player::update() {
 	timeSinceLastUpdate += clock.restart();
 	if (timeSinceLastUpdate > timePerFrame)
 	{
-		if (m_isFalling == true) {
+		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
-			isJumping = true;
 		}
 		else {
 			m_velocity.y = 0;
-			m_pos.y = 350;
+			//m_pos.y = 350;
 			isJumping = false;
 		}
 
@@ -107,6 +108,10 @@ void Player::setPos(sf::Vector2f newPos) {
 	m_pos = newPos;
 }
 
+void Player::setYPos(float y) {
+	m_pos.y = y;
+}
+
 float Player::getWidth() {
 	return m_width;
 }
@@ -115,8 +120,8 @@ float Player::getHeight() {
 	return m_height;
 }
 
-void Player::setIsFalling(bool falling) {
-	m_isFalling = falling;
+void Player::setInAir(bool inAir) {
+	m_inAir = inAir;
 }
 
 void Player::checkInput() {
@@ -156,6 +161,7 @@ void Player::checkInput() {
 		if (m_input.moveUp || m_input.pressedA) {
 			m_velocity.y -= 10.0f;
 			isJumping = true;
+			m_inAir = true;
 		}
 	}
 

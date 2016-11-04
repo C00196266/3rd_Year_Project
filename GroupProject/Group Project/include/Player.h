@@ -29,6 +29,8 @@ public:
 
 	void setPos(sf::Vector2f newPos);
 
+	void setYPos(float y);
+
 	float getWidth();
 
 	float getHeight();
@@ -37,7 +39,7 @@ public:
 
 	int getMana();
 
-	void setIsFalling(bool falling);
+	void setInAir(bool inAir);
 
 	void checkInput();
 
@@ -66,7 +68,7 @@ private:
 
 	bool isJumping;
 
-	bool m_isFalling;
+	bool m_inAir;
 
 	int direction;
 
