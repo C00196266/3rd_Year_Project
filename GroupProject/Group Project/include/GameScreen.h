@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Tile.h"
 #include "GameState.h"
+#include "CollisionDetection.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -24,8 +25,12 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
+	void detectCollisions();
+
 private:
 	Player m_player;
+
+	CollisionDetection m_collisionDetector;
 	
 	vector<shared_ptr<Tile>> m_tiles;
 };

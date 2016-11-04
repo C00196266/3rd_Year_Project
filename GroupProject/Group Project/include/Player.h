@@ -23,6 +23,16 @@ public:
 
 	void update();
 
+	sf::Vector2f getPos();
+
+	void setPos(float x, float y);
+
+	void setPos(sf::Vector2f newPos);
+
+	float getWidth();
+
+	float getHeight();
+
 	int getHealth();
 
 	int getMana();

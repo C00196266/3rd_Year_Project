@@ -38,6 +38,10 @@ void Tile::draw(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
+sf::Vector2f Tile::getPos() {
+	return m_pos;
+}
+
 float Tile::getWidth() {
 	return m_width;
 }

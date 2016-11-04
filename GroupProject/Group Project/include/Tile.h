@@ -20,6 +20,7 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
+	sf::Vector2f getPos();
 	float getWidth();
 	float getHeight();
 

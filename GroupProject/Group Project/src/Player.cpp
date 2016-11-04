@@ -93,6 +93,27 @@ int Player::getMana() {
 	return m_mana;
 }
 
+sf::Vector2f Player::getPos() {
+	return m_pos;
+}
+
+void Player::setPos(float x, float y) {
+	m_pos.x = x;
+	m_pos.y = y;
+}
+
+void Player::setPos(sf::Vector2f newPos) {
+	m_pos = newPos;
+}
+
+float Player::getWidth() {
+	return m_width;
+}
+
+float Player::getHeight() {
+	return m_height;
+}
+
 void Player::checkInput() {
 	m_input.getButtonPressed();
 

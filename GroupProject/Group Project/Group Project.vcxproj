@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\CollisionDetection.cpp" />
     <ClCompile Include="src\GameEntryPoint.cpp" />
     <ClCompile Include="src\GameScreen.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
@@ -34,6 +35,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Button.h" />
+    <ClInclude Include="include\CollisionDetection.h" />
     <ClInclude Include="include\GameEntryPoint.h" />
     <ClInclude Include="include\GameScreen.h" />
     <ClInclude Include="include\GameState.h" />
