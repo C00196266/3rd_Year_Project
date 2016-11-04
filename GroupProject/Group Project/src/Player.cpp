@@ -44,8 +44,9 @@ void Player::update() {
 	timeSinceLastUpdate += clock.restart();
 	if (timeSinceLastUpdate > timePerFrame)
 	{
-		if (m_pos.y <= 350) {
+		if (m_isFalling == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
+			isJumping = true;
 		}
 		else {
 			m_velocity.y = 0;
@@ -112,6 +113,10 @@ float Player::getWidth() {
 
 float Player::getHeight() {
 	return m_height;
+}
+
+void Player::setIsFalling(bool falling) {
+	m_isFalling = falling;
 }
 
 void Player::checkInput() {

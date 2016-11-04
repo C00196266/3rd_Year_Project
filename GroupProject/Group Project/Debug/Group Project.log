@@ -1,5 +1,7 @@
-﻿  OptionsMenu.cpp
-  MainMenu.cpp
-  Generating Code...
+﻿  Player.cpp
+c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\src\player.cpp(18): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\src\player.cpp(19): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
+c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\src\player.cpp(64): warning C4018: '<': signed/unsigned mismatch
+c:\users\new user\desktop\new folder\3rd_year_project\groupproject\group project\src\player.cpp(83): warning C4018: '<': signed/unsigned mismatch
   Group Project.vcxproj -> C:\Users\New User\Desktop\New folder\3rd_Year_Project\GroupProject\Debug\Group Project.exe
   Group Project.vcxproj -> C:\Users\New User\Desktop\New folder\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)

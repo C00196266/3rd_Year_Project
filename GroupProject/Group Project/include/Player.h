@@ -37,6 +37,8 @@ public:
 
 	int getMana();
 
+	void setIsFalling(bool falling);
+
 	void checkInput();
 
 private:
@@ -63,6 +65,8 @@ private:
 	const float gravity = 9.81f;
 
 	bool isJumping;
+
+	bool m_isFalling;
 
 	int direction;
 

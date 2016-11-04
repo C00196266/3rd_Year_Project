@@ -36,6 +36,15 @@ bool CollisionDetection::boundingBoxCollision(sf::Vector2f object1pos, float obj
 	}
 }
 
+bool CollisionDetection::boundingBoxCollisionTop(float object1Y, float object1Height, float object2Y) {
+	if (object1Y + object1Height <= object2Y) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 //bool CollisionDetection::pixelDetection() {
 //	return m_collision;
 //}

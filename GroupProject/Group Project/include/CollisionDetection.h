@@ -12,6 +12,9 @@ public:
 	bool boundingBoxCollision(sf::Vector2f object1pos, sf::Vector2f object1size, sf::Vector2f object2pos, sf::Vector2f object2size);
 	bool boundingBoxCollision(sf::Vector2f object1pos, float object1Width, float object1Height, sf::Vector2f object2pos, float object2Width, float object2Height);
 
+	// collides with specifically the top of an object
+	bool boundingBoxCollisionTop(float object1Y, float object1Height, float object2Y);
+
 private:
 };
 
