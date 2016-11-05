@@ -1,6 +1,6 @@
 #include "GameStateManager.h"
 
-GameStateManager::GameStateManager(sf::Font & thefont):m_mainMenu(thefont),m_optionsMenu(thefont)
+GameStateManager::GameStateManager(sf::Font & thefont):m_mainMenu(thefont),m_optionsMenu(thefont),m_pauseMenu(thefont)
 {
 	currentState = GameStates::MainMenu;
 }
@@ -26,6 +26,8 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window)
 	}
 	else if (currentState == GameStates::PauseMenu)
 	{
+		m_pauseMenu.update(currentState);
+		m_pauseMenu.draw(window);
 		std::cout << "Pause Running" << std::endl;
 	}
 	else if (currentState == GameStates::EndGameScreen)

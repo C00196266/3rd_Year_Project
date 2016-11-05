@@ -8,6 +8,8 @@ GameScreen::GameScreen() {
 
 void GameScreen::update(GameStates &currentGameState) {
 	m_player.update();
+	changeGameState(currentGameState);
+	keyPressTimer++;
 }
 
 void GameScreen::draw(sf::RenderWindow &window) {
@@ -15,5 +17,16 @@ void GameScreen::draw(sf::RenderWindow &window) {
 
 	for (int i = 0; i < m_tiles.size(); i++) {
 		m_tiles.at(i)->draw(window);
+	}
+}
+
+void GameScreen::changeGameState(GameStates &currentGameState)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		//Change Game State to Play Game
+		currentGameState = GameStates::PauseMenu;
+		keyPressTimer = 0;
+		
 	}
 }

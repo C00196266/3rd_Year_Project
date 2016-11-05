@@ -23,11 +23,11 @@ public:
 	void update(GameStates &currentGameState);
 
 	void draw(sf::RenderWindow &window);
-
+	void changeGameState(GameStates &currentGameState);
 private:
 	Player m_player;
-	
 	vector<shared_ptr<Tile>> m_tiles;
+	int keyPressTimer;
 };
 
 #endif
