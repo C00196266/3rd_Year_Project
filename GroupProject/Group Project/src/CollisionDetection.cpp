@@ -37,7 +37,7 @@ bool CollisionDetection::boundingBoxCollision(sf::Vector2f object1pos, float obj
 }
 
 bool CollisionDetection::boundingBoxCollisionTop(float object1X, float object1Y, float object1Width, float object1Height, float object2X, float object2Y, float object2Width) {
-	if (object1Y + object1Height < object2Y && object1X + object1Width <= object2X || object1Y + object1Height < object2Y && object1X >= object2X + object2Width) {
+	if (object1Y + object1Height < object2Y && object1X + object1Width <= object2X && object1X >= object2X + object2Width) {
 		return false;
 	}
 	else {

@@ -7,7 +7,6 @@ GameScreen::GameScreen() {
 }
 
 void GameScreen::update(GameStates &currentGameState) {
-	m_player.setInAir(true);
 	detectCollisions();
 
 	m_player.update();
@@ -28,8 +27,8 @@ void GameScreen::detectCollisions() {
 			m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth()) == true) 
 		{
 			m_player.setInAir(false);
-			m_player.setYPos(m_tiles.at(i)->getPos().y - m_player.getHeight());
-			break;
+			//m_player.setYPos(m_tiles.at(i)->getPos().y - m_player.getHeight());
+			//break;
 		}
 		else {
 			m_player.setInAir(true);

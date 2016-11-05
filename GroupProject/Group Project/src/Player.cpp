@@ -41,11 +41,13 @@ Player::Player() {
 }
 
 void Player::update() {
-	checkInput();
+	
 
 	timeSinceLastUpdate += clock.restart();
 	if (timeSinceLastUpdate > timePerFrame)
 	{
+		checkInput();
+
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}
@@ -54,6 +56,8 @@ void Player::update() {
 			//m_pos.y = 350;
 			isJumping = false;
 		}
+
+		//m_velocity.x *= timeSinceLastUpdate.asSeconds();
 
 		m_pos.x += m_velocity.x;
 		m_pos.y += m_velocity.y;
@@ -131,25 +135,25 @@ void Player::checkInput() {
 	if (isJumping == false) {
 		// player moves right
 		if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
-			m_velocity.x += 0.75f;
+			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
 			direction = RIGHT;
 		}
 		// player moves left
 		else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
-			m_velocity.x -= 0.75f;
+			m_velocity.x -= 13.0f * timeSinceLastUpdate.asSeconds();
 			direction = LEFT;
 		}
 		// player is not moving
 		else {
 			if (direction == LEFT) {
-				m_velocity.x += 2.5f;
+				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x >= 0) {
 					m_velocity.x = 0;
 				}
 			}
 			if (direction == RIGHT) {
-				m_velocity.x -= 2.5f;
+				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x <= 0) {
 					m_velocity.x = 0;
