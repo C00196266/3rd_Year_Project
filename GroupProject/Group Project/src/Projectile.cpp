@@ -23,6 +23,8 @@ Projectile::Projectile() {
 
 	m_direction = LEFT;
 
+	m_fireCost = 10;
+
 	fire();
 }
 
@@ -87,6 +89,10 @@ bool Projectile::checkAlive() {
 
 void Projectile::setAlive(bool state) {
 	m_isAlive = state;
+}
+
+int Projectile::getFireCost() {
+	return m_fireCost;
 }
 
 void Projectile::fire() {

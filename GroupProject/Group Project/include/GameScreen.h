@@ -12,6 +12,7 @@
 #include "PickupScore.h"
 #include "PickupHealth.h"
 #include "PickupMana.h"
+#include "Enemy.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -42,6 +43,8 @@ private:
 	vector<shared_ptr<PickupHealth>> m_healthPickups;
 
 	vector<shared_ptr<PickupMana>> m_manaPickups;
+
+	vector<shared_ptr<Enemy>> m_enemies;
 };
 
 #endif

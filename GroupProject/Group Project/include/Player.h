@@ -88,6 +88,9 @@ private:
 
 	bool m_inAir;
 
+	// the amount of mana the player is required to have before shooting a projectile
+	int m_fireCost;
+
 	int direction;
 
 	sf::Image m_image;

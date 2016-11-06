@@ -10,6 +10,7 @@ public:
 	Pickup(sf::Vector2f setPos);
 
 	void draw(sf::RenderWindow &window);
+
 	//void update();
 
 	sf::Vector2f getPos();

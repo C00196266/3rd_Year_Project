@@ -22,6 +22,8 @@ public:
 
 	void setAlive(bool state);
 
+	int getFireCost();
+
 	void fire();
 private:
 	sf::Vector2f m_pos;
@@ -37,6 +39,9 @@ private:
 
 	float m_width;
 	float m_height;
+
+	// the amount of mana the player is required to have before shooting a projectile
+	int m_fireCost;
 
 	sf::Vector2f m_center;
 

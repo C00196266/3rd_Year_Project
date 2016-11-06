@@ -30,8 +30,8 @@ void Player::init() {
 
 	direction = RIGHT;
 
-	m_health = 80;
-	m_mana = 90;
+	m_health = 100;
+	m_mana = 100;
 	m_score = 0;
 
 	m_isAlive = true;
@@ -39,6 +39,8 @@ void Player::init() {
 	m_velocity = sf::Vector2f(0, 0);
 
 	m_acceleration = sf::Vector2f(0, -gravity);
+
+	m_fireCost = 10;
 
 	// resets time between updates
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -94,36 +96,34 @@ void Player::draw(sf::RenderWindow &window) {
 void Player::checkInput() {
 	m_input.getButtonPressed();
 
-	// prevents the player from changing direction while in the air
+	// player moves right
+	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
+		m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
+		direction = RIGHT;
+	}
+	// player moves left
+	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
+		m_velocity.x -= 13.0f * timeSinceLastUpdate.asSeconds();
+		direction = LEFT;
+	}
+	// player is not moving
+	else {
+		if (direction == LEFT) {
+			m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
+
+			if (m_velocity.x >= 0) {
+				m_velocity.x = 0;
+			}
+		}
+		if (direction == RIGHT) {
+			m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
+
+			if (m_velocity.x <= 0) {
+				m_velocity.x = 0;
+			}
+		}
+	}
 	if (isJumping == false) {
-		// player moves right
-		if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
-			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
-			direction = RIGHT;
-		}
-		// player moves left
-		else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
-			m_velocity.x -= 13.0f * timeSinceLastUpdate.asSeconds();
-			direction = LEFT;
-		}
-		// player is not moving
-		else {
-			if (direction == LEFT) {
-				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
-
-				if (m_velocity.x >= 0) {
-					m_velocity.x = 0;
-				}
-			}
-			if (direction == RIGHT) {
-				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
-
-				if (m_velocity.x <= 0) {
-					m_velocity.x = 0;
-				}
-			}
-		}
-
 		// player jumps
 		if (m_input.moveUp || m_input.pressedA) {
 			m_velocity.y -= 10.0f;
@@ -132,11 +132,10 @@ void Player::checkInput() {
 		}
 	}
 
-	if (m_mana > 0) {
-		if (m_input.pressedRB == true) {
-			m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
-			m_mana -= 10;
-		}
+	// if the player fires with enough available mana
+	if (m_input.pressedRB == true && m_mana - m_fireCost >= 0) {
+		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
+		m_mana -= m_fireCost;
 	}
 }
 
