@@ -2,6 +2,8 @@
 #define COLLISIONDETECTION_H
 
 #include "stdafx.h"
+#include "Player.h"
+#include "Tile.h"
 
 class CollisionDetection {
 public:
@@ -14,6 +16,9 @@ public:
 
 	// collides with specifically the top of an object
 	bool boundingBoxCollisionTop(float object1X, float object1Y, float object1Width, float object1Height, float object2X, float object2Y, float object2Width);
+
+	//bool collisionPlayerTiles(Player thePlayer, shared_ptr<Tile> aTile);
+
 
 private:
 };

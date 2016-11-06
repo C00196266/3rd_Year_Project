@@ -10,15 +10,19 @@ Player::Player() {
 	}
 
 	m_playerSprite.setTexture(m_texture);	
-	
-	m_pos = sf::Vector2f(600, 350);	
-	
+
+	init();
+}
+
+void Player::init() {
+	m_pos = sf::Vector2f(600, 350);
+
 	m_playerSprite.setPosition(m_pos);
 
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
 
-	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height /2));
+	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
 	m_inAir = false;
 
@@ -26,8 +30,9 @@ Player::Player() {
 
 	direction = RIGHT;
 
-	m_health = 100;
-	m_mana = 100;
+	m_health = 80;
+	m_mana = 90;
+	m_score = 0;
 
 	m_isAlive = true;
 
@@ -41,8 +46,6 @@ Player::Player() {
 }
 
 void Player::update() {
-	
-
 	timeSinceLastUpdate += clock.restart();
 	if (timeSinceLastUpdate > timePerFrame)
 	{
@@ -53,11 +56,8 @@ void Player::update() {
 		}
 		else {
 			m_velocity.y = 0;
-			//m_pos.y = 350;
 			isJumping = false;
 		}
-
-		//m_velocity.x *= timeSinceLastUpdate.asSeconds();
 
 		m_pos.x += m_velocity.x;
 		m_pos.y += m_velocity.y;
@@ -89,43 +89,6 @@ void Player::draw(sf::RenderWindow &window) {
 		m_projectiles.at(i)->draw(window);
 	}
 	window.draw(m_playerSprite);
-}
-
-int Player::getHealth() {
-	return m_health;
-}
-
-int Player::getMana() {
-	return m_mana;
-}
-
-sf::Vector2f Player::getPos() {
-	return m_pos;
-}
-
-void Player::setPos(float x, float y) {
-	m_pos.x = x;
-	m_pos.y = y;
-}
-
-void Player::setPos(sf::Vector2f newPos) {
-	m_pos = newPos;
-}
-
-void Player::setYPos(float y) {
-	m_pos.y = y;
-}
-
-float Player::getWidth() {
-	return m_width;
-}
-
-float Player::getHeight() {
-	return m_height;
-}
-
-void Player::setInAir(bool inAir) {
-	m_inAir = inAir;
 }
 
 void Player::checkInput() {
@@ -175,4 +138,89 @@ void Player::checkInput() {
 			m_mana -= 10;
 		}
 	}
+}
+
+int Player::getHealth() {
+	return m_health;
+}
+
+void Player::setHealth(int healthVal) {
+	if (m_health + healthVal > 100) {
+		m_health = 100;
+	}
+	else if (m_health + healthVal < 0) {
+		m_health = 0;
+	}
+	else {
+		m_health += healthVal;
+	}
+}
+
+int Player::getMana() {
+	return m_mana;
+}
+
+void Player::setMana(int manaVal) {
+	if (m_mana + manaVal > 100) {
+		m_mana = 100;
+	}
+	else if (m_mana + manaVal < 0) {
+		m_mana = 0;
+	}
+	else {
+		m_mana += manaVal;
+	}
+}
+
+void Player::setScore(int scoreVal) {
+	m_score += scoreVal;
+}
+
+sf::Vector2f Player::getPos() {
+	return m_pos;
+}
+
+sf::Vector2f Player::getVel() {
+	return m_velocity;
+}
+
+void Player::setVel(sf::Vector2f newVel) {
+	m_velocity = newVel;
+}
+
+void Player::setPos(float x, float y) {
+	m_pos.x = x;
+	m_pos.y = y;
+}
+
+void Player::setPos(sf::Vector2f newPos) {
+	m_pos = newPos;
+}
+
+void Player::setXPos(float x) {
+	m_pos.x = x;
+}
+
+void Player::setYPos(float y) {
+	m_pos.y = y;
+}
+
+float Player::getWidth() {
+	return m_width;
+}
+
+float Player::getHeight() {
+	return m_height;
+}
+
+bool Player::getInAir() {
+	return m_inAir;
+}
+
+void Player::setInAir(bool inAir) {
+	m_inAir = inAir;
+}
+
+vector<shared_ptr<Projectile>> Player::getProjectiles() {
+	return m_projectiles;
 }

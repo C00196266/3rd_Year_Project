@@ -9,6 +9,9 @@
 #include "Tile.h"
 #include "GameState.h"
 #include "CollisionDetection.h"
+#include "PickupScore.h"
+#include "PickupHealth.h"
+#include "PickupMana.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -33,6 +36,12 @@ private:
 	CollisionDetection m_collisionDetector;
 	
 	vector<shared_ptr<Tile>> m_tiles;
+
+	vector<shared_ptr<PickupScore>> m_scorePickups;
+
+	vector<shared_ptr<PickupHealth>> m_healthPickups;
+
+	vector<shared_ptr<PickupMana>> m_manaPickups;
 };
 
 #endif

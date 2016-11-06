@@ -19,14 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\PickupHealth.cpp" />
+    <ClCompile Include="src\PickupMana.cpp" />
+    <ClCompile Include="src\PickupScore.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\CollisionDetection.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\GameEntryPoint.cpp" />
     <ClCompile Include="src\GameScreen.cpp" />
     <ClCompile Include="src\GameStateManager.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Menu.cpp" />
     <ClCompile Include="src\OptionsMenu.cpp" />
+    <ClCompile Include="src\Pickup.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PlayerInput.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
@@ -36,6 +41,7 @@
   <ItemGroup>
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionDetection.h" />
+    <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\GameEntryPoint.h" />
     <ClInclude Include="include\GameScreen.h" />
     <ClInclude Include="include\GameState.h" />
@@ -43,6 +49,10 @@
     <ClInclude Include="include\MainMenu.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\OptionsMenu.h" />
+    <ClInclude Include="include\Pickup.h" />
+    <ClInclude Include="include\PickupHealth.h" />
+    <ClInclude Include="include\PickupMana.h" />
+    <ClInclude Include="include\PickupScore.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\PlayerInput.h" />
     <ClInclude Include="include\Projectile.h" />

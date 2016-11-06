@@ -17,11 +17,13 @@ class Player {
 public:
 	Player();
 
-	//~Player(){};
+	void init();
 
 	void draw(sf::RenderWindow &window);
 
-	void update();
+	void update();	
+	
+	void checkInput();
 
 	sf::Vector2f getPos();
 
@@ -29,22 +31,38 @@ public:
 
 	void setPos(sf::Vector2f newPos);
 
+	void setXPos(float x);
+
 	void setYPos(float y);
+
+	sf::Vector2f getVel();
+
+	void setVel(sf::Vector2f newVel);
 
 	float getWidth();
 
 	float getHeight();
 
+	void setHealth(int healthVal);
+
 	int getHealth();
+
+	void setMana(int manaVal);
+
+	void setScore(int scoreVal);
 
 	int getMana();
 
+	bool getInAir();
+
 	void setInAir(bool inAir);
 
-	void checkInput();
+	vector<shared_ptr<Projectile>> getProjectiles();
 
 private:
 	PlayerInput m_input;
+
+	int m_score;
 
 	int m_health;
 	int m_mana;

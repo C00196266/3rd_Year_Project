@@ -69,6 +69,18 @@ void Projectile::draw(sf::RenderWindow &window) {
 	window.draw(m_sprite);
 }
 
+sf::Vector2f Projectile::getPos() {
+	return m_pos;
+}
+
+float Projectile::getWidth() {
+	return m_width;
+}
+
+float Projectile::getHeight() {
+	return m_height;
+}
+
 bool Projectile::checkAlive() {
 	return m_isAlive;
 }
@@ -84,6 +96,6 @@ void Projectile::fire() {
 	else {
 		m_velocity.x = 10.0f;
 	}
-	ttl = 200;
+	ttl = 20;
 }
 

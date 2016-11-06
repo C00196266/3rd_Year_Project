@@ -12,6 +12,12 @@ public:
 
 	void update();
 
+	sf::Vector2f getPos();
+
+	float getWidth();
+
+	float getHeight();
+
 	bool checkAlive();
 
 	void setAlive(bool state);

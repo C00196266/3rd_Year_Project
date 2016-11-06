@@ -37,13 +37,53 @@ bool CollisionDetection::boundingBoxCollision(sf::Vector2f object1pos, float obj
 }
 
 bool CollisionDetection::boundingBoxCollisionTop(float object1X, float object1Y, float object1Width, float object1Height, float object2X, float object2Y, float object2Width) {
-	if (object1Y + object1Height < object2Y && object1X + object1Width <= object2X && object1X >= object2X + object2Width) {
+	 if (object1X + object1Width <= object2X) {
+		return false;
+	}
+	else if (object1X >= object2X + object2Width) {
 		return false;
 	}
 	else {
-		return true;
+		if (object1Y + object1Height >= object2Y) {
+			return true;
+		}
+
+		else {
+			return false;
+		}
 	}
 }
+
+//bool CollisionDetection::boundingBoxCollisionLeft(float object1X, float object1Y, float object1Width, float object1Height, float object2X, float object2Y, float object2Height) {
+//	if (object1Y + object1Height <= object2Y) {
+//		return false;
+//	}
+//	else if (object1Y >= object2Y + object2Height) {
+//		return false;
+//	}
+//	else {
+//		if (object1X + object1Width >= object2X) {
+//			return true;
+//		}
+//		else {
+//			return false;
+//		}
+//	}
+//}
+	
+	
+	//	if (object1Y + object1Height >= object2Y && object1X + object1Width < object2X) {
+//		return true;
+//	}
+//
+//	else if (object1Y + object1Height >= object2Y && object1X > object2X + object2Width) {//(object1Y + object1Height < object2Y && object1X + object1Width <= object2X && object1X >= object2X + object2Width) {
+//		return true;
+//	}
+//
+//	else {
+//		return false;
+//	}
+//}
 
 //bool CollisionDetection::pixelDetection() {
 //	return m_collision;
