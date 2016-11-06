@@ -57,6 +57,8 @@ public:
 
 	void setInAir(bool inAir);
 
+	int getInvincibilityFrames();
+
 	vector<shared_ptr<Projectile>> getProjectiles();
 
 private:
@@ -66,6 +68,9 @@ private:
 
 	int m_health;
 	int m_mana;
+
+	// when the player takes damage, they have a grace period where they can't take damage again
+	int m_invincibilityFrames;
 
 	bool m_isAlive;
 

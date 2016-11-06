@@ -42,6 +42,8 @@ void Player::init() {
 
 	m_fireCost = 10;
 
+	m_invincibilityFrames = 60;
+
 	// resets time between updates
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	clock.restart();
@@ -137,6 +139,11 @@ void Player::checkInput() {
 		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_mana -= m_fireCost;
 	}
+
+	// if the player is invincible after taking damage
+	if (m_invincibilityFrames > 0) {
+		m_invincibilityFrames--;
+	}
 }
 
 int Player::getHealth() {
@@ -152,6 +159,11 @@ void Player::setHealth(int healthVal) {
 	}
 	else {
 		m_health += healthVal;
+	}
+
+	// if the player loses health
+	if (healthVal < 0) {
+		m_invincibilityFrames = 60;
 	}
 }
 
@@ -222,4 +234,8 @@ void Player::setInAir(bool inAir) {
 
 vector<shared_ptr<Projectile>> Player::getProjectiles() {
 	return m_projectiles;
+}
+
+int Player::getInvincibilityFrames() {
+	return m_invincibilityFrames;
 }

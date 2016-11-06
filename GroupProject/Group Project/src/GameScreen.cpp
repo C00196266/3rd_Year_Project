@@ -161,11 +161,14 @@ void GameScreen::detectCollisions() {
 
 	if (m_enemies.empty() != true) {
 		for (int i = 0; i < m_enemies.size(); i++) {
-			// player collides with enemy
-			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-				m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
-			{
-				m_player.setHealth(-m_enemies.at(i)->damageDealt());
+			// if the player isn't invincible after taking damage
+			if (m_player.getInvincibilityFrames() == 0) {
+				// player collides with enemy
+				if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+					m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
+				{
+					m_player.setHealth(-m_enemies.at(i)->damageDealt());
+				}
 			}
 
 			// player projectile collides with enemy
