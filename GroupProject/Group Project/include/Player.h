@@ -62,6 +62,8 @@ public:
 
 	void resumeGame();
 
+	int getDirection();
+
 	vector<shared_ptr<Projectile>> getProjectiles();
 
 private:

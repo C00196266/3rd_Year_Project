@@ -16,19 +16,19 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window)
 			previousState = GameStates::MainMenu;
 			m_optionsMenu.setButtonStrings(previousState);
 		}
-		std::cout << "Main Menu Running" << std::endl;
+		//std::cout << "Main Menu Running" << std::endl;
 	}
 	else if(currentState == GameStates::OptionsMenu)
 	{
 		m_optionsMenu.update(currentState,previousState);
 		m_optionsMenu.draw(window);
-		std::cout << "Options Menu Running" << std::endl;
+		//std::cout << "Options Menu Running" << std::endl;
 	}
 	else if (currentState == GameStates::Game)
 	{
 		m_gameScreen.update(currentState);
 		m_gameScreen.draw(window);
-		std::cout << "Game Running" << std::endl;
+		//std::cout << "Game Running" << std::endl;
 	}
 	else if (currentState == GameStates::PauseMenu)
 	{
@@ -43,11 +43,11 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window)
 			previousState = GameStates::PauseMenu;
 			m_optionsMenu.setButtonStrings(previousState);
 		}
-		std::cout << "Pause Running" << std::endl;
+		//std::cout << "Pause Running" << std::endl;
 	}
 	else if (currentState == GameStates::EndGameScreen)
 	{
-		std::cout << "End Game Screen Running" << std::endl;
+		//std::cout << "End Game Screen Running" << std::endl;
 	}
 	else
 	{

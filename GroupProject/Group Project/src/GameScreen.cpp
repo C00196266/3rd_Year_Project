@@ -130,33 +130,45 @@ void GameScreen::detectCollisions() {
 		{
 
 			//Collision Top
-			if (m_player.getPos().y + m_player.getHeight() > m_tiles.at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
-				m_player.getPos().y < m_tiles.at(i)->getPos().y)							//Checks if player pos y is less than tile pos y
+			if (m_player.getPos().y + m_player.getHeight()> m_tiles.at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
+				m_player.getPos().x + m_player.getWidth()> m_tiles.at(i)->getPos().x && //Player x+width greater than tile x
+				m_player.getPos().x< m_tiles.at(i)->getPos().x+m_tiles.at(i)->getWidth()//Player x less than tile x+width
+				)
+
 			{
 				if (m_player.getInAir() == true)
 				{
 					m_player.setInAir(false);
-					m_player.setYPos(m_tiles.at(i)->getPos().y - m_player.getHeight());
+					m_player.setYPos(m_player.getPos().y-m_player.getVel().y);
 					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
+					//std::cout << "Top" << std::endl;
 				}
 			}
 
 			//Collision Left
-			if (m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x &&
-				m_player.getPos().y > m_tiles.at(i)->getPos().y &&
-				m_player.getPos().x < m_tiles.at(i)->getPos().x)
+			if (
+				
+				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x &&
+				m_player.getPos().y+m_player.getHeight() > m_tiles.at(i)->getPos().y &&
+				m_player.getPos().y < m_tiles.at(i)->getPos().y
+				)
 			{
-				m_player.setXPos(m_tiles.at(i)->getPos().x - m_player.getWidth());
+				m_player.setXPos(m_player.getPos().x-m_player.getVel().x);
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
+				//std::cout << "Left" << std::endl;
 			}
 
 			//Collision Right
-			if (m_player.getPos().x < m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth() &&
+			if (
+				
+				m_player.getPos().x < m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth() &&
 				m_player.getPos().y > m_tiles.at(i)->getPos().y &&
-				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x)
+				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x
+				)
 			{
-				m_player.setXPos(m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth());
+				m_player.setXPos(m_player.getPos().x + m_player.getVel().x);
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
+				//std::cout << "Right" << std::endl;
 			}
 
 			break;

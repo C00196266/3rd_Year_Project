@@ -15,10 +15,9 @@ Player::Player() {
 }
 
 void Player::init() {
-	m_pos = sf::Vector2f(600, 300);
+	m_pos = sf::Vector2f(600, 200);
 
 	m_playerSprite.setPosition(m_pos);
-
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
 
@@ -83,7 +82,7 @@ void Player::update() {
 	if (timeSinceLastUpdate > timePerFrame)
 	{
 		checkInput();
-
+		std::cout << "" + std::to_string(direction) << std::endl;
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}
@@ -279,4 +278,9 @@ vector<shared_ptr<Projectile>> Player::getProjectiles() {
 
 int Player::getInvincibilityFrames() {
 	return m_invincibilityFrames;
+}
+
+int Player::getDirection()
+{
+	return direction;
 }
