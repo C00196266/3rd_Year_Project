@@ -20,6 +20,7 @@ void Button::init()
 {
 	//Initialize Sprite
 	m_sprite.setTexture(m_texture);
+	m_sprite.setScale(sf::Vector2f(1.2, 1.2));
 	m_sprite.setPosition(m_pos);
 	m_sprite.setOrigin(m_sprite.getGlobalBounds().width / 2, m_sprite.getGlobalBounds().height / 2);
 
@@ -27,8 +28,11 @@ void Button::init()
 	m_text.setString(m_str);
 	m_text.setFont(m_font);
 	m_text.setCharacterSize(20);
-	m_text.setPosition(m_pos);
-	m_text.setOrigin(m_text.getGlobalBounds().width / 2, m_text.getGlobalBounds().height / 2);
+	m_text.setPosition(m_pos); 
+	m_text.setOrigin(
+		(m_sprite.getGlobalBounds().width / 2),
+		(m_sprite.getGlobalBounds().height / 2)-(m_text.getGlobalBounds().height / 2)
+		);
 	m_text.setFillColor(sf::Color::Green);
 	setSelected(false);
 }

@@ -1,8 +1,9 @@
 #include "GameStateManager.h"
 
-GameStateManager::GameStateManager(sf::Font & thefont):m_mainMenu(thefont),m_optionsMenu(thefont)
+GameStateManager::GameStateManager(sf::Font & thefont):m_mainMenu(thefont),m_optionsMenu(thefont),m_pauseMenu(thefont)
 {
-	currentState = GameStates::MainMenu;
+	currentState = GameStates::MainMenu; 
+	previousState = GameStates::MainMenu;
 }
 bool GameStateManager::gameLoop(sf::RenderWindow &window)
 {
@@ -10,22 +11,38 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window)
 	{
 		m_mainMenu.update(currentState);
 		m_mainMenu.draw(window);
+		if (currentState == GameStates::OptionsMenu)
+		{
+			previousState = GameStates::MainMenu;
+			m_optionsMenu.setButtonStrings(previousState);
+		}
 		std::cout << "Main Menu Running" << std::endl;
 	}
 	else if(currentState == GameStates::OptionsMenu)
 	{
-		m_optionsMenu.update(currentState);
+		m_optionsMenu.update(currentState,previousState);
 		m_optionsMenu.draw(window);
 		std::cout << "Options Menu Running" << std::endl;
 	}
 	else if (currentState == GameStates::Game)
 	{
-		theGameScreen.update(currentState);
-		theGameScreen.draw(window);
+		m_gameScreen.update(currentState);
+		m_gameScreen.draw(window);
 		std::cout << "Game Running" << std::endl;
 	}
 	else if (currentState == GameStates::PauseMenu)
 	{
+		m_pauseMenu.update(currentState);
+		m_pauseMenu.draw(window);
+		if (currentState == GameStates::Game)
+		{
+			m_gameScreen.resumeGame();
+		}
+		if (currentState == GameStates::OptionsMenu)
+		{
+			previousState = GameStates::PauseMenu;
+			m_optionsMenu.setButtonStrings(previousState);
+		}
 		std::cout << "Pause Running" << std::endl;
 	}
 	else if (currentState == GameStates::EndGameScreen)

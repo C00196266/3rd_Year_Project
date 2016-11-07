@@ -15,7 +15,7 @@ Player::Player() {
 }
 
 void Player::init() {
-	m_pos = sf::Vector2f(600, 350);
+	m_pos = sf::Vector2f(600, 300);
 
 	m_playerSprite.setPosition(m_pos);
 
@@ -24,7 +24,7 @@ void Player::init() {
 
 	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
-	m_inAir = false;
+	m_inAir = true;
 
 	isJumping = false;
 
@@ -46,6 +46,12 @@ void Player::init() {
 
 	// resets time between updates
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	clock.restart();
+}
+
+void Player::resumeGame()
+{
+	timeSinceLastUpdate = sf::Time::Zero;
 	clock.restart();
 }
 
@@ -85,6 +91,7 @@ void Player::update() {
 		if (m_mana < 100) {
 			m_mana++;
 		}
+		m_inAir = true;
 	}
 }
 

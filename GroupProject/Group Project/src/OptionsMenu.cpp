@@ -14,18 +14,30 @@ OptionsMenu::OptionsMenu(sf::Font &thefont) :Menu()
 	isMusicOn = true;
 }
 
+void OptionsMenu::setButtonStrings(GameStates &previousGameState)
+{
+	if (previousGameState == GameStates::PauseMenu)
+	{
+		buttonsVector.at(1)->setString("Return to Pause Menu");
+	}
+	if (previousGameState == GameStates::MainMenu)
+	{
+		buttonsVector.at(1)->setString("Return to Main Menu");
+	}
+}
 
-void OptionsMenu::update(GameStates &currentGameState)
+
+void OptionsMenu::update(GameStates &currentGameState, GameStates &previousGameState)
 {
 	if (keyPressTimer > minKeyPressTime)
 	{
 		changeSelected();
-		changeGameState(currentGameState);
+		changeGameState(currentGameState,previousGameState);
 	}
 	keyPressTimer++;
 }
 
-void OptionsMenu::changeGameState(GameStates &currentGameState)
+void OptionsMenu::changeGameState(GameStates &currentGameState, GameStates &previousGameState)
 {
 	if (m_input.keypressReturn || m_input.pressedA)
 	{
@@ -47,8 +59,14 @@ void OptionsMenu::changeGameState(GameStates &currentGameState)
 		}
 		else
 		{
-			//Change Game State to Main Menu
-			currentGameState = GameStates::MainMenu;
+			if (previousGameState == GameStates::MainMenu)//Change Game State to Main Menu
+			{
+				currentGameState = GameStates::MainMenu;
+			}
+			else
+			{
+				currentGameState = GameStates::PauseMenu;
+			}
 			keyPressTimer = 0;
 		}
 	}

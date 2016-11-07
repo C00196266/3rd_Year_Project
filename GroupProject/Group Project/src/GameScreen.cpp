@@ -14,6 +14,12 @@ GameScreen::GameScreen() {
 	m_manaPickups.push_back(shared_ptr<PickupMana>(new PickupMana(sf::Vector2f(350, 350))));
 
 	m_enemies.push_back(shared_ptr<Enemy>(new Enemy(sf::Vector2f(750, 350))));
+	keyPressTimer = 0;
+}
+
+void GameScreen::resumeGame()
+{
+	m_player.resumeGame();
 }
 
 void GameScreen::update(GameStates &currentGameState) {
@@ -56,6 +62,8 @@ void GameScreen::update(GameStates &currentGameState) {
 	}
 
 	detectCollisions();
+	changeGameState(currentGameState);
+	keyPressTimer++;
 }
 
 void GameScreen::draw(sf::RenderWindow &window) {
@@ -95,19 +103,61 @@ void GameScreen::draw(sf::RenderWindow &window) {
 	}
 }
 
+void GameScreen::changeGameState(GameStates &currentGameState)
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+	{
+		//Change Game State to Play Game
+		currentGameState = GameStates::PauseMenu;
+		keyPressTimer = 0;
+
+	}
+}
+
 void GameScreen::detectCollisions() {
 	for (int i = 0; i < m_tiles.size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
-		if (m_collisionDetector.boundingBoxCollisionTop(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(), 
-			m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth()) == true) 
+		if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+			m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth(), m_tiles.at(i)->getHeight()) == true)
 		{
-			m_player.setInAir(false);
-			m_player.setYPos(m_tiles.at(i)->getPos().y - m_player.getHeight());
+
+			//Collision Top
+			if (m_player.getPos().y + m_player.getHeight() > m_tiles.at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
+				m_player.getPos().y < m_tiles.at(i)->getPos().y)							//Checks if player pos y is less than tile pos y
+			{
+				if (m_player.getInAir() == true)
+				{
+					m_player.setInAir(false);
+					m_player.setYPos(m_tiles.at(i)->getPos().y - m_player.getHeight());
+					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
+				}
+			}
+
+			//Collision Left
+			if (m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x &&
+				m_player.getPos().y > m_tiles.at(i)->getPos().y &&
+				m_player.getPos().x < m_tiles.at(i)->getPos().x)
+			{
+				m_player.setXPos(m_tiles.at(i)->getPos().x - m_player.getWidth());
+				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
+			}
+
+			//Collision Right
+			if (m_player.getPos().x < m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth() &&
+				m_player.getPos().y > m_tiles.at(i)->getPos().y &&
+				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x)
+			{
+				m_player.setXPos(m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth());
+				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
+			}
+
 			break;
 		}
-		else {
-			m_player.setInAir(true);
+		else
+		{
+			//
+			//m_player.setInAir(true);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

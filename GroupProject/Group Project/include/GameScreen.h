@@ -31,6 +31,10 @@ public:
 
 	void detectCollisions();
 
+	void changeGameState(GameStates &currentGameState);
+
+	void resumeGame();
+
 private:
 	Player m_player;
 
@@ -45,6 +49,8 @@ private:
 	vector<shared_ptr<PickupMana>> m_manaPickups;
 
 	vector<shared_ptr<Enemy>> m_enemies;
+
+	int keyPressTimer;
 };
 
 #endif

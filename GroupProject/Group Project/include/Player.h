@@ -59,6 +59,8 @@ public:
 
 	int getInvincibilityFrames();
 
+	void resumeGame();
+
 	vector<shared_ptr<Projectile>> getProjectiles();
 
 private:
