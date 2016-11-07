@@ -1,4 +1,20 @@
-﻿  GameEntryPoint.cpp
-c:\users\gameuser\desktop\3rd_year_project-master\groupproject\group project\src\gameentrypoint.cpp(7): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-  Group Project.vcxproj -> C:\Users\gameuser\Desktop\3rd_Year_Project-master\GroupProject\Debug\Group Project.exe
-  Group Project.vcxproj -> C:\Users\gameuser\Desktop\3rd_Year_Project-master\GroupProject\Debug\Group Project.pdb (Partial PDB)
+﻿  GameScreen.cpp
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(37): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(55): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(64): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(80): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(93): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(172): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(185): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(197): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(209): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(220): warning C4018: '<': signed/unsigned mismatch
+c:\users\nover\desktop\3rd_year_project\groupproject\group project\src\gamescreen.cpp(232): warning C4018: '<': signed/unsigned mismatch
+  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)

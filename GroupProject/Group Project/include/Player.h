@@ -5,6 +5,7 @@
 // Headers
 ////////////////////////////////////////////////////////////
 
+#include "stdafx.h"
 #include "PlayerInput.h"
 #include "Projectile.h"
 
@@ -113,6 +114,12 @@ private:
 	sf::Clock clock;
 	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f); // updates 60 times a second
 	sf::Time timeSinceLastUpdate; // time between updates
+
+	sf::Text m_textHealth;
+	sf::Text m_textMana;
+	sf::Text m_textScore;
+
+	sf::Font m_font;
 };
 
 #endif

@@ -2,18 +2,25 @@
 
 GameScreen::GameScreen() {
 	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(900, 330))));
+	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 330))));
+	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(980, 330))));
+	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 290))));
 
 	for (int i = 0; i < 34; i++) {
 		m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(i * 40, 370))));
 	}
 	
 	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(200, 350))));
+	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(920, 310))));
+	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(1000, 310))));
 
 	m_healthPickups.push_back(shared_ptr<PickupHealth>(new PickupHealth(sf::Vector2f(275, 350))));
+	m_healthPickups.push_back(shared_ptr<PickupHealth>(new PickupHealth(sf::Vector2f(960, 270))));
 
 	m_manaPickups.push_back(shared_ptr<PickupMana>(new PickupMana(sf::Vector2f(350, 350))));
 
-	m_enemies.push_back(shared_ptr<Enemy>(new Enemy(sf::Vector2f(750, 350))));
+	m_enemies.push_back(shared_ptr<Enemy>(new Enemy(sf::Vector2f(750, 330))));
+	
 	keyPressTimer = 0;
 }
 

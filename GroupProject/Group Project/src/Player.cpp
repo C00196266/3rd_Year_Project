@@ -1,7 +1,7 @@
 #include "Player.h"
 
 Player::Player() {	
-	if (!m_image.loadFromFile("assets/tempPlayer.png")) {
+	if (!m_image.loadFromFile("assets/Player.png")) {
 		// give error
 	}
 
@@ -42,11 +42,34 @@ void Player::init() {
 
 	m_fireCost = 10;
 
-	m_invincibilityFrames = 60;
+	m_invincibilityFrames = 30;
 
 	// resets time between updates
 	sf::Time timeSinceLastUpdate = sf::Time::Zero;
 	clock.restart();
+
+	if (!m_font.loadFromFile("assets/arial.ttf"))
+	{
+		std::cout << "Font failed to Load" << std::endl;
+	}
+
+	m_textHealth.setString("Health: " + std::to_string(m_health));
+	m_textHealth.setFont(m_font);
+	m_textHealth.setCharacterSize(20);
+	m_textHealth.setPosition(10, 10);
+	m_textHealth.setFillColor(sf::Color::Red);
+
+	m_textMana.setString("Mana: " + std::to_string(m_mana));
+	m_textMana.setFont(m_font);
+	m_textMana.setCharacterSize(20);
+	m_textMana.setPosition(10, 40);
+	m_textMana.setFillColor(sf::Color::Blue);
+
+	m_textScore.setString("Score: " + std::to_string(m_score));
+	m_textScore.setFont(m_font);
+	m_textScore.setCharacterSize(20);
+	m_textScore.setPosition(10, 70);
+	m_textScore.setFillColor(sf::Color::Black);
 }
 
 void Player::resumeGame()
@@ -91,6 +114,7 @@ void Player::update() {
 		if (m_mana < 100) {
 			m_mana++;
 		}
+
 		m_inAir = true;
 	}
 }
@@ -100,6 +124,10 @@ void Player::draw(sf::RenderWindow &window) {
 		m_projectiles.at(i)->draw(window);
 	}
 	window.draw(m_playerSprite);
+
+	window.draw(m_textHealth);
+	window.draw(m_textMana);
+	window.draw(m_textScore);
 }
 
 void Player::checkInput() {
@@ -135,7 +163,7 @@ void Player::checkInput() {
 	if (isJumping == false) {
 		// player jumps
 		if (m_input.moveUp || m_input.pressedA) {
-			m_velocity.y -= 10.0f;
+			m_velocity.y -= 8.5f;
 			isJumping = true;
 			m_inAir = true;
 		}
@@ -151,6 +179,7 @@ void Player::checkInput() {
 	if (m_invincibilityFrames > 0) {
 		m_invincibilityFrames--;
 	}
+	m_textMana.setString("Mana: " + std::to_string(m_mana));
 }
 
 int Player::getHealth() {
@@ -170,8 +199,10 @@ void Player::setHealth(int healthVal) {
 
 	// if the player loses health
 	if (healthVal < 0) {
-		m_invincibilityFrames = 60;
+		m_invincibilityFrames = 30;
 	}
+
+	m_textHealth.setString("Health: " + std::to_string(m_health));
 }
 
 int Player::getMana() {
@@ -188,10 +219,13 @@ void Player::setMana(int manaVal) {
 	else {
 		m_mana += manaVal;
 	}
+
+	m_textMana.setString("Mana: " + std::to_string(m_mana));
 }
 
 void Player::setScore(int scoreVal) {
 	m_score += scoreVal;
+	m_textScore.setString("Score: " + std::to_string(m_score));
 }
 
 sf::Vector2f Player::getPos() {
