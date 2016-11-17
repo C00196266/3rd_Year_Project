@@ -82,7 +82,6 @@ void Player::update() {
 	if (timeSinceLastUpdate > timePerFrame)
 	{
 		checkInput();
-		std::cout << "" + std::to_string(direction) << std::endl;
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}

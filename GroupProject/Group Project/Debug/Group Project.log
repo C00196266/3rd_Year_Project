@@ -1,20 +1,20 @@
 ﻿  GameScreen.cpp
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(37): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(46): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(55): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(64): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(80): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(86): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(93): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(100): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(107): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(125): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(188): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(201): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(213): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(225): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(236): warning C4018: '<': signed/unsigned mismatch
-c:\users\gameuser\desktop\uptodate\3rd_year_project-master(1)\3rd_year_project-master\groupproject\group project\src\gamescreen.cpp(248): warning C4018: '<': signed/unsigned mismatch
-  Group Project.vcxproj -> C:\Users\gameuser\Desktop\upToDate\3rd_Year_Project-master(1)\3rd_Year_Project-master\GroupProject\Debug\Group Project.exe
-  Group Project.vcxproj -> C:\Users\gameuser\Desktop\upToDate\3rd_Year_Project-master(1)\3rd_Year_Project-master\GroupProject\Debug\Group Project.pdb (Partial PDB)
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(10): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(37): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(55): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(64): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(80): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(86): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(93): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(107): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(125): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(182): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(195): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(207): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(219): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(230): warning C4018: '<': signed/unsigned mismatch
+c:\users\gameuser\desktop\upload\3rd_year_project\groupproject\group project\src\gamescreen.cpp(242): warning C4018: '<': signed/unsigned mismatch
+  Group Project.vcxproj -> C:\Users\gameuser\Desktop\Upload\3rd_Year_Project\GroupProject\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\gameuser\Desktop\Upload\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)

@@ -141,23 +141,21 @@ void GameScreen::detectCollisions() {
 					m_player.setInAir(false);
 					m_player.setYPos(m_player.getPos().y-m_player.getVel().y);
 					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
-					//std::cout << "Top" << std::endl;
+					std::cout << "Top" << std::endl;
 				}
 			}
 
-			//Collision Left
-			if (
-				
-				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x &&
-				m_player.getPos().y+m_player.getHeight() > m_tiles.at(i)->getPos().y &&
-				m_player.getPos().y < m_tiles.at(i)->getPos().y
+			//Collision Left or Right
+			if (	
+				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
+				m_player.getPos().y + m_player.getHeight() > m_tiles.at(i)->getPos().y //Check if the bottom the player is below the tile pos y
 				)
 			{
 				m_player.setXPos(m_player.getPos().x-m_player.getVel().x);
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
-				//std::cout << "Left" << std::endl;
+				std::cout << "Left or Right" << std::endl;
 			}
-
+			/*
 			//Collision Right
 			if (
 				
@@ -168,9 +166,9 @@ void GameScreen::detectCollisions() {
 			{
 				m_player.setXPos(m_player.getPos().x + m_player.getVel().x);
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
-				//std::cout << "Right" << std::endl;
+				std::cout << "Right" << std::endl;
 			}
-
+			*/
 			break;
 		}
 		else
