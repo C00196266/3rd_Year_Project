@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "PlayerInput.h"
 #include "Projectile.h"
+#include "AudioManager.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Creates player.
@@ -22,9 +23,9 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void update();
+	void update(shared_ptr<AudioManager> audioManager);
 	
-	void checkInput();
+	void checkInput(shared_ptr<AudioManager> audioManager);
 
 	sf::Vector2f getPos();
 

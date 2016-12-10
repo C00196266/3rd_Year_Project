@@ -30,8 +30,8 @@ void GameScreen::resumeGame()
 	m_player.resumeGame();
 }
 
-void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window) {
-	m_player.update();
+void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
+	m_player.update(audioManager);
 	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
 
 	// removes any score pickups that are no longer alive

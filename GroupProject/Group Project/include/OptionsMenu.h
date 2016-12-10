@@ -5,13 +5,10 @@
 
 class OptionsMenu : public Menu
 {
-
-private:
-	bool isMusicOn;
 public:
 	OptionsMenu();
 	OptionsMenu(sf::Font &thefont);
-	void update(GameStates &currentGameState,GameStates &previousGameState);
-	void changeGameState(GameStates &currentGameState,GameStates &previousGameState);
+	void update(GameStates &currentGameState,GameStates &previousGameState, shared_ptr<AudioManager> audioManager);
+	void changeGameState(GameStates &currentGameState,GameStates &previousGameState, shared_ptr<AudioManager> audioManager);
 	void setButtonStrings(GameStates &previousGameState);
 };

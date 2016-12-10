@@ -80,11 +80,11 @@ void Player::resumeGame()
 	clock.restart();
 }
 
-void Player::update() {
+void Player::update(shared_ptr<AudioManager> audioManager) {
 	timeSinceLastUpdate += clock.restart();
 	if (timeSinceLastUpdate > timePerFrame)
 	{
-		checkInput();
+		checkInput(audioManager);
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}
@@ -137,7 +137,7 @@ void Player::draw(sf::RenderWindow &window) {
 	window.draw(m_textScore);
 }
 
-void Player::checkInput() {
+void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	m_input.getButtonPressed();
 
 	// player moves right
@@ -173,6 +173,7 @@ void Player::checkInput() {
 			m_velocity.y -= 5.5f;//8.5
 			isJumping = true;
 			m_inAir = true;
+			audioManager->playSound(AudioManager::SoundType::JUMP);
 		}
 	}
 
