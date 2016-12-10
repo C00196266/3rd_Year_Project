@@ -5,6 +5,7 @@ GameScreen::GameScreen() {
 	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 330))));
 	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(980, 330))));
 	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 290))));
+	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(800, 200))));
 
 	for (int i = 0; i < 34; i++) {
 		m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(i * 40, 370))));
@@ -29,8 +30,9 @@ void GameScreen::resumeGame()
 	m_player.resumeGame();
 }
 
-void GameScreen::update(GameStates &currentGameState) {
+void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window) {
 	m_player.update();
+	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
 
 	// removes any score pickups that are no longer alive
 	if (m_scorePickups.empty() != true) {
@@ -69,13 +71,12 @@ void GameScreen::update(GameStates &currentGameState) {
 	}
 
 	detectCollisions();
-	changeGameState(currentGameState);
+	changeGameState(currentGameState,view,window);
 	keyPressTimer++;
 }
 
 void GameScreen::draw(sf::RenderWindow &window) {
 	m_player.draw(window);
-
 	// draws tiles
 	for (int i = 0; i < m_tiles.size(); i++) {
 		m_tiles.at(i)->draw(window);
@@ -110,14 +111,15 @@ void GameScreen::draw(sf::RenderWindow &window) {
 	}
 }
 
-void GameScreen::changeGameState(GameStates &currentGameState)
+void GameScreen::changeGameState(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
 		//Change Game State to Play Game
 		currentGameState = GameStates::PauseMenu;
 		keyPressTimer = 0;
-
+		view.reset(sf::FloatRect(0, 0, 1280, 720));
+		window.setView(view);
 	}
 }
 
@@ -142,6 +144,10 @@ void GameScreen::detectCollisions() {
 					m_player.setYPos(m_player.getPos().y-m_player.getVel().y);
 					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
 					std::cout << "Top" << std::endl;
+					if (i == 0)
+					{
+						std::cout << "Top Collision" << std::endl;
+					}
 				}
 			}
 
@@ -155,26 +161,11 @@ void GameScreen::detectCollisions() {
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
 				std::cout << "Left or Right" << std::endl;
 			}
-			/*
-			//Collision Right
-			if (
-				
-				m_player.getPos().x < m_tiles.at(i)->getPos().x + m_tiles.at(i)->getWidth() &&
-				m_player.getPos().y > m_tiles.at(i)->getPos().y &&
-				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x
-				)
-			{
-				m_player.setXPos(m_player.getPos().x + m_player.getVel().x);
-				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
-				std::cout << "Right" << std::endl;
-			}
-			*/
 			break;
 		}
 		else
 		{
-			//
-			//m_player.setInAir(true);
+
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

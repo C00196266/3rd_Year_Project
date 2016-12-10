@@ -4,6 +4,9 @@ int main() {
 	bool running = true;
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "Group Project");
+	sf::View gameView = window.getDefaultView();
+	window.setView(gameView);
+
 	window.setFramerateLimit(60.0f);
 
 	sf::Font thefont;
@@ -30,7 +33,7 @@ int main() {
 			}
 
 			window.clear(sf::Color::White);
-			running = gameManger.gameLoop(window);
+			running = gameManger.gameLoop(window,gameView);
 			if (running == false)
 			{
 				window.close();

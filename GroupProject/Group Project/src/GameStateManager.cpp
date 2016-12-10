@@ -5,7 +5,7 @@ GameStateManager::GameStateManager(sf::Font & thefont):m_mainMenu(thefont),m_opt
 	currentState = GameStates::MainMenu; 
 	previousState = GameStates::MainMenu;
 }
-bool GameStateManager::gameLoop(sf::RenderWindow &window)
+bool GameStateManager::gameLoop(sf::RenderWindow &window,sf::View &view)
 {
 	if(currentState == GameStates::MainMenu)
 	{
@@ -26,7 +26,9 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window)
 	}
 	else if (currentState == GameStates::Game)
 	{
-		m_gameScreen.update(currentState);
+		view.reset(sf::FloatRect(view.getViewport().left, view.getViewport().top, 1280, 720));
+		m_gameScreen.update(currentState,view,window);
+		window.setView(view);
 		m_gameScreen.draw(window);
 		//std::cout << "Game Running" << std::endl;
 	}

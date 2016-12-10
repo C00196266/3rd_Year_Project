@@ -102,6 +102,6 @@ void Projectile::fire() {
 	else {
 		m_velocity.x = 10.0f;
 	}
-	ttl = 20;
+	ttl = 100;
 }
 

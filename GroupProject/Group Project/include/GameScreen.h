@@ -25,13 +25,13 @@ public:
 	GameScreen();
 	//~GameScreen();
 
-	void update(GameStates &currentGameState);
+	void update(GameStates &currentGameState,sf::View &view, sf::RenderWindow &window);
 
 	void draw(sf::RenderWindow &window);
 
 	void detectCollisions();
 
-	void changeGameState(GameStates &currentGameState);
+	void changeGameState(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window);
 
 	void resumeGame();
 

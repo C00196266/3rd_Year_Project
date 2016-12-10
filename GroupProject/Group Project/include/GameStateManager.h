@@ -20,7 +20,7 @@ private:
 	GameStates previousState;
 public:
 	GameStateManager(sf::Font & thefont);
-	bool gameLoop(sf::RenderWindow &window);
+	bool gameLoop(sf::RenderWindow &window , sf::View &view);
 
 };
 
