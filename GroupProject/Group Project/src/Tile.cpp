@@ -3,7 +3,7 @@
 Tile::Tile() {
 	m_pos = sf::Vector2f(100.0f, 100.0f);
 
-	if (!m_image.loadFromFile("assets/tileBase.png")) {
+	if (!m_image.loadFromFile("assets/tileGrass.png")) {
 		// give error
 	}
 
@@ -20,7 +20,7 @@ Tile::Tile() {
 Tile::Tile(sf::Vector2f setPos) {
 	m_pos = setPos;
 
-	if (!m_image.loadFromFile("assets/tileBase.png")) {
+	if (!m_image.loadFromFile("assets/tileGrass.png")) {
 		// give error
 	}
 

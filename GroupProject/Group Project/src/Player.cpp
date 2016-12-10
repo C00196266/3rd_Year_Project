@@ -1,5 +1,7 @@
 #include "Player.h"
 
+
+
 Player::Player() {	
 	if (!m_image.loadFromFile("assets/Player.png")) {
 		// give error
@@ -16,7 +18,6 @@ Player::Player() {
 
 void Player::init() {
 	m_pos = sf::Vector2f(600, 200);
-
 	m_playerSprite.setPosition(m_pos);
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
@@ -32,6 +33,8 @@ void Player::init() {
 	m_health = 100;
 	m_mana = 100;
 	m_score = 0;
+
+	m_timeSinceFire = 0;
 
 	m_isAlive = true;
 
@@ -106,6 +109,11 @@ void Player::update() {
 				}
 			}
 		}
+		m_textHealth.setPosition(m_pos.x - 590, 10);
+		m_textMana.setPosition(m_pos.x - 590, 40);
+		m_textScore.setPosition(m_pos.x - 590, 70);
+
+		m_timeSinceFire = m_timeSinceFire + timeSinceLastUpdate.asSeconds();
 		timeSinceLastUpdate = sf::Time::Zero;
 		m_playerSprite.setPosition(m_pos);
 
@@ -115,6 +123,7 @@ void Player::update() {
 
 		m_inAir = true;
 	}
+
 }
 
 void Player::draw(sf::RenderWindow &window) {
@@ -133,12 +142,12 @@ void Player::checkInput() {
 
 	// player moves right
 	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
-		m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
+		m_velocity.x += 20.0f * timeSinceLastUpdate.asSeconds();//12
 		direction = RIGHT;
 	}
 	// player moves left
 	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
-		m_velocity.x -= 13.0f * timeSinceLastUpdate.asSeconds();
+		m_velocity.x -= 20.0f * timeSinceLastUpdate.asSeconds();//13
 		direction = LEFT;
 	}
 	// player is not moving
@@ -161,16 +170,17 @@ void Player::checkInput() {
 	if (isJumping == false) {
 		// player jumps
 		if (m_input.moveUp || m_input.pressedA) {
-			m_velocity.y -= 8.5f;
+			m_velocity.y -= 5.5f;//8.5
 			isJumping = true;
 			m_inAir = true;
 		}
 	}
 
 	// if the player fires with enough available mana
-	if (m_input.pressedRB == true && m_mana - m_fireCost >= 0) {
+	if (m_input.pressedRB == true && m_mana - m_fireCost >= 0 && m_timeSinceFire > FIRERATE) {
 		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_mana -= m_fireCost;
+		m_timeSinceFire = 0;
 	}
 
 	// if the player is invincible after taking damage

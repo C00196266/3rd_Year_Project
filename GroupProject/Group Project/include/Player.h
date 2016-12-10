@@ -22,7 +22,7 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void update();	
+	void update();
 	
 	void checkInput();
 
@@ -122,6 +122,9 @@ private:
 	sf::Text m_textScore;
 
 	sf::Font m_font;
+	
+	const float FIRERATE = 0.4f;
+	float m_timeSinceFire;
 };
 
 #endif
