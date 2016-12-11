@@ -170,7 +170,7 @@ void Player::checkInput() {
 	if (isJumping == false) {
 		// player jumps
 		if (m_input.moveUp || m_input.pressedA) {
-			m_velocity.y -= 5.5f;//8.5
+			m_velocity.y -= 7.5f;//8.5
 			isJumping = true;
 			m_inAir = true;
 		}

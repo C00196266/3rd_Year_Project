@@ -13,6 +13,7 @@
 #include "PickupHealth.h"
 #include "PickupMana.h"
 #include "Enemy.h"
+#include "Level.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -40,7 +41,7 @@ private:
 
 	CollisionDetection m_collisionDetector;
 	
-	vector<shared_ptr<Tile>> m_tiles;
+	//vector<shared_ptr<Tile>> m_tiles;
 
 	vector<shared_ptr<PickupScore>> m_scorePickups;
 
@@ -51,6 +52,8 @@ private:
 	vector<shared_ptr<Enemy>> m_enemies;
 
 	int keyPressTimer;
+
+	Level gameLevel;
 };
 
 #endif

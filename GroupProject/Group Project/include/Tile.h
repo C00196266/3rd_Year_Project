@@ -16,7 +16,7 @@
 class Tile {
 public:
 	Tile();
-	Tile(sf::Vector2f setPos);
+	Tile(sf::Vector2f setPos, string imageLocation);
 
 	void draw(sf::RenderWindow &window);
 

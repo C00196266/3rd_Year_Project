@@ -1,16 +1,20 @@
 #include "GameScreen.h"
 
 GameScreen::GameScreen() {
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(900, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(980, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 290))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(800, 200))));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(900, 330), "assets/tileGrass.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 330), "assets/tileGrass.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(980, 330), "assets/tileGrass.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 290), "assets/tileGrass.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(720, 200), "assets/platformLeft.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(760, 200), "assets/platformMiddle.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(800, 200), "assets/platformMiddle.png")));
+	//m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(840, 200), "assets/platformRight.png")));
 
-	for (int i = 0; i < 34; i++) {
-		m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(i * 40, 370))));
-	}
-	
+
+	//for (int i = 0; i < 34; i++) {
+	//	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(i * 40, 370), "assets/tileGrass.png")));
+	//}
+	m_player.setPos(sf::Vector2f(80, 300));
 	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(200, 350))));
 	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(920, 310))));
 	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(1000, 310))));
@@ -76,11 +80,8 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 }
 
 void GameScreen::draw(sf::RenderWindow &window) {
+	gameLevel.draw(window);
 	m_player.draw(window);
-	// draws tiles
-	for (int i = 0; i < m_tiles.size(); i++) {
-		m_tiles.at(i)->draw(window);
-	}
 
 	// draws score pick ups
 	if (m_scorePickups.empty() != true) {
@@ -124,17 +125,17 @@ void GameScreen::changeGameState(GameStates &currentGameState, sf::View &view, s
 }
 
 void GameScreen::detectCollisions() {
-	for (int i = 0; i < m_tiles.size(); i++) {
+	for (int i = 0; i < gameLevel.getTileVector().size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
 		if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-			m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth(), m_tiles.at(i)->getHeight()) == true)
+			gameLevel.getTileVector().at(i)->getPos().x, gameLevel.getTileVector().at(i)->getPos().y, gameLevel.getTileVector().at(i)->getWidth(), gameLevel.getTileVector().at(i)->getHeight()) == true)
 		{
 
 			//Collision Top
-			if (m_player.getPos().y + m_player.getHeight()> m_tiles.at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
-				m_player.getPos().x + m_player.getWidth()> m_tiles.at(i)->getPos().x && //Player x+width greater than tile x
-				m_player.getPos().x< m_tiles.at(i)->getPos().x+m_tiles.at(i)->getWidth()//Player x less than tile x+width
+			if (m_player.getPos().y + m_player.getHeight()> gameLevel.getTileVector().at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
+				m_player.getPos().x + m_player.getWidth()> gameLevel.getTileVector().at(i)->getPos().x && //Player x+width greater than tile x
+				m_player.getPos().x< gameLevel.getTileVector().at(i)->getPos().x+ gameLevel.getTileVector().at(i)->getWidth()//Player x less than tile x+width
 				)
 
 			{
@@ -153,8 +154,8 @@ void GameScreen::detectCollisions() {
 
 			//Collision Left or Right
 			if (	
-				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
-				m_player.getPos().y + m_player.getHeight() > m_tiles.at(i)->getPos().y //Check if the bottom the player is below the tile pos y
+				m_player.getPos().x + m_player.getWidth() > gameLevel.getTileVector().at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
+				m_player.getPos().y + m_player.getHeight() > gameLevel.getTileVector().at(i)->getPos().y //Check if the bottom the player is below the tile pos y
 				)
 			{
 				m_player.setXPos(m_player.getPos().x-m_player.getVel().x);
@@ -173,7 +174,7 @@ void GameScreen::detectCollisions() {
 			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
 				// if the bullet collides with the terrain
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
-					m_player.getProjectiles().at(j)->getHeight(), m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth(), m_tiles.at(i)->getHeight()) == true)
+					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getTileVector().at(i)->getPos().x, gameLevel.getTileVector().at(i)->getPos().y, gameLevel.getTileVector().at(i)->getWidth(), gameLevel.getTileVector().at(i)->getHeight()) == true)
 				{
 					m_player.getProjectiles().at(j)->setAlive(false);
 				}
