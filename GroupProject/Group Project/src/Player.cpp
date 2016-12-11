@@ -27,12 +27,19 @@ void Player::init() {
 	m_inAir = true;
 
 	isJumping = false;
+	
+	m_attacking = false;
+	m_attackDuration = 0;
+
+	m_gettingKnockedback = false;
 
 	direction = RIGHT;
 
 	m_health = 100;
 	m_mana = 100;
 	m_score = 0;
+
+	m_damageDealt = 10;
 
 	m_timeSinceFire = 0;
 
@@ -82,15 +89,27 @@ void Player::resumeGame()
 
 void Player::update(shared_ptr<AudioManager> audioManager) {
 	timeSinceLastUpdate += clock.restart();
+
 	if (timeSinceLastUpdate > timePerFrame)
 	{
 		checkInput(audioManager);
+
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}
 		else {
 			m_velocity.y = 0;
 			isJumping = false;
+		}
+
+		// player is attacking
+		if (m_attacking == true) {
+			m_attackDuration++;
+
+			if (m_attackDuration > 30) {
+				m_attacking = false;
+				m_attackDuration = 0;
+			}
 		}
 
 		m_pos.x += m_velocity.x;
@@ -123,7 +142,10 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 
 		m_inAir = true;
 	}
-
+	// if the player is invincible after taking damage
+	if (m_invincibilityFrames > 0) {
+		m_invincibilityFrames--;
+	}
 }
 
 void Player::draw(sf::RenderWindow &window) {
@@ -153,17 +175,37 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	// player is not moving
 	else {
 		if (direction == LEFT) {
-			m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
+			// if player is not getting knocked back by enemy
+			if (m_gettingKnockedback == false) {
+				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
 
-			if (m_velocity.x >= 0) {
-				m_velocity.x = 0;
+				if (m_velocity.x > 0) {
+					m_velocity.x = 0;
+				}
+			}
+			else {
+				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
+
+				if (m_velocity.x < 0) {
+					m_velocity.x = 0;
+				}
 			}
 		}
 		if (direction == RIGHT) {
-			m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
+			// if player is not getting knocked back by enemy
+			if (m_gettingKnockedback == false) {
+				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
 
-			if (m_velocity.x <= 0) {
-				m_velocity.x = 0;
+				if (m_velocity.x < 0) {
+					m_velocity.x = 0;
+				}
+			}
+			else {
+				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
+
+				if (m_velocity.x > 0) {
+					m_velocity.x = 0;
+				}
 			}
 		}
 	}
@@ -178,17 +220,17 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	}
 
 	// if the player fires with enough available mana
-	if (m_input.pressedRB == true && m_mana - m_fireCost >= 0 && m_timeSinceFire > FIRERATE) {
+	if ((m_input.pressedRB == true || m_input.keypressF == true || m_input.mouseRight == true) && m_mana - m_fireCost >= 0 && m_timeSinceFire > FIRERATE) {
 		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_mana -= m_fireCost;
 		m_timeSinceFire = 0;
+		m_textMana.setString("Mana: " + std::to_string(m_mana));
 	}
 
-	// if the player is invincible after taking damage
-	if (m_invincibilityFrames > 0) {
-		m_invincibilityFrames--;
+	// if the player tries to attack
+	if ((m_input.pressedB == true || m_input.keypressE == true || m_input.mouseLeft == true) && m_attacking == false) {
+		m_attacking = true;
 	}
-	m_textMana.setString("Mana: " + std::to_string(m_mana));
 }
 
 int Player::getHealth() {
@@ -293,4 +335,38 @@ int Player::getInvincibilityFrames() {
 int Player::getDirection()
 {
 	return direction;
+}
+
+bool Player::getAttacking() {
+	return m_attacking;
+}
+
+void Player::setAttacking(bool attacking) {
+	m_attacking = attacking;
+}
+
+int Player::getDamageDealt() {
+	return m_damageDealt;
+}
+
+void Player::resetAttackDuration() {
+	m_attackDuration = 0;
+}
+
+void Player::knockback() {
+	if (direction == LEFT) {
+		m_velocity.x = 8;
+	}
+	else {
+		m_velocity.x = -8;
+	}
+	m_gettingKnockedback = true;
+}
+
+bool Player::getKnockback() {
+	return m_gettingKnockedback;
+}
+
+void Player::setKnockback(bool knockback) {
+	m_gettingKnockedback = knockback;
 }

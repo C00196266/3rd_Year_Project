@@ -21,6 +21,10 @@ Enemy::Enemy() {
 	m_scoreValue = 400;
 
 	m_damage = 10;
+
+	m_health = 20;
+
+	m_taggedByAttack = false;
 }
 
 Enemy::Enemy(sf::Vector2f setPos) {
@@ -44,6 +48,10 @@ Enemy::Enemy(sf::Vector2f setPos) {
 	m_scoreValue = 400;
 
 	m_damage = 10;
+
+	m_health = 20;
+
+	m_taggedByAttack = false;
 }
 
 void Enemy::draw(sf::RenderWindow &window) {
@@ -76,4 +84,20 @@ int Enemy::damageDealt() {
 
 int Enemy::addScore() {
 	return m_scoreValue;
+}
+
+int Enemy::getHealth() {
+	return m_health;
+}
+
+void Enemy::setHealth(int value) {
+	m_health += value;
+}
+
+bool Enemy::getTaggedByAttack() {
+	return m_taggedByAttack;
+}
+
+void Enemy::setTaggedByAttack(bool tagged) {
+	m_taggedByAttack = tagged;
 }

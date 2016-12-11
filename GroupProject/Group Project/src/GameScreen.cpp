@@ -64,6 +64,11 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 	// removes any enemies that are no longer alive
 	if (m_enemies.empty() != true) {
 		for (int i = 0; i < m_enemies.size(); i++) {
+			// allows enemy to be hit again by attacks from the player
+			if (m_enemies.at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) {
+				m_enemies.at(i)->setTaggedByAttack(false);
+			}
+
 			if (m_enemies.at(i)->getIsAlive() == false) {
 				m_enemies.erase(m_enemies.begin() + i);
 			}
@@ -221,11 +226,74 @@ void GameScreen::detectCollisions() {
 		for (int i = 0; i < m_enemies.size(); i++) {
 			// if the player isn't invincible after taking damage
 			if (m_player.getInvincibilityFrames() == 0) {
+				if (m_player.getKnockback() == true) {
+					m_player.setKnockback(false);
+				}
 				// player collides with enemy
-				if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-					m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
-				{
-					m_player.setHealth(-m_enemies.at(i)->damageDealt());
+				if (m_player.getAttacking() == false) {
+					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
+					{
+						m_player.setHealth(-m_enemies.at(i)->damageDealt());
+						m_player.knockback();
+					}
+				}
+				
+				else {
+					// checks if the player has collided with an enemy while attacking, and is facing left
+					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 10, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
+						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true
+						&& m_player.getDirection() == m_player.LEFT)
+					{
+						// if the player hits an enemy on the left while facing left
+						if (m_player.getPos().x - 10 < m_enemies.at(i)->getPos().x + m_enemies.at(i)->getWidth() && m_enemies.at(i)->getTaggedByAttack() == false) {
+							m_enemies.at(i)->setHealth(-m_player.getDamageDealt());
+							m_enemies.at(i)->setTaggedByAttack(true);
+
+							// if the enemy has no more health left
+							if (m_enemies.at(i)->getHealth() <= 0) {
+								m_player.setScore(m_enemies.at(i)->addScore());
+								m_enemies.at(i)->setIsAlive(false);
+							}
+						}
+						else if (m_player.getPos().x - 10 < m_enemies.at(i)->getPos().x + m_enemies.at(i)->getWidth() && m_enemies.at(i)->getTaggedByAttack() == true) {
+							// do nothing
+						}
+						else {
+							m_player.setHealth(-m_enemies.at(i)->damageDealt());
+							m_player.setAttacking(false);
+							m_player.resetAttackDuration();
+							m_player.knockback();
+						}
+					}
+
+					// checks if the player has collided with an enemy while attacking, and is facing right
+					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
+						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true
+						&& m_player.getDirection() == m_player.RIGHT)
+					{
+						// if the player hits an enemy on the left while facing right
+						if (m_player.getPos().x + m_player.getWidth() + 10 > m_enemies.at(i)->getPos().x && m_enemies.at(i)->getTaggedByAttack() == false) {
+							m_enemies.at(i)->setHealth(-m_player.getDamageDealt());
+							m_enemies.at(i)->setTaggedByAttack(true);
+
+							// if the enemy has no more health left
+							if (m_enemies.at(i)->getHealth() <= 0) {
+								m_player.setScore(m_enemies.at(i)->addScore());
+								m_enemies.at(i)->setIsAlive(false);
+							}
+						}
+						else if (m_player.getPos().x + m_player.getWidth() + 10 > m_enemies.at(i)->getPos().x && m_enemies.at(i)->getTaggedByAttack() == true) {
+							// do nothing
+						}
+						// if the player hits an enemy on the left while facing right
+						else {
+							m_player.setHealth(-m_enemies.at(i)->damageDealt());
+							m_player.setAttacking(false);
+							m_player.resetAttackDuration();
+							m_player.knockback();
+						}
+					}
 				}
 			}
 
@@ -234,8 +302,13 @@ void GameScreen::detectCollisions() {
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
 					m_player.getProjectiles().at(j)->getHeight(), m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
 				{
-					m_player.setScore(m_enemies.at(i)->addScore());
-					m_enemies.at(i)->setIsAlive(false);
+					m_enemies.at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
+
+					if (m_enemies.at(i)->getHealth() <= 0) {
+						m_player.setScore(m_enemies.at(i)->addScore());
+						m_enemies.at(i)->setIsAlive(false);
+					}
+
 					m_player.getProjectiles().at(j)->setAlive(false); // projectile is no longer alive on collision with enemy
 				}
 			}

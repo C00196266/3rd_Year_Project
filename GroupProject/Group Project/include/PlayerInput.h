@@ -50,8 +50,9 @@ public:
 	///
 	////////////////////////////////////////////////////////////
 	bool pressedA, pressedB, pressedY, pressedX, pressedLB, pressedRB, pressedBack, pressedStart;
-	bool keypressA, keypressW, keypressD, keypressS, keypressLeft, keypressRight, keypressUp, keypressDown,keypressSpace, keypressReturn, keypressBackSpace;
+	bool keypressA, keypressW, keypressD, keypressS, keypressLeft, keypressRight, keypressUp, keypressDown,keypressSpace, keypressReturn, keypressBackSpace, keypressE, keypressF;
 	bool moveDown, moveUp, moveLeft, moveRight;
+	bool mouseLeft, mouseRight;
 
 	////////////////////////////////////////////////////////////
 	///	\brief Checks if a button has already been pressed.
