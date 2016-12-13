@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  Level.cpp
 c:\users\gameuser\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(15): warning C4018: '<': signed/unsigned mismatch
 c:\users\gameuser\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(19): warning C4018: '<': signed/unsigned mismatch
@@ -25,3 +26,7 @@ c:\users\gameuser\desktop\main\3rd_year_project\groupproject\group project\src\g
   Generating Code...
   Group Project.vcxproj -> C:\Users\gameuser\Desktop\Main\3rd_Year_Project\GroupProject\Debug\Group Project.exe
   Group Project.vcxproj -> C:\Users\gameuser\Desktop\Main\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
+=======
+﻿  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
+>>>>>>> master

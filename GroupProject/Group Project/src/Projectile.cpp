@@ -25,6 +25,8 @@ Projectile::Projectile() {
 
 	m_fireCost = 10;
 
+	m_damage = 10;
+
 	fire();
 }
 
@@ -51,6 +53,10 @@ Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
 	m_sprite.setPosition(m_pos);
 
 	m_direction = direction;
+
+	m_fireCost = 10;
+
+	m_damage = 10;
 
 	fire();
 }
@@ -103,5 +109,9 @@ void Projectile::fire() {
 		m_velocity.x = 10.0f;
 	}
 	ttl = 100;
+}
+
+int Projectile::getDamage() {
+	return m_damage;
 }
 

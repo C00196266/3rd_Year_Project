@@ -19,8 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelExit.cpp" />
+=======
+    <ClCompile Include="src\AnimatedSprite.cpp" />
+    <ClCompile Include="src\AudioManager.cpp" />
+>>>>>>> master
     <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\PickupHealth.cpp" />
     <ClCompile Include="src\PickupMana.cpp" />
@@ -42,6 +47,8 @@
     <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\AnimatedSprite.h" />
+    <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionDetection.h" />
     <ClInclude Include="include\Enemy.h" />

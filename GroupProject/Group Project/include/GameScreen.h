@@ -14,6 +14,7 @@
 #include "PickupMana.h"
 #include "Enemy.h"
 #include "Level.h"
+#include "AudioManager.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -26,7 +27,7 @@ public:
 	GameScreen();
 	//~GameScreen();
 
-	void update(GameStates &currentGameState,sf::View &view, sf::RenderWindow &window);
+	void update(GameStates &currentGameState,sf::View &view, sf::RenderWindow &window, shared_ptr<AudioManager> audioManager);
 
 	void draw(sf::RenderWindow &window);
 

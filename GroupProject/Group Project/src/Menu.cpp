@@ -13,7 +13,7 @@ Menu::Menu(sf::Font &thefont)
 
 }
 */
-void Menu::changeSelected()
+void Menu::changeSelected(shared_ptr<AudioManager> audioManager)
 {
 	m_input.getButtonPressed();
 
@@ -32,6 +32,7 @@ void Menu::changeSelected()
 			buttonsVector.at(selectedIndex)->setSelected(true);
 		}
 		keyPressTimer = 0;
+		audioManager->playSound(AudioManager::SoundType::SCROLL);
 	}
 	else if (m_input.keypressDown || m_input.moveDown)
 	{
@@ -48,7 +49,8 @@ void Menu::changeSelected()
 			buttonsVector.at(selectedIndex)->setSelected(true);
 		}
 		keyPressTimer = 0;
-	}			
+		audioManager->playSound(AudioManager::SoundType::SCROLL);
+	}
 }
 
 void Menu::draw(sf::RenderWindow &window)
@@ -59,11 +61,11 @@ void Menu::draw(sf::RenderWindow &window)
 		}
 }
 
-void Menu::update()
+void Menu::update(shared_ptr<AudioManager> audioManager)
 {
 	if (keyPressTimer > minKeyPressTime)
 	{
-		changeSelected();
+		changeSelected(audioManager);
 	}
 	keyPressTimer++;
 }

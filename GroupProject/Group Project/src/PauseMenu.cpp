@@ -9,24 +9,24 @@ PauseMenu::PauseMenu()
 
 PauseMenu::PauseMenu(sf::Font &thefont) :Menu()
 {
-	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(500, 100), std::string("Resume Game"), thefont, "assets/button.png")));
-	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(500, 200), std::string("Options"), thefont, "assets/button.png")));
-	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(500, 300), std::string("Return to Main Menu"), thefont, "assets/button.png")));
+	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(600, 225), std::string("Resume Game"), thefont, "assets/button.png")));
+	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(600, 325), std::string("Options"), thefont, "assets/button.png")));
+	buttonsVector.push_back(std::shared_ptr<Button>(new Button(sf::Vector2f(600, 425), std::string("Return to Main Menu"), thefont, "assets/button.png")));
 	buttonsVector.at(0)->setSelected(true);
 }
 
 
-void PauseMenu::update(GameStates &currentGameState)
+void PauseMenu::update(GameStates &currentGameState, shared_ptr<AudioManager> audioManager)
 {
 	if (keyPressTimer > minKeyPressTime)
 	{
-		changeSelected();
-		changeGameState(currentGameState);
+		changeSelected(audioManager);
+		changeGameState(currentGameState, audioManager);
 	}
 	keyPressTimer++;
 }
 
-void PauseMenu::changeGameState(GameStates &currentGameState)
+void PauseMenu::changeGameState(GameStates &currentGameState, shared_ptr<AudioManager> audioManager)
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	{
@@ -47,6 +47,8 @@ void PauseMenu::changeGameState(GameStates &currentGameState)
 			//Change Game State to Exit
 			currentGameState = GameStates::MainMenu;
 			keyPressTimer = 0;
+			audioManager->playMusic(AudioManager::CurrentMusic::MENU);
 		}
+		audioManager->playSound(AudioManager::SoundType::SELECT);
 	}
 }

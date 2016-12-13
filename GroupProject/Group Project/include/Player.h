@@ -8,6 +8,7 @@
 #include "stdafx.h"
 #include "PlayerInput.h"
 #include "Projectile.h"
+#include "AudioManager.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Creates player.
@@ -22,9 +23,9 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void update();
+	void update(shared_ptr<AudioManager> audioManager);
 	
-	void checkInput();
+	void checkInput(shared_ptr<AudioManager> audioManager);
 
 	sf::Vector2f getPos();
 
@@ -66,6 +67,23 @@ public:
 
 	vector<shared_ptr<Projectile>> getProjectiles();
 
+	bool getAttacking();
+
+	void setAttacking(bool attacking);
+
+	int getDamageDealt();
+
+	void resetAttackDuration();
+
+	void knockback();
+
+	bool getKnockback();
+
+	void setKnockback(bool knockback);
+
+	const int LEFT = 0;
+	const int RIGHT = 1;
+
 private:
 	PlayerInput m_input;
 
@@ -96,7 +114,14 @@ private:
 
 	bool isJumping;
 
+	bool m_attacking;
+	int m_attackDuration;
+
+	bool m_gettingKnockedback;
+
 	bool m_inAir;
+
+	int m_damageDealt;
 
 	// the amount of mana the player is required to have before shooting a projectile
 	int m_fireCost;
@@ -108,9 +133,6 @@ private:
 	sf::Sprite m_playerSprite;
 
 	vector<shared_ptr<Projectile>> m_projectiles;
-
-	const int LEFT = 0;
-	const int RIGHT = 1;
 
 	// used to apply gravity to the player
 	sf::Clock clock;

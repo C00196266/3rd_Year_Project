@@ -10,8 +10,8 @@ void GameScreen::resumeGame()
 	m_player.resumeGame();
 }
 
-void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window) {
-	m_player.update();
+void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
+	m_player.update(audioManager);
 	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
 
 	// removes any score pickups that are no longer alive
@@ -44,6 +44,11 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 	// removes any enemies that are no longer alive
 	if (gameLevel.getEnemies().empty() != true) {
 		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
+			// allows enemy to be hit again by attacks from the player
+			if (gameLevel.getEnemies().at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) {
+				gameLevel.getEnemies().at(i)->setTaggedByAttack(false);
+			}
+
 			if (gameLevel.getEnemies().at(i)->getIsAlive() == false) {
 				gameLevel.getEnemies().erase(gameLevel.getEnemies().begin() + i);
 			}
@@ -176,11 +181,74 @@ void GameScreen::detectCollisions() {
 		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
 			// if the player isn't invincible after taking damage
 			if (m_player.getInvincibilityFrames() == 0) {
+				if (m_player.getKnockback() == true) {
+					m_player.setKnockback(false);
+				}
 				// player collides with enemy
-				if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-					gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
-				{
-					m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+				if (m_player.getAttacking() == false) {
+					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
+					{
+						m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+						m_player.knockback();
+					}
+				}
+				
+				else {
+					// checks if the player has collided with an enemy while attacking, and is facing left
+					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 10, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
+						&& m_player.getDirection() == m_player.LEFT)
+					{
+						// if the player hits an enemy on the left while facing left
+						if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies()at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
+							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
+
+							// if the enemy has no more health left
+							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+								gameLevel.getEnemies().at(i)->setIsAlive(false);
+							}
+						}
+						else if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+							// do nothing
+						}
+						else {
+							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+							m_player.setAttacking(false);
+							m_player.resetAttackDuration();
+							m_player.knockback();
+						}
+					}
+
+					// checks if the player has collided with an enemy while attacking, and is facing right
+					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
+						&& m_player.getDirection() == m_player.RIGHT)
+					{
+						// if the player hits an enemy on the left while facing right
+						if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
+							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
+
+							// if the enemy has no more health left
+							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+								gameLevel.getEnemies().at(i)->setIsAlive(false);
+							}
+						}
+						else if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+							// do nothing
+						}
+						// if the player hits an enemy on the left while facing right
+						else {
+							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+							m_player.setAttacking(false);
+							m_player.resetAttackDuration();
+							m_player.knockback();
+						}
+					}
 				}
 			}
 
@@ -191,6 +259,13 @@ void GameScreen::detectCollisions() {
 				{
 					m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
 					gameLevel.getEnemies().at(i)->setIsAlive(false);
+					gameLevel.getEnemies().at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
+
+					if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+						m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+						gameLevel.getEnemies().at(i)->setIsAlive(false);
+					}
+
 					m_player.getProjectiles().at(j)->setAlive(false); // projectile is no longer alive on collision with enemy
 				}
 			}
