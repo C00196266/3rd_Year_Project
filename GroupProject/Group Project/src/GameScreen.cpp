@@ -73,6 +73,12 @@ void GameScreen::changeGameState(GameStates &currentGameState, sf::View &view, s
 }
 
 void GameScreen::detectCollisions() {
+	if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+		gameLevel.getExit()->getPosition().x, gameLevel.getExit()->getPosition().y, gameLevel.getExit()->getSize().x, gameLevel.getExit()->getSize().y))
+	{
+		m_player.setPos(sf::Vector2f(80, 300));
+		gameLevel.changeLevel(gameLevel.getExit()->getNextLevel());
+	}
 	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground

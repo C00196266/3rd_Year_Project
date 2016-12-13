@@ -4,13 +4,15 @@
 #include "PickupHealth.h"
 #include "PickupMana.h"
 #include "Enemy.h"
+#include "LevelExit.h"
+#include "Player.h"
+#include "CollisionDetection.h"
 
 class Level
 {
 public:
 	Level();
 	void draw(sf::RenderWindow & window);
-	void update();
 	void createMap();
 	void changeLevel(int newLevelNum);
 	vector<shared_ptr<Tile>>& getTiles();
@@ -18,6 +20,7 @@ public:
 	vector<shared_ptr<PickupHealth>>& getHealthPickups();
 	vector<shared_ptr<PickupMana>>& getManaPickups();
 	vector<shared_ptr<Enemy>>& getEnemies();
+	shared_ptr<LevelExit> getExit();
 private:
 	int maxCol;
 	int maxRow;
@@ -29,6 +32,7 @@ private:
 	vector<shared_ptr<PickupMana>> m_manaPickups;
 	vector<shared_ptr<Enemy>> m_enemies;
 	std::shared_ptr<int> numLevel;
+	std::shared_ptr<LevelExit> m_levelEnd;
 	static const int level1[10][75];
 	static const int leveltest[10][34];
 	sf::Texture grassTexture;
