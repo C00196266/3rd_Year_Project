@@ -40,16 +40,6 @@ private:
 	Player m_player;
 
 	CollisionDetection m_collisionDetector;
-	
-	//vector<shared_ptr<Tile>> m_tiles;
-
-	vector<shared_ptr<PickupScore>> m_scorePickups;
-
-	vector<shared_ptr<PickupHealth>> m_healthPickups;
-
-	vector<shared_ptr<PickupMana>> m_manaPickups;
-
-	vector<shared_ptr<Enemy>> m_enemies;
 
 	int keyPressTimer;
 

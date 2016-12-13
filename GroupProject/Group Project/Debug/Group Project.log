@@ -1,5 +1,13 @@
 ﻿  Level.cpp
-c:\users\matthew\desktop\111216\3rd_year_project\groupproject\group project\src\level.cpp(15): warning C4018: '<': signed/unsigned mismatch
-c:\users\matthew\desktop\111216\3rd_year_project\groupproject\group project\src\level.cpp(38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-  Group Project.vcxproj -> C:\Users\Matthew\Desktop\111216\3rd_Year_Project\GroupProject\Debug\Group Project.exe
-  Group Project.vcxproj -> C:\Users\Matthew\Desktop\111216\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(15): warning C4018: '<': signed/unsigned mismatch
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(19): warning C4018: '<': signed/unsigned mismatch
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(23): warning C4018: '<': signed/unsigned mismatch
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(27): warning C4018: '<': signed/unsigned mismatch
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(31): warning C4018: '<': signed/unsigned mismatch
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(62): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\matthew\desktop\main\3rd_year_project\groupproject\group project\src\level.cpp(70): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Group Project.vcxproj -> C:\Users\Matthew\Desktop\Main\3rd_Year_Project\GroupProject\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\Matthew\Desktop\Main\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
