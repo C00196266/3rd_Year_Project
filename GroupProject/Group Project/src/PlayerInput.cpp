@@ -34,6 +34,11 @@ PlayerInput::PlayerInput()
 	keypressSpace = false; 
 	keypressReturn = false;
 	keypressBackSpace = false;
+	keypressE = false;
+	keypressF = false;
+
+	mouseLeft = false;
+	mouseRight = false;
 
 	allowButtonPress = true;
 
@@ -127,6 +132,26 @@ void PlayerInput::getButtonPressed() {
 			keypressRight = true;
 			allowButtonPress = false;
 		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
+			keypressE = true;
+			allowButtonPress = false;
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::F)) {
+			keypressF = true;
+			allowButtonPress = false;
+		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+			mouseLeft = true;
+			allowButtonPress = false;
+		}
+
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+			mouseLeft = true;
+			allowButtonPress = false;
+		}
 	}
 
 	// stops tracking button press until allow button press is true
@@ -185,6 +210,22 @@ void PlayerInput::getButtonPressed() {
 
 		if (keypressDown == true) {
 			keypressDown = false;
+		}
+
+		if (keypressE == true) {
+			keypressE = false;
+		}
+
+		if (keypressF == true) {
+			keypressF = false;
+		}
+
+		if (mouseLeft == true) {
+			mouseLeft = false;
+		}
+
+		if (mouseRight == true) {
+			mouseRight = false;
 		}
 
 		// timer used for the delay between button presses, to prevent the game from reading in multiple button presses at the same time

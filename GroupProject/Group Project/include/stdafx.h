@@ -13,5 +13,7 @@
 #include <stdlib.h>
 #include <ctime> 
 #include <string>
+#include <cmath>
+#include <math.h>
 
 using namespace std;

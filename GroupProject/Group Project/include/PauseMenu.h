@@ -11,6 +11,6 @@ private:
 public:
 	PauseMenu();
 	PauseMenu(sf::Font &thefont);
-	void update(GameStates &currentGameState);
-	void changeGameState(GameStates &currentGameState);
+	void update(GameStates &currentGameState, shared_ptr<AudioManager> audioManager);
+	void changeGameState(GameStates &currentGameState, shared_ptr<AudioManager> audioManager);
 };

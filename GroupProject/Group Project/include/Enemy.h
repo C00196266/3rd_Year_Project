@@ -27,6 +27,14 @@ public:
 
 	int addScore();
 
+	int getHealth();
+
+	void setHealth(int value);
+
+	bool getTaggedByAttack();
+
+	void setTaggedByAttack(bool tag);
+
 private:
 	sf::Vector2f m_pos;
 
@@ -41,6 +49,11 @@ private:
 
 	// score rewarded to the player for killing an enemy
 	int m_scoreValue;
+
+	int m_health;
+
+	// boolean to stop player from hitting the same enemy more than once per attack
+	bool m_taggedByAttack;
 
 	sf::Image m_image;
 	sf::Texture m_texture;
