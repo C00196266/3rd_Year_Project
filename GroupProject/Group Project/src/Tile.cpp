@@ -17,10 +17,10 @@ Tile::Tile() {
 	m_height = m_texture.getSize().y;
 }
 
-Tile::Tile(sf::Vector2f setPos) {
+Tile::Tile(sf::Vector2f setPos,string imageLocation) {
 	m_pos = setPos;
 
-	if (!m_image.loadFromFile("assets/tileGrass.png")) {
+	if (!m_image.loadFromFile(imageLocation)) {
 		// give error
 	}
 

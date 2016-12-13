@@ -19,8 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <ClCompile Include="src\Level.cpp" />
+    <ClCompile Include="src\LevelExit.cpp" />
+=======
     <ClCompile Include="src\AnimatedSprite.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
+>>>>>>> master
     <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\PickupHealth.cpp" />
     <ClCompile Include="src\PickupMana.cpp" />
@@ -51,6 +56,8 @@
     <ClInclude Include="include\GameScreen.h" />
     <ClInclude Include="include\GameState.h" />
     <ClInclude Include="include\GameStateManager.h" />
+    <ClInclude Include="include\Level.h" />
+    <ClInclude Include="include\LevelExit.h" />
     <ClInclude Include="include\MainMenu.h" />
     <ClInclude Include="include\Menu.h" />
     <ClInclude Include="include\OptionsMenu.h" />

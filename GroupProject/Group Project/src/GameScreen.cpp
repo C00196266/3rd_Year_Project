@@ -1,27 +1,7 @@
 #include "GameScreen.h"
 
 GameScreen::GameScreen() {
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(900, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(980, 330))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(940, 290))));
-	m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(800, 200))));
-
-	for (int i = 0; i < 34; i++) {
-		m_tiles.push_back(shared_ptr<Tile>(new Tile(sf::Vector2f(i * 40, 370))));
-	}
-	
-	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(200, 350))));
-	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(920, 310))));
-	m_scorePickups.push_back(shared_ptr<PickupScore>(new PickupScore(sf::Vector2f(1000, 310))));
-
-	m_healthPickups.push_back(shared_ptr<PickupHealth>(new PickupHealth(sf::Vector2f(275, 350))));
-	m_healthPickups.push_back(shared_ptr<PickupHealth>(new PickupHealth(sf::Vector2f(960, 270))));
-
-	m_manaPickups.push_back(shared_ptr<PickupMana>(new PickupMana(sf::Vector2f(350, 350))));
-
-	m_enemies.push_back(shared_ptr<Enemy>(new Enemy(sf::Vector2f(750, 330))));
-	
+	m_player.setPos(sf::Vector2f(80, 300));
 	keyPressTimer = 0;
 }
 
@@ -35,42 +15,42 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
 
 	// removes any score pickups that are no longer alive
-	if (m_scorePickups.empty() != true) {
-		for (int i = 0; i < m_scorePickups.size(); i++) {
-			if (m_scorePickups.at(i)->getIsAlive() == false) {
-				m_scorePickups.erase(m_scorePickups.begin() + i);
+	if (gameLevel.getScorePickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getScorePickups().size(); i++) {
+			if (gameLevel.getScorePickups().at(i)->getIsAlive() == false) {
+				gameLevel.getScorePickups().erase(gameLevel.getScorePickups().begin() + i);
 			}
 		}
 	}
 
 	// removes any health pickups that are no longer alive
-	if (m_healthPickups.empty() != true) {
-		for (int i = 0; i < m_healthPickups.size(); i++) {
-			if (m_healthPickups.at(i)->getIsAlive() == false) {
-				m_healthPickups.erase(m_healthPickups.begin() + i);
+	if (gameLevel.getHealthPickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getHealthPickups().size(); i++) {
+			if (gameLevel.getHealthPickups().at(i)->getIsAlive() == false) {
+				gameLevel.getHealthPickups().erase(gameLevel.getHealthPickups().begin() + i);
 			}
 		}
 	}
 
 	// removes any mana pickups that are no longer alive
-	if (m_manaPickups.empty() != true) {
-		for (int i = 0; i < m_manaPickups.size(); i++) {
-			if (m_manaPickups.at(i)->getIsAlive() == false) {
-				m_manaPickups.erase(m_manaPickups.begin() + i);
+	if (gameLevel.getManaPickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getManaPickups().size(); i++) {
+			if (gameLevel.getManaPickups().at(i)->getIsAlive() == false) {
+				gameLevel.getManaPickups().erase(gameLevel.getManaPickups().begin() + i);
 			}
 		}
 	}
 
 	// removes any enemies that are no longer alive
-	if (m_enemies.empty() != true) {
-		for (int i = 0; i < m_enemies.size(); i++) {
+	if (gameLevel.getEnemies().empty() != true) {
+		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
 			// allows enemy to be hit again by attacks from the player
-			if (m_enemies.at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) {
-				m_enemies.at(i)->setTaggedByAttack(false);
+			if (gameLevel.getEnemies().at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) {
+				gameLevel.getEnemies().at(i)->setTaggedByAttack(false);
 			}
 
-			if (m_enemies.at(i)->getIsAlive() == false) {
-				m_enemies.erase(m_enemies.begin() + i);
+			if (gameLevel.getEnemies().at(i)->getIsAlive() == false) {
+				gameLevel.getEnemies().erase(gameLevel.getEnemies().begin() + i);
 			}
 		}
 	}
@@ -81,39 +61,8 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 }
 
 void GameScreen::draw(sf::RenderWindow &window) {
+	gameLevel.draw(window);
 	m_player.draw(window);
-	// draws tiles
-	for (int i = 0; i < m_tiles.size(); i++) {
-		m_tiles.at(i)->draw(window);
-	}
-
-	// draws score pick ups
-	if (m_scorePickups.empty() != true) {
-		for (int i = 0; i < m_scorePickups.size(); i++) {
-			m_scorePickups.at(i)->draw(window);
-		}
-	}
-
-	// draws health pick ups
-	if (m_healthPickups.empty() != true) {
-		for (int i = 0; i < m_healthPickups.size(); i++) {
-			m_healthPickups.at(i)->draw(window);
-		}
-	}
-
-	// draws mana pick ups
-	if (m_manaPickups.empty() != true) {
-		for (int i = 0; i < m_manaPickups.size(); i++) {
-			m_manaPickups.at(i)->draw(window);
-		}
-	}
-
-	// draws enemies
-	if (m_enemies.empty() != true) {
-		for (int i = 0; i < m_enemies.size(); i++) {
-			m_enemies.at(i)->draw(window);
-		}
-	}
 }
 
 void GameScreen::changeGameState(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window)
@@ -129,17 +78,23 @@ void GameScreen::changeGameState(GameStates &currentGameState, sf::View &view, s
 }
 
 void GameScreen::detectCollisions() {
-	for (int i = 0; i < m_tiles.size(); i++) {
+	if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+		gameLevel.getExit()->getPosition().x, gameLevel.getExit()->getPosition().y, gameLevel.getExit()->getSize().x, gameLevel.getExit()->getSize().y))
+	{
+		m_player.setPos(sf::Vector2f(80, 300));
+		gameLevel.changeLevel(gameLevel.getExit()->getNextLevel());
+	}
+	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
 		if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-			m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth(), m_tiles.at(i)->getHeight()) == true)
+			gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
 		{
 
 			//Collision Top
-			if (m_player.getPos().y + m_player.getHeight()> m_tiles.at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
-				m_player.getPos().x + m_player.getWidth()> m_tiles.at(i)->getPos().x && //Player x+width greater than tile x
-				m_player.getPos().x< m_tiles.at(i)->getPos().x+m_tiles.at(i)->getWidth()//Player x less than tile x+width
+			if (m_player.getPos().y + m_player.getHeight()> gameLevel.getTiles().at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
+				m_player.getPos().x + m_player.getWidth()> gameLevel.getTiles().at(i)->getPos().x && //Player x+width greater than tile x
+				m_player.getPos().x< gameLevel.getTiles().at(i)->getPos().x+ gameLevel.getTiles().at(i)->getWidth()//Player x less than tile x+width
 				)
 
 			{
@@ -158,8 +113,8 @@ void GameScreen::detectCollisions() {
 
 			//Collision Left or Right
 			if (	
-				m_player.getPos().x + m_player.getWidth() > m_tiles.at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
-				m_player.getPos().y + m_player.getHeight() > m_tiles.at(i)->getPos().y //Check if the bottom the player is below the tile pos y
+				m_player.getPos().x + m_player.getWidth() > gameLevel.getTiles().at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
+				m_player.getPos().y + m_player.getHeight() > gameLevel.getTiles().at(i)->getPos().y //Check if the bottom the player is below the tile pos y
 				)
 			{
 				m_player.setXPos(m_player.getPos().x-m_player.getVel().x);
@@ -178,7 +133,7 @@ void GameScreen::detectCollisions() {
 			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
 				// if the bullet collides with the terrain
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
-					m_player.getProjectiles().at(j)->getHeight(), m_tiles.at(i)->getPos().x, m_tiles.at(i)->getPos().y, m_tiles.at(i)->getWidth(), m_tiles.at(i)->getHeight()) == true)
+					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
 				{
 					m_player.getProjectiles().at(j)->setAlive(false);
 				}
@@ -187,43 +142,43 @@ void GameScreen::detectCollisions() {
 	}
 
 	// player collides with score pickup
-	if (m_scorePickups.empty() != true) {
-		for (int i = 0; i < m_scorePickups.size(); i++) {
+	if (gameLevel.getScorePickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getScorePickups().size(); i++) {
 			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(), 
-				m_scorePickups.at(i)->getPos().x, m_scorePickups.at(i)->getPos().y, m_scorePickups.at(i)->getWidth(), m_scorePickups.at(i)->getHeight()) ==true)
+				gameLevel.getScorePickups().at(i)->getPos().x, gameLevel.getScorePickups().at(i)->getPos().y, gameLevel.getScorePickups().at(i)->getWidth(), gameLevel.getScorePickups().at(i)->getHeight()) ==true)
 			{
-				m_player.setScore(m_scorePickups.at(i)->getScore());
-				m_scorePickups.at(i)->setIsAlive(false);
+				m_player.setScore(gameLevel.getScorePickups().at(i)->getScore());
+				gameLevel.getScorePickups().at(i)->setIsAlive(false);
 			}
 		}
 	}
 
 	// player collides with health pickup
-	if (m_healthPickups.empty() != true) {
-		for (int i = 0; i < m_healthPickups.size(); i++) {
+	if (gameLevel.getHealthPickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getHealthPickups().size(); i++) {
 			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-				m_healthPickups.at(i)->getPos().x, m_healthPickups.at(i)->getPos().y, m_healthPickups.at(i)->getWidth(), m_healthPickups.at(i)->getHeight()) == true)
+				gameLevel.getHealthPickups().at(i)->getPos().x, gameLevel.getHealthPickups().at(i)->getPos().y, gameLevel.getHealthPickups().at(i)->getWidth(), gameLevel.getHealthPickups().at(i)->getHeight()) == true)
 			{
-				m_player.setHealth(m_healthPickups.at(i)->getHealth());
-				m_healthPickups.at(i)->setIsAlive(false);
+				m_player.setHealth(gameLevel.getHealthPickups().at(i)->getHealth());
+				gameLevel.getHealthPickups().at(i)->setIsAlive(false);
 			}
 		}
 	}
 
 	// player collides with mana pickup
-	if (m_manaPickups.empty() != true) {
-		for (int i = 0; i < m_manaPickups.size(); i++) {
+	if (gameLevel.getManaPickups().empty() != true) {
+		for (int i = 0; i < gameLevel.getManaPickups().size(); i++) {
 			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-				m_manaPickups.at(i)->getPos().x, m_manaPickups.at(i)->getPos().y, m_manaPickups.at(i)->getWidth(), m_manaPickups.at(i)->getHeight()) == true)
+				gameLevel.getManaPickups().at(i)->getPos().x, gameLevel.getManaPickups().at(i)->getPos().y, gameLevel.getManaPickups().at(i)->getWidth(), gameLevel.getManaPickups().at(i)->getHeight()) == true)
 			{
-				m_player.setMana(m_manaPickups.at(i)->getMana());
-				m_manaPickups.at(i)->setIsAlive(false);
+				m_player.setMana(gameLevel.getManaPickups().at(i)->getMana());
+				gameLevel.getManaPickups().at(i)->setIsAlive(false);
 			}
 		}
 	}
 
-	if (m_enemies.empty() != true) {
-		for (int i = 0; i < m_enemies.size(); i++) {
+	if (gameLevel.getEnemies().empty() != true) {
+		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
 			// if the player isn't invincible after taking damage
 			if (m_player.getInvincibilityFrames() == 0) {
 				if (m_player.getKnockback() == true) {
@@ -232,9 +187,9 @@ void GameScreen::detectCollisions() {
 				// player collides with enemy
 				if (m_player.getAttacking() == false) {
 					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
 					{
-						m_player.setHealth(-m_enemies.at(i)->damageDealt());
+						m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
 						m_player.knockback();
 					}
 				}
@@ -242,25 +197,25 @@ void GameScreen::detectCollisions() {
 				else {
 					// checks if the player has collided with an enemy while attacking, and is facing left
 					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 10, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
-						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.LEFT)
 					{
 						// if the player hits an enemy on the left while facing left
-						if (m_player.getPos().x - 10 < m_enemies.at(i)->getPos().x + m_enemies.at(i)->getWidth() && m_enemies.at(i)->getTaggedByAttack() == false) {
-							m_enemies.at(i)->setHealth(-m_player.getDamageDealt());
-							m_enemies.at(i)->setTaggedByAttack(true);
+						if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies()at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
+							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
 
 							// if the enemy has no more health left
-							if (m_enemies.at(i)->getHealth() <= 0) {
-								m_player.setScore(m_enemies.at(i)->addScore());
-								m_enemies.at(i)->setIsAlive(false);
+							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+								gameLevel.getEnemies().at(i)->setIsAlive(false);
 							}
 						}
-						else if (m_player.getPos().x - 10 < m_enemies.at(i)->getPos().x + m_enemies.at(i)->getWidth() && m_enemies.at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						else {
-							m_player.setHealth(-m_enemies.at(i)->damageDealt());
+							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
 							m_player.setAttacking(false);
 							m_player.resetAttackDuration();
 							m_player.knockback();
@@ -269,26 +224,26 @@ void GameScreen::detectCollisions() {
 
 					// checks if the player has collided with an enemy while attacking, and is facing right
 					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
-						m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true
+						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.RIGHT)
 					{
 						// if the player hits an enemy on the left while facing right
-						if (m_player.getPos().x + m_player.getWidth() + 10 > m_enemies.at(i)->getPos().x && m_enemies.at(i)->getTaggedByAttack() == false) {
-							m_enemies.at(i)->setHealth(-m_player.getDamageDealt());
-							m_enemies.at(i)->setTaggedByAttack(true);
+						if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
+							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
 
 							// if the enemy has no more health left
-							if (m_enemies.at(i)->getHealth() <= 0) {
-								m_player.setScore(m_enemies.at(i)->addScore());
-								m_enemies.at(i)->setIsAlive(false);
+							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+								gameLevel.getEnemies().at(i)->setIsAlive(false);
 							}
 						}
-						else if (m_player.getPos().x + m_player.getWidth() + 10 > m_enemies.at(i)->getPos().x && m_enemies.at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						// if the player hits an enemy on the left while facing right
 						else {
-							m_player.setHealth(-m_enemies.at(i)->damageDealt());
+							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
 							m_player.setAttacking(false);
 							m_player.resetAttackDuration();
 							m_player.knockback();
@@ -300,13 +255,15 @@ void GameScreen::detectCollisions() {
 			// player projectile collides with enemy
 			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
-					m_player.getProjectiles().at(j)->getHeight(), m_enemies.at(i)->getPos().x, m_enemies.at(i)->getPos().y, m_enemies.at(i)->getWidth(), m_enemies.at(i)->getHeight()) == true)
+					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
 				{
-					m_enemies.at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
+					m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+					gameLevel.getEnemies().at(i)->setIsAlive(false);
+					gameLevel.getEnemies().at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
 
-					if (m_enemies.at(i)->getHealth() <= 0) {
-						m_player.setScore(m_enemies.at(i)->addScore());
-						m_enemies.at(i)->setIsAlive(false);
+					if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
+						m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
+						gameLevel.getEnemies().at(i)->setIsAlive(false);
 					}
 
 					m_player.getProjectiles().at(j)->setAlive(false); // projectile is no longer alive on collision with enemy
