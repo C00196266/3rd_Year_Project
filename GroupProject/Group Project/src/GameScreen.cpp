@@ -201,7 +201,7 @@ void GameScreen::detectCollisions() {
 						&& m_player.getDirection() == m_player.LEFT)
 					{
 						// if the player hits an enemy on the left while facing left
-						if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies()at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+						if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
 							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
 							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
 
