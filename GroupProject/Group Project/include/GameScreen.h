@@ -31,7 +31,7 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void detectCollisions();
+	void detectCollisions(shared_ptr<AudioManager> audioManager);
 
 	void changeGameState(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window);
 
@@ -45,6 +45,11 @@ private:
 	int keyPressTimer;
 
 	Level gameLevel;
+
+	sf::Image m_image;
+	sf::Texture m_texture;
+	sf::Sprite m_backgroundSprite;
+
 };
 
 #endif

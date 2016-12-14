@@ -7,7 +7,7 @@ class AudioManager {
 public:
 	AudioManager();
 
-	enum SoundType { SELECT, RETURN, SCROLL, JUMP };
+	enum SoundType { SELECT, RETURN, SCROLL, JUMP, PUNCH };
 	enum CurrentMusic { MENU, LEVEL };
 
 	void playSound(SoundType sound);
@@ -42,12 +42,14 @@ private:
 	sf::SoundBuffer m_returnBuffer;
 	sf::SoundBuffer m_selectBuffer;
 	sf::SoundBuffer m_jumpBuffer;
+	sf::SoundBuffer m_punchBuffer;
 
 	// sounds to be player
 	sf::Sound m_scrollSound;
 	sf::Sound m_returnSound;
 	sf::Sound m_selectSound;
 	sf::Sound m_jumpSound;
+	sf::Sound m_punchSound;
 
 	// music
 	sf::Music m_menu;
