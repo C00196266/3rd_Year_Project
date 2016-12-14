@@ -20,6 +20,10 @@ AudioManager::AudioManager() {
 	m_jumpSound.setBuffer(m_jumpBuffer);
 	m_jumpSound.setVolume(50.0f);
 
+	m_punchBuffer.loadFromFile("assets/Punch.ogg");
+	m_punchSound.setBuffer(m_punchBuffer);
+	m_punchSound.setVolume(50.0f);
+
 	m_menu.openFromFile("assets/Menu.ogg");
 	m_menu.setVolume(50.0f);
 	m_menu.setLoop(true);
@@ -46,6 +50,9 @@ void AudioManager::playSound(SoundType theSound) {
 		}
 		if (theSound == JUMP) {
 			m_jumpSound.play();
+		}
+		if (theSound == PUNCH) {
+			m_punchSound.play();
 		}
 	}
 }
@@ -80,6 +87,10 @@ void AudioManager::changeSoundVolume(float value) {
 		if (m_jumpSound.getVolume() > 5.0f) {
 			m_jumpSound.setVolume(m_jumpSound.getVolume() + value);
 		}
+
+		if (m_punchSound.getVolume() > 5.0f) {
+			m_punchSound.setVolume(m_punchSound.getVolume() + value);
+		}
 	}
 
 	if (value > 0) {
@@ -95,6 +106,9 @@ void AudioManager::changeSoundVolume(float value) {
 		}
 		if (m_jumpSound.getVolume() <= 95.0f) {
 			m_jumpSound.setVolume(m_jumpSound.getVolume() + value);
+		}
+		if (m_punchSound.getVolume() <= 95.0f) {
+			m_punchSound.setVolume(m_punchSound.getVolume() + value);
 		}
 	}
 }

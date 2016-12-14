@@ -1,7 +1,7 @@
 #include "Projectile.h"
 
 Projectile::Projectile() {
-	if (!m_image.loadFromFile("assets/tempBullet.png")) {
+	if (!m_image.loadFromFile("assets/projectile.png")) {
 		// give error
 	}
 
@@ -31,7 +31,7 @@ Projectile::Projectile() {
 }
 
 Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
-	if (!m_image.loadFromFile("assets/tempBullet.png")) {
+	if (!m_image.loadFromFile("assets/projectile.png")) {
 		// give error
 	}
 

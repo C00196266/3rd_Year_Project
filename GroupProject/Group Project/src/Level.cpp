@@ -6,6 +6,7 @@ Level::Level()
 	{
 		//error
 	}
+
 	numLevel = std::shared_ptr<int>(new int(1));
 	changeLevel(*numLevel);
 }

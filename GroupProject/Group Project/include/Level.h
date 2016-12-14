@@ -23,6 +23,7 @@ public:
 	vector<shared_ptr<Enemy>>& getEnemies();
 	vector<shared_ptr<Spike>>& getSpikes();
 	shared_ptr<LevelExit> getExit();
+
 private:
 	int maxCol;
 	int maxRow;
