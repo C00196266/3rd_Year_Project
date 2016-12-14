@@ -1,15 +1,2 @@
-﻿  GameScreen.cpp
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(19): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(28): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(37): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(46): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(87): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(133): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(146): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(158): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(170): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(181): warning C4018: '<': signed/unsigned mismatch
-c:\mainbranch\3rd_year_project\groupproject\group project\src\gamescreen.cpp(256): warning C4018: '<': signed/unsigned mismatch
-  LINK : C:\MainBranch\3rd_Year_Project\GroupProject\Debug\Group Project.exe not found or not built by the last incremental link; performing full link
-  Group Project.vcxproj -> C:\MainBranch\3rd_Year_Project\GroupProject\Debug\Group Project.exe
-  Group Project.vcxproj -> C:\MainBranch\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)
+﻿  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.exe
+  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Debug\Group Project.pdb (Partial PDB)

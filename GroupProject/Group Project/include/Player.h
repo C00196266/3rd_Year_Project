@@ -24,7 +24,7 @@ public:
 	void draw(sf::RenderWindow &window);
 
 	void update(shared_ptr<AudioManager> audioManager);
-	
+
 	void checkInput(shared_ptr<AudioManager> audioManager);
 
 	sf::Vector2f getPos();
@@ -81,6 +81,10 @@ public:
 
 	void setKnockback(bool knockback);
 
+	void resetPos();
+
+	void setInitialPos(sf::Vector2f newInitial);
+
 	const int LEFT = 0;
 	const int RIGHT = 1;
 
@@ -101,6 +105,7 @@ private:
 	float m_height;
 
 	sf::Vector2f m_pos;
+	sf::Vector2f m_initialPos;
 
 	sf::Vector2f m_centre;
 
@@ -144,7 +149,7 @@ private:
 	sf::Text m_textScore;
 
 	sf::Font m_font;
-	
+
 	const float FIRERATE = 0.4f;
 	float m_timeSinceFire;
 };

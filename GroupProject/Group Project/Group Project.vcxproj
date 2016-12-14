@@ -40,6 +40,7 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PlayerInput.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\Spike.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\Tile.cpp" />
   </ItemGroup>
@@ -66,6 +67,7 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\PlayerInput.h" />
     <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\Spike.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\Tile.h" />
   </ItemGroup>
