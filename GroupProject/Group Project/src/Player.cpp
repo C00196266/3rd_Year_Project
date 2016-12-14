@@ -2,7 +2,7 @@
 
 
 
-Player::Player() {	
+Player::Player() {
 	if (!m_image.loadFromFile("assets/Player.png")) {
 		// give error
 	}
@@ -11,13 +11,15 @@ Player::Player() {
 		// give error
 	}
 
-	m_playerSprite.setTexture(m_texture);	
+	m_playerSprite.setTexture(m_texture);
 
 	init();
 }
 
 void Player::init() {
 	m_pos = sf::Vector2f(600, 200);
+	m_initialPos = m_pos;
+
 	m_playerSprite.setPosition(m_pos);
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
@@ -27,7 +29,7 @@ void Player::init() {
 	m_inAir = true;
 
 	isJumping = false;
-	
+
 	m_attacking = false;
 	m_attackDuration = 0;
 
@@ -369,4 +371,12 @@ bool Player::getKnockback() {
 
 void Player::setKnockback(bool knockback) {
 	m_gettingKnockedback = knockback;
+}
+
+void Player::resetPos() {
+	m_pos = m_initialPos;
+}
+
+void Player::setInitialPos(sf::Vector2f newInitial) {
+	m_initialPos = newInitial;
 }

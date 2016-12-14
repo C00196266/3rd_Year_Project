@@ -24,6 +24,7 @@
     <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\Spike.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AnimatedSprite.h" />
@@ -50,5 +51,6 @@
     <ClInclude Include="include\Projectile.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\Tile.h" />
+    <ClInclude Include="include\Spike.h" />
   </ItemGroup>
 </Project>

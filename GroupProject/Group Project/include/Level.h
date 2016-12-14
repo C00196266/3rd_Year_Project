@@ -7,6 +7,7 @@
 #include "LevelExit.h"
 #include "Player.h"
 #include "CollisionDetection.h"
+#include "Spike.h"
 
 class Level
 {
@@ -20,6 +21,7 @@ public:
 	vector<shared_ptr<PickupHealth>>& getHealthPickups();
 	vector<shared_ptr<PickupMana>>& getManaPickups();
 	vector<shared_ptr<Enemy>>& getEnemies();
+	vector<shared_ptr<Spike>>& getSpikes();
 	shared_ptr<LevelExit> getExit();
 private:
 	int maxCol;
@@ -31,6 +33,7 @@ private:
 	vector<shared_ptr<PickupHealth>> m_healthPickups;
 	vector<shared_ptr<PickupMana>> m_manaPickups;
 	vector<shared_ptr<Enemy>> m_enemies;
+	vector<shared_ptr<Spike>> m_spike;
 	std::shared_ptr<int> numLevel;
 	std::shared_ptr<LevelExit> m_levelEnd;
 	static const int level1[10][75];

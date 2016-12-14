@@ -2,6 +2,7 @@
 
 GameScreen::GameScreen() {
 	m_player.setPos(sf::Vector2f(80, 300));
+	m_player.setInitialPos(m_player.getPos());
 	keyPressTimer = 0;
 }
 
@@ -10,7 +11,7 @@ void GameScreen::resumeGame()
 	m_player.resumeGame();
 }
 
-void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
+void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
 	m_player.update(audioManager);
 	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
 
@@ -56,7 +57,7 @@ void GameScreen::update(GameStates &currentGameState,sf::View &view,sf::RenderWi
 	}
 
 	detectCollisions();
-	changeGameState(currentGameState,view,window);
+	changeGameState(currentGameState, view, window);
 	keyPressTimer++;
 }
 
@@ -94,14 +95,14 @@ void GameScreen::detectCollisions() {
 			//Collision Top
 			if (m_player.getPos().y + m_player.getHeight()> gameLevel.getTiles().at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
 				m_player.getPos().x + m_player.getWidth()> gameLevel.getTiles().at(i)->getPos().x && //Player x+width greater than tile x
-				m_player.getPos().x< gameLevel.getTiles().at(i)->getPos().x+ gameLevel.getTiles().at(i)->getWidth()//Player x less than tile x+width
+				m_player.getPos().x< gameLevel.getTiles().at(i)->getPos().x + gameLevel.getTiles().at(i)->getWidth()//Player x less than tile x+width
 				)
 
 			{
 				if (m_player.getInAir() == true)
 				{
 					m_player.setInAir(false);
-					m_player.setYPos(m_player.getPos().y-m_player.getVel().y);
+					m_player.setYPos(m_player.getPos().y - m_player.getVel().y);
 					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
 					std::cout << "Top" << std::endl;
 					if (i == 0)
@@ -112,12 +113,12 @@ void GameScreen::detectCollisions() {
 			}
 
 			//Collision Left or Right
-			if (	
+			if (
 				m_player.getPos().x + m_player.getWidth() > gameLevel.getTiles().at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
 				m_player.getPos().y + m_player.getHeight() > gameLevel.getTiles().at(i)->getPos().y //Check if the bottom the player is below the tile pos y
 				)
 			{
-				m_player.setXPos(m_player.getPos().x-m_player.getVel().x);
+				m_player.setXPos(m_player.getPos().x - m_player.getVel().x);
 				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
 				std::cout << "Left or Right" << std::endl;
 			}
@@ -144,8 +145,8 @@ void GameScreen::detectCollisions() {
 	// player collides with score pickup
 	if (gameLevel.getScorePickups().empty() != true) {
 		for (int i = 0; i < gameLevel.getScorePickups().size(); i++) {
-			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(), 
-				gameLevel.getScorePickups().at(i)->getPos().x, gameLevel.getScorePickups().at(i)->getPos().y, gameLevel.getScorePickups().at(i)->getWidth(), gameLevel.getScorePickups().at(i)->getHeight()) ==true)
+			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+				gameLevel.getScorePickups().at(i)->getPos().x, gameLevel.getScorePickups().at(i)->getPos().y, gameLevel.getScorePickups().at(i)->getWidth(), gameLevel.getScorePickups().at(i)->getHeight()) == true)
 			{
 				m_player.setScore(gameLevel.getScorePickups().at(i)->getScore());
 				gameLevel.getScorePickups().at(i)->setIsAlive(false);
@@ -193,7 +194,7 @@ void GameScreen::detectCollisions() {
 						m_player.knockback();
 					}
 				}
-				
+
 				else {
 					// checks if the player has collided with an enemy while attacking, and is facing left
 					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 10, m_player.getPos().y, m_player.getWidth() + 10, m_player.getHeight(),
@@ -268,6 +269,16 @@ void GameScreen::detectCollisions() {
 
 					m_player.getProjectiles().at(j)->setAlive(false); // projectile is no longer alive on collision with enemy
 				}
+			}
+		}
+	}
+
+	if (gameLevel.getSpikes().empty() != true) {
+		for (int i = 0; i < gameLevel.getSpikes().size(); i++) {
+			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+				gameLevel.getSpikes().at(i)->getPos().x, gameLevel.getSpikes().at(i)->getPos().y, gameLevel.getSpikes().at(i)->getWidth(), gameLevel.getSpikes().at(i)->getHeight()) == true)
+			{
+				m_player.resetPos();
 			}
 		}
 	}
