@@ -22,7 +22,9 @@ void GameScreen::resumeGame()
 
 void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
 	m_player.update(audioManager);
-	view.move(m_player.getPos().x - view.getSize().x / 2, 0);
+
+	view.move(m_player.getPos().x - view.getSize().x / 2, m_player.getPos().y - (view.getSize().y / 2) - 60);
+
 	m_backgroundSprite.setPosition(view.getCenter().x - (view.getSize().x / 2), view.getCenter().y - (view.getSize().y / 2));
 
 	// removes any score pickups that are no longer alive

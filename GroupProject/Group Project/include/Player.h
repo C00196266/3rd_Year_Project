@@ -88,13 +88,15 @@ public:
 	const int LEFT = 0;
 	const int RIGHT = 1;
 
+	//enum States {IDLE, RUNNING, JUMPING, FALLING, ATTACKING};
+
 private:
 	PlayerInput m_input;
 
 	int m_score;
 
 	int m_health;
-	int m_mana;
+	float m_mana;
 
 	// when the player takes damage, they have a grace period where they can't take damage again
 	int m_invincibilityFrames;
@@ -152,6 +154,12 @@ private:
 
 	const float FIRERATE = 0.4f;
 	float m_timeSinceFire;
+
+	sf::RectangleShape m_healthBar;
+	sf::RectangleShape m_healthBarOutline;
+
+	sf::RectangleShape m_manaBar;
+	sf::RectangleShape m_manaBarOutline;
 };
 
 #endif

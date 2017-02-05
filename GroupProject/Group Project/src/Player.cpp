@@ -1,7 +1,5 @@
 #include "Player.h"
 
-
-
 Player::Player() {
 	if (!m_image.loadFromFile("assets/Player.png")) {
 		// give error
@@ -66,21 +64,37 @@ void Player::init() {
 
 	m_textHealth.setString("Health: " + std::to_string(m_health));
 	m_textHealth.setFont(m_font);
-	m_textHealth.setCharacterSize(20);
+	m_textHealth.setCharacterSize(16);
 	m_textHealth.setPosition(10, 10);
-	m_textHealth.setFillColor(sf::Color::Red);
+	m_textHealth.setFillColor(sf::Color::White);
 
-	m_textMana.setString("Mana: " + std::to_string(m_mana));
+	m_healthBar.setPosition(10, 10);
+	m_healthBar.setFillColor(sf::Color::Red);
+	m_healthBar.setSize(sf::Vector2f(200, 20));
+
+	m_healthBarOutline.setPosition(8, 8);
+	m_healthBarOutline.setFillColor(sf::Color::Black);
+	m_healthBarOutline.setSize(sf::Vector2f(204, 24));
+
+	m_textMana.setString("Mana: " + std::to_string((int)m_mana));
 	m_textMana.setFont(m_font);
-	m_textMana.setCharacterSize(20);
+	m_textMana.setCharacterSize(16);
 	m_textMana.setPosition(10, 40);
-	m_textMana.setFillColor(sf::Color::Blue);
+	m_textMana.setFillColor(sf::Color::White);
+
+	m_manaBar.setPosition(10, 40);
+	m_manaBar.setFillColor(sf::Color::Blue);
+	m_manaBar.setSize(sf::Vector2f(200, 20));
+
+	m_manaBarOutline.setPosition(8, 38);
+	m_manaBarOutline.setFillColor(sf::Color::Black);
+	m_manaBarOutline.setSize(sf::Vector2f(204, 24));
 
 	m_textScore.setString("Score: " + std::to_string(m_score));
 	m_textScore.setFont(m_font);
-	m_textScore.setCharacterSize(20);
-	m_textScore.setPosition(10, 70);
-	m_textScore.setFillColor(sf::Color::Black);
+	m_textScore.setCharacterSize(24);
+	m_textScore.setPosition(40, 70);
+	m_textScore.setFillColor(sf::Color::White);
 }
 
 void Player::resumeGame()
@@ -130,16 +144,25 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 				}
 			}
 		}
-		m_textHealth.setPosition(m_pos.x - 590, 10);
-		m_textMana.setPosition(m_pos.x - 590, 40);
-		m_textScore.setPosition(m_pos.x - 590, 70);
+
+		m_textHealth.setPosition(m_pos.x - 530, m_pos.y - 378);
+		m_healthBar.setPosition(m_pos.x - 588, m_pos.y - 378);
+		m_healthBarOutline.setPosition(m_pos.x - 590, m_pos.y - 380);
+
+		m_textMana.setPosition(m_pos.x - 525, m_pos.y - 348);
+		m_manaBar.setPosition(m_pos.x - 588, m_pos.y - 348);
+		m_manaBarOutline.setPosition(m_pos.x - 590, m_pos.y - 350);
+
+		m_textScore.setPosition(m_pos.x + 450, m_pos.y - 380);
 
 		m_timeSinceFire = m_timeSinceFire + timeSinceLastUpdate.asSeconds();
 		timeSinceLastUpdate = sf::Time::Zero;
 		m_playerSprite.setPosition(m_pos);
 
 		if (m_mana < 100) {
-			m_mana++;
+			m_mana+= 0.1f;
+			m_textMana.setString("Mana: " + std::to_string((int)m_mana));
+			m_manaBar.setSize(sf::Vector2f(2 * (int)m_mana, 20));
 		}
 
 		m_inAir = true;
@@ -154,10 +177,17 @@ void Player::draw(sf::RenderWindow &window) {
 	for (int i = 0; i < m_projectiles.size(); i++) {
 		m_projectiles.at(i)->draw(window);
 	}
+
 	window.draw(m_playerSprite);
 
+	window.draw(m_healthBarOutline);
+	window.draw(m_healthBar);
 	window.draw(m_textHealth);
+
+	window.draw(m_manaBarOutline);
+	window.draw(m_manaBar);
 	window.draw(m_textMana);
+
 	window.draw(m_textScore);
 }
 
@@ -166,12 +196,22 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 
 	// player moves right
 	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
-		m_velocity.x += 20.0f * timeSinceLastUpdate.asSeconds();//12
+		if (isJumping == false) {
+			m_velocity.x += 30.0f * timeSinceLastUpdate.asSeconds();//12
+		}
+		else {
+			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
+		}
 		direction = RIGHT;
 	}
 	// player moves left
 	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
-		m_velocity.x -= 20.0f * timeSinceLastUpdate.asSeconds();//13
+		if (isJumping == false) {
+			m_velocity.x -= 30.0f * timeSinceLastUpdate.asSeconds();//13
+		}
+		else {
+			m_velocity.x -= 12.0f * timeSinceLastUpdate.asSeconds();
+		}
 		direction = LEFT;
 	}
 	// player is not moving
@@ -179,14 +219,14 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		if (direction == LEFT) {
 			// if player is not getting knocked back by enemy
 			if (m_gettingKnockedback == false) {
-				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x += 27.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x > 0) {
 					m_velocity.x = 0;
 				}
 			}
 			else {
-				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x -= 27.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x < 0) {
 					m_velocity.x = 0;
@@ -196,14 +236,14 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		if (direction == RIGHT) {
 			// if player is not getting knocked back by enemy
 			if (m_gettingKnockedback == false) {
-				m_velocity.x -= 17.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x -= 27.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x < 0) {
 					m_velocity.x = 0;
 				}
 			}
 			else {
-				m_velocity.x += 17.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x += 27.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x > 0) {
 					m_velocity.x = 0;
@@ -214,7 +254,7 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	if (isJumping == false) {
 		// player jumps
 		if (m_input.moveUp || m_input.pressedA) {
-			m_velocity.y -= 7.5f;//8.5
+			m_velocity.y -= 7.5f;
 			isJumping = true;
 			m_inAir = true;
 			audioManager->playSound(AudioManager::SoundType::JUMP);
@@ -226,7 +266,6 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_mana -= m_fireCost;
 		m_timeSinceFire = 0;
-		m_textMana.setString("Mana: " + std::to_string(m_mana));
 	}
 
 	// if the player tries to attack
@@ -256,6 +295,7 @@ void Player::setHealth(int healthVal) {
 	}
 
 	m_textHealth.setString("Health: " + std::to_string(m_health));
+	m_healthBar.setSize(sf::Vector2f(2 * m_health, 20));
 }
 
 int Player::getMana() {
@@ -274,6 +314,7 @@ void Player::setMana(int manaVal) {
 	}
 
 	m_textMana.setString("Mana: " + std::to_string(m_mana));
+	m_manaBar.setSize(sf::Vector2f(2 * m_mana, 20));
 }
 
 void Player::setScore(int scoreVal) {
