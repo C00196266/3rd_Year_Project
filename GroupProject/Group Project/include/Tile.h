@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////////////////
 
 #include "stdafx.h"
+#include "Player.h"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Manages what is on the game screen and draws
@@ -23,6 +24,8 @@ public:
 	sf::Vector2f getPos();
 	float getWidth();
 	float getHeight();
+
+	void checkCollisionWithPlayer(Player &player);
 
 private:
 	sf::Vector2f m_pos;

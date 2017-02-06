@@ -29,13 +29,31 @@ public:
 
 	sf::Vector2f getPos();
 
+	sf::Vector2f getNextPos();
+
 	void setPos(float x, float y);
 
 	void setPos(sf::Vector2f newPos);
 
+	void setNextPos(sf::Vector2f newPos);
+
+	void setNextPos(float x, float y);
+
 	void setXPos(float x);
 
+	void setNextXPos(float x);
+
 	void setYPos(float y);
+
+	void setNextYPos(float y);
+
+	float getBottom();
+
+	float getNextBottom();
+
+	float getRight();
+
+	float getNextRight();
 
 	sf::Vector2f getVel();
 
@@ -81,12 +99,16 @@ public:
 
 	void setKnockback(bool knockback);
 
-	void resetPos();
+	bool getCollides();
+
+	void setCollides(bool collision);
 
 	void setInitialPos(sf::Vector2f newInitial);
 
 	const int LEFT = 0;
 	const int RIGHT = 1;
+
+	void resetPos();
 
 	//enum States {IDLE, RUNNING, JUMPING, FALLING, ATTACKING};
 
@@ -107,6 +129,7 @@ private:
 	float m_height;
 
 	sf::Vector2f m_pos;
+	sf::Vector2f m_nextPos;
 	sf::Vector2f m_initialPos;
 
 	sf::Vector2f m_centre;
@@ -160,6 +183,8 @@ private:
 
 	sf::RectangleShape m_manaBar;
 	sf::RectangleShape m_manaBarOutline;
+
+	bool m_collides;
 };
 
 #endif

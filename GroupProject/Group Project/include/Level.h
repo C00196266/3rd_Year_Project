@@ -37,7 +37,7 @@ private:
 	vector<shared_ptr<Spike>> m_spike;
 	std::shared_ptr<int> numLevel;
 	std::shared_ptr<LevelExit> m_levelEnd;
-	static const int level1[10][75];
+	static const int level1[15][75];
 	static const int leveltest[10][34];
 	sf::Texture grassTexture;
 	int *currentLevel;//pointer to current level array

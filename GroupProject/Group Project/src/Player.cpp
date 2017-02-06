@@ -15,8 +15,11 @@ Player::Player() {
 }
 
 void Player::init() {
-	m_pos = sf::Vector2f(600, 200);
+	m_pos = sf::Vector2f(80, 300);
 	m_initialPos = m_pos;
+	m_nextPos = m_pos;
+
+	m_collides = false;
 
 	m_playerSprite.setPosition(m_pos);
 	m_width = m_texture.getSize().x;
@@ -110,6 +113,8 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 	{
 		checkInput(audioManager);
 
+		m_pos = m_nextPos;
+
 		if (m_inAir == true) {
 			m_velocity.y += gravity * timeSinceLastUpdate.asSeconds();
 		}
@@ -127,9 +132,6 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 				m_attackDuration = 0;
 			}
 		}
-
-		m_pos.x += m_velocity.x;
-		m_pos.y += m_velocity.y;
 
 		m_centre.x = m_pos.x + (m_width / 2);
 		m_centre.y = m_pos.y + (m_height / 2);
@@ -166,6 +168,8 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 		}
 
 		m_inAir = true;
+
+		m_nextPos += m_velocity;
 	}
 	// if the player is invincible after taking damage
 	if (m_invincibilityFrames > 0) {
@@ -178,8 +182,6 @@ void Player::draw(sf::RenderWindow &window) {
 		m_projectiles.at(i)->draw(window);
 	}
 
-	window.draw(m_playerSprite);
-
 	window.draw(m_healthBarOutline);
 	window.draw(m_healthBar);
 	window.draw(m_textHealth);
@@ -189,6 +191,8 @@ void Player::draw(sf::RenderWindow &window) {
 	window.draw(m_textMana);
 
 	window.draw(m_textScore);
+
+	window.draw(m_playerSprite);
 }
 
 void Player::checkInput(shared_ptr<AudioManager> audioManager) {
@@ -197,7 +201,7 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	// player moves right
 	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
 		if (isJumping == false) {
-			m_velocity.x += 30.0f * timeSinceLastUpdate.asSeconds();//12
+			m_velocity.x += 40.0f * timeSinceLastUpdate.asSeconds();//12
 		}
 		else {
 			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
@@ -207,7 +211,7 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	// player moves left
 	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
 		if (isJumping == false) {
-			m_velocity.x -= 30.0f * timeSinceLastUpdate.asSeconds();//13
+			m_velocity.x -= 40.0f * timeSinceLastUpdate.asSeconds();//13
 		}
 		else {
 			m_velocity.x -= 12.0f * timeSinceLastUpdate.asSeconds();
@@ -219,14 +223,14 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		if (direction == LEFT) {
 			// if player is not getting knocked back by enemy
 			if (m_gettingKnockedback == false) {
-				m_velocity.x += 27.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x += 37.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x > 0) {
 					m_velocity.x = 0;
 				}
 			}
 			else {
-				m_velocity.x -= 27.5f * timeSinceLastUpdate.asSeconds();
+				m_velocity.x -= 37.5f * timeSinceLastUpdate.asSeconds();
 
 				if (m_velocity.x < 0) {
 					m_velocity.x = 0;
@@ -414,8 +418,65 @@ void Player::setKnockback(bool knockback) {
 	m_gettingKnockedback = knockback;
 }
 
+void Player::setNextPos(sf::Vector2f newPos) {
+	m_nextPos = newPos;
+}
+
+void Player::setNextPos(float x, float y) {
+	m_nextPos = sf::Vector2f(x, y);
+}
+
+void Player::setNextXPos(float x) {
+	m_nextPos.x = x;
+}
+
+void Player::setNextYPos(float y) {
+	m_nextPos.y = y;
+}
+
+sf::Vector2f Player::getNextPos() {
+	return m_nextPos;
+}
+
+float Player::getBottom() {
+	return m_pos.y + m_height;
+}
+
+float Player::getNextBottom() {
+	return m_nextPos.y + m_height;
+}
+
+float Player::getRight() {
+	return m_pos.x + m_width;
+}
+
+float Player::getNextRight() {
+	return m_nextPos.x + m_width;
+}
+
+bool Player::getCollides() {
+	return m_collides;
+}
+
+void Player::setCollides(bool collision) {
+	m_collides = collision;
+}
+
 void Player::resetPos() {
 	m_pos = m_initialPos;
+	m_nextPos = m_pos;
+
+	m_textHealth.setPosition(m_pos.x - 530, m_pos.y - 378);
+	m_healthBar.setPosition(m_pos.x - 588, m_pos.y - 378);
+	m_healthBarOutline.setPosition(m_pos.x - 590, m_pos.y - 380);
+
+	m_textMana.setPosition(m_pos.x - 525, m_pos.y - 348);
+	m_manaBar.setPosition(m_pos.x - 588, m_pos.y - 348);
+	m_manaBarOutline.setPosition(m_pos.x - 590, m_pos.y - 350);
+
+	m_textScore.setPosition(m_pos.x + 450, m_pos.y - 380);
+
+	m_playerSprite.setPosition(m_pos);
 }
 
 void Player::setInitialPos(sf::Vector2f newInitial) {

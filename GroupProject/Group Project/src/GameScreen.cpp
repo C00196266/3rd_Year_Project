@@ -2,7 +2,7 @@
 
 GameScreen::GameScreen() {
 	m_player.setPos(sf::Vector2f(80, 300));
-	m_player.setInitialPos(m_player.getPos());
+	//m_player.setInitialPos(m_player.getPos());
 
 	if (!m_image.loadFromFile("assets/Background.png")) {
 
@@ -21,7 +21,7 @@ void GameScreen::resumeGame()
 }
 
 void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window, shared_ptr<AudioManager> audioManager) {
-	m_player.update(audioManager);
+ 	m_player.update(audioManager);
 
 	view.move(m_player.getPos().x - view.getSize().x / 2, m_player.getPos().y - (view.getSize().y / 2) - 60);
 
@@ -98,49 +98,15 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		m_player.setPos(sf::Vector2f(80, 300));
 		gameLevel.changeLevel(gameLevel.getExit()->getNextLevel());
 	}
+
+	m_player.setCollides(false);
+
 	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
-		if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-			gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
-		{
-
-			//Collision Top
-			if (m_player.getPos().y + m_player.getHeight()> gameLevel.getTiles().at(i)->getPos().y &&	//Checks if player pos y + height is greater than top of tile
-				m_player.getPos().x + m_player.getWidth()> gameLevel.getTiles().at(i)->getPos().x && //Player x+width greater than tile x
-				m_player.getPos().x< gameLevel.getTiles().at(i)->getPos().x + gameLevel.getTiles().at(i)->getWidth()//Player x less than tile x+width
-				)
-
-			{
-				if (m_player.getInAir() == true)
-				{
-					m_player.setInAir(false);
-					m_player.setYPos(m_player.getPos().y - m_player.getVel().y);
-					m_player.setVel(sf::Vector2f(m_player.getVel().x, 0));
-					std::cout << "Top" << std::endl;
-					if (i == 0)
-					{
-						std::cout << "Top Collision" << std::endl;
-					}
-				}
-			}
-
-			//Collision Left or Right
-			if (
-				m_player.getPos().x + m_player.getWidth() > gameLevel.getTiles().at(i)->getPos().x && //If there is collision then if the players x pos+width is greater than tile x
-				m_player.getPos().y + m_player.getHeight() > gameLevel.getTiles().at(i)->getPos().y //Check if the bottom the player is below the tile pos y
-				)
-			{
-				m_player.setXPos(m_player.getPos().x - m_player.getVel().x);
-				m_player.setVel(sf::Vector2f(0, m_player.getVel().y));
-				std::cout << "Left or Right" << std::endl;
-			}
-			break;
-		}
-		else
-		{
-
-		}
+		
+		gameLevel.getTiles().at(i)->checkCollisionWithPlayer(m_player);
+		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		if (m_player.getProjectiles().empty() != true) {
@@ -154,6 +120,8 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 			}
 		}
 	}
+
+	m_player.setCollides(false);
 
 	// player collides with score pickup
 	if (gameLevel.getScorePickups().empty() != true) {
@@ -308,4 +276,6 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 			}
 		}
 	}
+
+	m_player.setCollides(false);
 }
