@@ -317,7 +317,7 @@ void Player::setMana(int manaVal) {
 		m_mana += manaVal;
 	}
 
-	m_textMana.setString("Mana: " + std::to_string(m_mana));
+	m_textMana.setString("Mana: " + std::to_string((int)m_mana));
 	m_manaBar.setSize(sf::Vector2f(2 * m_mana, 20));
 }
 
@@ -462,7 +462,7 @@ void Player::setCollides(bool collision) {
 	m_collides = collision;
 }
 
-void Player::resetPos() {
+void Player::reset() {
 	m_pos = m_initialPos;
 	m_nextPos = m_pos;
 
@@ -475,6 +475,10 @@ void Player::resetPos() {
 	m_manaBarOutline.setPosition(m_pos.x - 590, m_pos.y - 350);
 
 	m_textScore.setPosition(m_pos.x + 450, m_pos.y - 380);
+
+	setHealth(100);
+	setMana(100);
+	//score = 0;
 
 	m_playerSprite.setPosition(m_pos);
 }

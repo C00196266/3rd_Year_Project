@@ -2,6 +2,7 @@
 #define SPIKE_H
 
 #include "stdafx.h"
+#include "Player.h"
 
 class Spike{
 public:
@@ -13,6 +14,8 @@ public:
 	sf::Vector2f getPos();
 	float getWidth();
 	float getHeight();
+
+	void checkCollisionWithPlayer(Player &player);
 
 private:
 	sf::Vector2f m_pos;

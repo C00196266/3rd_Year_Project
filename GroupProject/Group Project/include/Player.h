@@ -108,7 +108,7 @@ public:
 	const int LEFT = 0;
 	const int RIGHT = 1;
 
-	void resetPos();
+	void reset();
 
 	//enum States {IDLE, RUNNING, JUMPING, FALLING, ATTACKING};
 

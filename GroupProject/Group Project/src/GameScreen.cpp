@@ -269,11 +269,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 	if (gameLevel.getSpikes().empty() != true) {
 		for (int i = 0; i < gameLevel.getSpikes().size(); i++) {
-			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-				gameLevel.getSpikes().at(i)->getPos().x, gameLevel.getSpikes().at(i)->getPos().y, gameLevel.getSpikes().at(i)->getWidth(), gameLevel.getSpikes().at(i)->getHeight()) == true)
-			{
-				m_player.resetPos();
-			}
+			gameLevel.getSpikes().at(i)->checkCollisionWithPlayer(m_player);
 		}
 	}
 
