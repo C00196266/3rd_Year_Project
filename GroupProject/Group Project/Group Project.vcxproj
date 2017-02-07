@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EnemyRanged.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelExit.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionDetection.h" />
     <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\EnemyRanged.h" />
     <ClInclude Include="include\GameEntryPoint.h" />
     <ClInclude Include="include\GameScreen.h" />
     <ClInclude Include="include\GameState.h" />

@@ -29,9 +29,9 @@ void Level::draw(sf::RenderWindow & window)
 	{
 		m_healthPickups.at(i)->draw(window);
 	}
-	for (int i = 0; i < m_enemies.size(); i++)
+	for (int i = 0; i < m_enemiesRanged.size(); i++)
 	{
-		m_enemies.at(i)->draw(window);
+		m_enemiesRanged.at(i)->draw(window);
 	}
 	for (int i = 0; i < m_spike.size(); i++) {
 		m_spike.at(i)->draw(window);
@@ -67,7 +67,7 @@ void Level::createMap()
 			}
 			if (currentLevel[maxCol*(row)+column] == 5)
 			{
-				m_enemies.push_back(shared_ptr<Enemy>(new Enemy(sf::Vector2f(column*tileSize, row*tileSize))));
+				m_enemiesRanged.push_back(shared_ptr<EnemyRanged>(new EnemyRanged(sf::Vector2f(column*tileSize, row*tileSize))));
 			}
 			if (currentLevel[maxCol*(row)+column] == 6)
 			{
@@ -87,7 +87,7 @@ void Level::resetLevel()
 	m_scorePickups.clear();
 	m_healthPickups.clear();
 	m_manaPickups.clear();
-	m_enemies.clear();
+	m_enemiesRanged.clear();
 	m_spike.clear();
 	m_levelEnd.reset();
 }
@@ -169,9 +169,9 @@ vector<shared_ptr<PickupMana>>& Level::getManaPickups()
 	return m_manaPickups;
 }
 
-vector<shared_ptr<Enemy>>& Level::getEnemies()
+vector<shared_ptr<EnemyRanged>>& Level::getEnemiesRanged()
 {
-	return m_enemies;
+	return m_enemiesRanged;
 }
 
 vector<shared_ptr<Spike>>& Level::getSpikes() {

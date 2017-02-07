@@ -3,7 +3,7 @@
 #include "PickupScore.h"
 #include "PickupHealth.h"
 #include "PickupMana.h"
-#include "Enemy.h"
+#include "EnemyRanged.h"
 #include "LevelExit.h"
 #include "Player.h"
 #include "CollisionDetection.h"
@@ -20,7 +20,7 @@ public:
 	vector<shared_ptr<PickupScore>>& getScorePickups();
 	vector<shared_ptr<PickupHealth>>& getHealthPickups();
 	vector<shared_ptr<PickupMana>>& getManaPickups();
-	vector<shared_ptr<Enemy>>& getEnemies();
+	vector<shared_ptr<EnemyRanged>>& getEnemiesRanged();
 	vector<shared_ptr<Spike>>& getSpikes();
 	shared_ptr<LevelExit> getExit();
 
@@ -33,7 +33,7 @@ private:
 	vector<shared_ptr<PickupScore>> m_scorePickups;
 	vector<shared_ptr<PickupHealth>> m_healthPickups;
 	vector<shared_ptr<PickupMana>> m_manaPickups;
-	vector<shared_ptr<Enemy>> m_enemies;
+	vector<shared_ptr<EnemyRanged>> m_enemiesRanged;
 	vector<shared_ptr<Spike>> m_spike;
 	std::shared_ptr<int> numLevel;
 	std::shared_ptr<LevelExit> m_levelEnd;
