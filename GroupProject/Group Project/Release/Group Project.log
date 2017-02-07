@@ -1,13 +1,22 @@
-﻿  Player.cpp
-src\Player.cpp(165): warning C4018: '<': signed/unsigned mismatch
-src\Player.cpp(192): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-src\Player.cpp(208): warning C4018: '<': signed/unsigned mismatch
-src\Player.cpp(335): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-src\Player.cpp(339): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+﻿  GameScreen.cpp
+src\GameScreen.cpp(32): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(44): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(56): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(68): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(113): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(122): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(137): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(149): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(161): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(172): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(260): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(280): warning C4018: '<': signed/unsigned mismatch
+  PickupHealth.cpp
+  PickupMana.cpp
   Generating code
-  1 of 1393 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  177 of 1602 functions (11.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    26 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Group Project.vcxproj -> C:\Users\New User\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
   Group Project.vcxproj -> C:\Users\New User\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)

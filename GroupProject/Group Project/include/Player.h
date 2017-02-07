@@ -9,7 +9,6 @@
 #include "PlayerInput.h"
 #include "Projectile.h"
 #include "AudioManager.h"
-#include "Thor\Animations.hpp"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Creates player.

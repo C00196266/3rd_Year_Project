@@ -33,6 +33,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 			if (gameLevel.getScorePickups().at(i)->getIsAlive() == false) {
 				gameLevel.getScorePickups().erase(gameLevel.getScorePickups().begin() + i);
 			}
+			else {
+				gameLevel.getScorePickups().at(i)->update(clock.restart());
+			}
 		}
 	}
 
@@ -42,6 +45,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 			if (gameLevel.getHealthPickups().at(i)->getIsAlive() == false) {
 				gameLevel.getHealthPickups().erase(gameLevel.getHealthPickups().begin() + i);
 			}
+			else {
+				gameLevel.getHealthPickups().at(i)->update(clock.restart());
+			}
 		}
 	}
 
@@ -50,6 +56,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 		for (int i = 0; i < gameLevel.getManaPickups().size(); i++) {
 			if (gameLevel.getManaPickups().at(i)->getIsAlive() == false) {
 				gameLevel.getManaPickups().erase(gameLevel.getManaPickups().begin() + i);
+			}
+			else {
+				gameLevel.getManaPickups().at(i)->update(clock.restart());
 			}
 		}
 	}

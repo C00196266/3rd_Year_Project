@@ -6,6 +6,9 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <Thor/Animations.hpp>
+#include <Thor/Particles.hpp>
+#include <Thor/Math.hpp>
 
 #include <memory>
 #include <iostream>
