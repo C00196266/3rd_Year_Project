@@ -147,7 +147,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		}
 	}
 
-	// player collides with mana pickup
+	// player collides with mana pickupd
 	if (gameLevel.getManaPickups().empty() != true) {
 		for (int i = 0; i < gameLevel.getManaPickups().size(); i++) {
 			if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
@@ -178,12 +178,12 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 				else {
 					// checks if the player has collided with an enemy while attacking, and is facing left
-					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 18, m_player.getPos().y, m_player.getWidth() + 18, m_player.getHeight(),
+					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 24, m_player.getPos().y, m_player.getWidth() + 18, m_player.getHeight(),
 						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.LEFT)
 					{
-						// if the player hits an enemy on the left while facing left
-						if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+						// if the player hits an enemy on the right while facing left
+						if (m_player.getPos().x - 24 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
 							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
 
 							// if the enemy has no more health left
@@ -199,7 +199,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 							audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
-						else if (m_player.getPos().x - 10 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x - 24 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						else {
@@ -211,12 +211,12 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 					}
 
 					// checks if the player has collided with an enemy while attacking, and is facing right
-					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 18, m_player.getHeight(),
+					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 24, m_player.getHeight(),
 						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.RIGHT)
 					{
 						// if the player hits an enemy on the left while facing right
-						if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
+						if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
 							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
 							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
 
@@ -233,7 +233,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 							audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
-						else if (m_player.getPos().x + m_player.getWidth() + 10 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						// if the player hits an enemy on the left while facing right

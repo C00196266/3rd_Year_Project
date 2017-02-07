@@ -9,6 +9,7 @@
 #include "PlayerInput.h"
 #include "Projectile.h"
 #include "AudioManager.h"
+#include "Thor\Animations.hpp"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Creates player.
@@ -110,7 +111,11 @@ public:
 
 	void reset();
 
-	//enum States {IDLE, RUNNING, JUMPING, FALLING, ATTACKING};
+	void setupAnimations();
+
+	enum AnimationStates { IDLE, WALKING, JUMPING, FALLING, ATTACKING, CASTING_SPELL };
+
+	void changeAnimation();
 
 private:
 	PlayerInput m_input;
@@ -160,7 +165,7 @@ private:
 
 	sf::Image m_image;
 	sf::Texture m_texture;
-	sf::Sprite m_playerSprite;
+	sf::Sprite m_spriteSheet;
 
 	vector<shared_ptr<Projectile>> m_projectiles;
 
@@ -184,7 +189,25 @@ private:
 	sf::RectangleShape m_manaBar;
 	sf::RectangleShape m_manaBarOutline;
 
-	bool m_collides;
+	bool m_collides;	
+
+	bool m_castingSpell;
+	int m_castingDuration;
+
+	thor::Animator<sf::Sprite, std::string> m_animator;
+
+	thor::FrameAnimation m_idleLeft;
+	thor::FrameAnimation m_idleRight;
+	thor::FrameAnimation m_walkingLeft;
+	thor::FrameAnimation m_walkingRight;
+	thor::FrameAnimation m_jumpingLeft;
+	thor::FrameAnimation m_jumpingRight;
+	thor::FrameAnimation m_fallingLeft;
+	thor::FrameAnimation m_fallingRight;
+	thor::FrameAnimation m_attackingLeft;
+	thor::FrameAnimation m_attackingRight;
+	thor::FrameAnimation m_castingLeft;
+	thor::FrameAnimation m_castingRight;
 };
 
 #endif

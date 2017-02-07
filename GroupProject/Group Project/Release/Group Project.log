@@ -1,15 +1,13 @@
 ﻿  Player.cpp
-src\Player.cpp(25): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-src\Player.cpp(26): warning C4244: '=': conversion from 'unsigned int' to 'float', possible loss of data
-src\Player.cpp(140): warning C4018: '<': signed/unsigned mismatch
-src\Player.cpp(167): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-src\Player.cpp(181): warning C4018: '<': signed/unsigned mismatch
-src\Player.cpp(302): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-src\Player.cpp(306): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+src\Player.cpp(165): warning C4018: '<': signed/unsigned mismatch
+src\Player.cpp(192): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+src\Player.cpp(208): warning C4018: '<': signed/unsigned mismatch
+src\Player.cpp(335): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+src\Player.cpp(339): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   Generating code
-  3 of 1127 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+  1 of 1393 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    53 functions had inline decision re-evaluated but remain unchanged
+    1 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
-  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)
+  Group Project.vcxproj -> C:\Users\New User\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
+  Group Project.vcxproj -> C:\Users\New User\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)

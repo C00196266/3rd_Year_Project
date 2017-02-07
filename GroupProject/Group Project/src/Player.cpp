@@ -1,15 +1,21 @@
 #include "Player.h"
 
 Player::Player() {
-	if (!m_image.loadFromFile("assets/Player.png")) {
+	if (!m_image.loadFromFile("assets/Player_SpriteSheet.png")) {
 		// give error
 	}
 
-	if (m_texture.loadFromImage(m_image)) {
+	if (!m_texture.loadFromImage(m_image)) {
 		// give error
 	}
 
-	m_playerSprite.setTexture(m_texture);
+	//if (!m_texture.loadFromImage(m_image, sf::Rect<int>(0, 0, 14 * 2, 27 * 2))) {
+	//	// give error
+	//}
+
+	m_spriteSheet.setTexture(m_texture);
+
+	setupAnimations();
 
 	init();
 }
@@ -21,9 +27,9 @@ void Player::init() {
 
 	m_collides = false;
 
-	m_playerSprite.setPosition(m_pos);
-	m_width = m_texture.getSize().x;
-	m_height = m_texture.getSize().y;
+	m_spriteSheet.setPosition(m_pos);
+	m_width = 28;
+	m_height = 54;
 
 	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 
@@ -98,6 +104,9 @@ void Player::init() {
 	m_textScore.setCharacterSize(24);
 	m_textScore.setPosition(40, 70);
 	m_textScore.setFillColor(sf::Color::White);
+
+	m_castingSpell = false;
+	m_castingDuration = 0;
 }
 
 void Player::resumeGame()
@@ -113,6 +122,9 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 	{
 		checkInput(audioManager);
 
+		m_animator.update(sf::seconds(timeSinceLastUpdate.asSeconds()));
+		m_animator.animate(m_spriteSheet);
+
 		m_pos = m_nextPos;
 
 		if (m_inAir == true) {
@@ -125,11 +137,24 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 
 		// player is attacking
 		if (m_attacking == true) {
-			m_attackDuration++;
+			//if (m_castingSpell == true) {
+			//	m_castingSpell = false;
+			//	m_castingDuration = 90;
+			//}
 
-			if (m_attackDuration > 30) {
+			m_attackDuration--;
+
+			if (m_attackDuration <= 0) {
 				m_attacking = false;
-				m_attackDuration = 0;
+			}
+		}
+
+		if (m_castingSpell == true) {
+			m_castingDuration--;
+			m_attackDuration = 0;
+
+			if (m_castingDuration <= 0) {
+				m_castingSpell = false;
 			}
 		}
 
@@ -159,7 +184,7 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 
 		m_timeSinceFire = m_timeSinceFire + timeSinceLastUpdate.asSeconds();
 		timeSinceLastUpdate = sf::Time::Zero;
-		m_playerSprite.setPosition(m_pos);
+		m_spriteSheet.setPosition(m_pos);
 
 		if (m_mana < 100) {
 			m_mana+= 0.1f;
@@ -175,6 +200,8 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 	if (m_invincibilityFrames > 0) {
 		m_invincibilityFrames--;
 	}
+
+	changeAnimation();
 }
 
 void Player::draw(sf::RenderWindow &window) {
@@ -192,7 +219,7 @@ void Player::draw(sf::RenderWindow &window) {
 
 	window.draw(m_textScore);
 
-	window.draw(m_playerSprite);
+	window.draw(m_spriteSheet);
 }
 
 void Player::checkInput(shared_ptr<AudioManager> audioManager) {
@@ -202,6 +229,7 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
 		if (isJumping == false) {
 			m_velocity.x += 40.0f * timeSinceLastUpdate.asSeconds();//12
+			//changeAnimation(AnimationStates::WALKING);
 		}
 		else {
 			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
@@ -212,9 +240,11 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
 		if (isJumping == false) {
 			m_velocity.x -= 40.0f * timeSinceLastUpdate.asSeconds();//13
+			//changeAnimation(AnimationStates::JUMPING);
 		}
 		else {
 			m_velocity.x -= 12.0f * timeSinceLastUpdate.asSeconds();
+			//changeAnimation(AnimationStates::WALKING);
 		}
 		direction = LEFT;
 	}
@@ -270,11 +300,14 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		m_projectiles.push_back(shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_mana -= m_fireCost;
 		m_timeSinceFire = 0;
+		m_castingSpell = true;
+		m_castingDuration = 12;
 	}
 
 	// if the player tries to attack
 	if ((m_input.pressedB == true || m_input.keypressE == true || m_input.mouseLeft == true) && m_attacking == false) {
 		m_attacking = true;
+		m_attackDuration = 18;
 	}
 }
 
@@ -480,9 +513,173 @@ void Player::reset() {
 	setMana(100);
 	//score = 0;
 
-	m_playerSprite.setPosition(m_pos);
+	m_spriteSheet.setPosition(m_pos);
 }
 
 void Player::setInitialPos(sf::Vector2f newInitial) {
 	m_initialPos = newInitial;
+}
+
+void Player::setupAnimations() {
+	m_idleRight.addFrame(1, sf::Rect<int>(0, 0, 28, 54));
+	
+	m_idleLeft.addFrame(1, sf::Rect<int>(0, 56, 28, 54));
+
+	m_walkingRight.addFrame(1, sf::Rect<int>(0, 112, 30, 54));
+	m_walkingRight.addFrame(1, sf::Rect<int>(32, 112, 30, 54));
+	m_walkingRight.addFrame(1, sf::Rect<int>(64, 112, 30, 54));
+	m_walkingRight.addFrame(1, sf::Rect<int>(96, 112, 30, 54));
+	m_walkingRight.addFrame(1, sf::Rect<int>(128, 112, 30, 54));
+	m_walkingRight.addFrame(1, sf::Rect<int>(160, 112, 30, 54));
+
+	m_walkingLeft.addFrame(1, sf::Rect<int>(0, 168, 30, 54));
+	m_walkingLeft.addFrame(1, sf::Rect<int>(32, 168, 30, 54));
+	m_walkingLeft.addFrame(1, sf::Rect<int>(64, 168, 30, 54));
+	m_walkingLeft.addFrame(1, sf::Rect<int>(96, 168, 30, 54));
+	m_walkingLeft.addFrame(1, sf::Rect<int>(128, 168, 30, 54));
+	m_walkingLeft.addFrame(1, sf::Rect<int>(160, 168, 30, 54));
+
+	m_jumpingRight.addFrame(1, sf::Rect<int>(4, 232, 28, 54));
+	m_jumpingRight.addFrame(2, sf::Rect<int>(36, 224, 28, 62));
+	m_jumpingRight.addFrame(4, sf::Rect<int>(66, 224, 28, 56));
+	m_jumpingRight.addFrame(6, sf::Rect<int>(98, 226, 28, 54));
+
+	m_fallingRight.addFrame(1, sf::Rect<int>(0, 294, 30, 52));
+
+	m_jumpingLeft.addFrame(1, sf::Rect<int>(0, 360, 28, 54));
+	m_jumpingLeft.addFrame(2, sf::Rect<int>(32, 352, 28, 62));
+	m_jumpingLeft.addFrame(4, sf::Rect<int>(66, 352, 28, 56));
+	m_jumpingLeft.addFrame(6, sf::Rect<int>(98, 354, 28, 54));
+
+	m_fallingLeft.addFrame(1, sf::Rect<int>(64, 294, 30, 52));
+
+	m_attackingRight.addFrame(2, sf::Rect<int>(0, 512, 54, 54));
+	m_attackingRight.addFrame(2, sf::Rect<int>(96, 512, 66, 54));
+	m_attackingRight.addFrame(2, sf::Rect<int>(192, 518, 66, 54));
+	m_attackingRight.addFrame(3, sf::Rect<int>(288, 518, 66, 64));
+
+	m_attackingLeft.addFrame(2, sf::Rect<int>(38, 416, 54, 54));
+	m_attackingLeft.addFrame(2, sf::Rect<int>(122, 416, 66, 54));
+	m_attackingLeft.addFrame(2, sf::Rect<int>(218, 422, 66, 54));
+	m_attackingLeft.addFrame(3, sf::Rect<int>(320, 422, 60, 64));
+
+	m_castingRight.addFrame(1, sf::Rect<int>(0, 584, 28, 54));
+	m_castingRight.addFrame(2, sf::Rect<int>(30, 584, 32, 54));
+	m_castingRight.addFrame(2, sf::Rect<int>(64, 584, 30, 54));
+	m_castingRight.addFrame(3, sf::Rect<int>(96, 584, 30, 54));
+
+	m_castingLeft.addFrame(1, sf::Rect<int>(0, 642, 28, 54));
+	m_castingLeft.addFrame(2, sf::Rect<int>(30, 642, 32, 54));
+	m_castingLeft.addFrame(2, sf::Rect<int>(64, 642, 30, 54));
+	m_castingLeft.addFrame(3, sf::Rect<int>(96, 642, 30, 54));
+
+	m_animator.addAnimation("idle_left", m_idleLeft, sf::seconds(1));
+	m_animator.addAnimation("idle_right", m_idleRight, sf::seconds(1));
+	m_animator.addAnimation("walk_right", m_walkingRight, sf::seconds(1));
+	m_animator.addAnimation("walk_left", m_walkingLeft, sf::seconds(1));
+	m_animator.addAnimation("jump_right", m_jumpingRight, sf::seconds(2));
+	m_animator.addAnimation("jump_left", m_jumpingLeft, sf::seconds(2));
+	m_animator.addAnimation("fall_right", m_fallingRight, sf::seconds(1));
+	m_animator.addAnimation("fall_left", m_fallingLeft, sf::seconds(1));
+	m_animator.addAnimation("attack_right", m_attackingRight, sf::seconds(.6f));
+	m_animator.addAnimation("attack_left", m_attackingLeft, sf::seconds(.6f));
+	m_animator.addAnimation("cast_right", m_castingRight, sf::seconds(.7f));
+	m_animator.addAnimation("cast_left", m_castingLeft, sf::seconds(.7f));
+
+	m_animator.playAnimation("idle_right", true);
+}
+
+void Player::changeAnimation() {
+	if (m_castingSpell == false) {
+		if (m_attacking == false) {
+			if (m_inAir == false) {
+				if (isJumping == false) {
+					if (m_velocity.x > 0) {
+						if (m_animator.getPlayingAnimation() != "walk_right") {
+							m_animator.playAnimation("walk_right", true);
+						}
+					}
+					else if (m_velocity.x < 0) {
+						if (m_animator.getPlayingAnimation() != "walk_left") {
+							m_animator.playAnimation("walk_left", true);
+						}
+					}
+					else {
+						if (direction == LEFT) {
+							if (m_animator.getPlayingAnimation() != "idle_left") {
+								m_animator.playAnimation("idle_left", true);
+							}
+						}
+						else {
+							if (m_animator.getPlayingAnimation() != "idle_right") {
+								m_animator.playAnimation("idle_right", true);
+							}
+						}
+					}
+				}
+			}
+			else {
+				if (m_velocity.y > 0.4f) {
+					if (m_velocity.x > 0) {
+						if (m_animator.getPlayingAnimation() != "fall_right") {
+							m_animator.playAnimation("fall_right", true);
+						}
+					}
+					else if (m_velocity.x < 0) {
+						if (m_animator.getPlayingAnimation() != "fall_left") {
+							m_animator.playAnimation("fall_left", true);
+						}
+					}
+				}
+				else if (m_velocity.y < -0.1f) {
+					if (m_velocity.x > 0) {
+						if (m_animator.getPlayingAnimation() != "jump_right") {
+							m_animator.playAnimation("jump_right", true);
+						}
+					}
+					else if (m_velocity.x < 0) {
+						if (m_animator.getPlayingAnimation() != "jump_left") {
+							m_animator.playAnimation("jump_left", true);
+						}
+					}
+					else {
+						if (direction == LEFT) {
+							if (m_animator.getPlayingAnimation() != "jump_left") {
+								m_animator.playAnimation("jump_left", true);
+							}
+						}
+						else {
+							if (m_animator.getPlayingAnimation() != "jump_right") {
+								m_animator.playAnimation("jump_right", true);
+							}
+						}
+					}
+				}
+			}
+		}
+		else {
+			if (direction == LEFT) {
+				if (m_animator.getPlayingAnimation() != "attack_left") {
+					m_animator.playAnimation("attack_left", true);
+				}
+			}
+			else {
+				if (m_animator.getPlayingAnimation() != "attack_right") {
+					m_animator.playAnimation("attack_right", true);
+				}
+			}
+		}
+	}
+	else {
+		if (direction == LEFT) {
+			if (m_animator.getPlayingAnimation() != "cast_left") {
+				m_animator.playAnimation("cast_left", true);
+			}
+		}
+		else {
+			if (m_animator.getPlayingAnimation() != "cast_right") {
+				m_animator.playAnimation("cast_right", true);
+			}
+		}
+	}
 }

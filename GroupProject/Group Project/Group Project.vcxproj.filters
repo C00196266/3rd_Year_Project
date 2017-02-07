@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelExit.cpp" />
-    <ClCompile Include="src\AnimatedSprite.cpp" />
     <ClCompile Include="src\AudioManager.cpp" />
     <ClCompile Include="src\PauseMenu.cpp" />
     <ClCompile Include="src\PickupHealth.cpp" />
@@ -27,7 +26,6 @@
     <ClCompile Include="src\Spike.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\AnimatedSprite.h" />
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionDetection.h" />

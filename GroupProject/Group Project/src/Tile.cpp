@@ -59,8 +59,8 @@ void Tile::checkCollisionWithPlayer(Player &player) {
 				player.setVel(sf::Vector2f(player.getVel().x, 0));
 				player.setCollides(true);
 			}
-			
-			else if (player.getBottom() <= m_pos.y && player.getNextBottom() < m_pos.y && player.getPos().y < m_pos.y) {
+
+			else if (player.getBottom() <= m_pos.y && player.getNextBottom() < m_pos.y -0.01f && player.getPos().y < m_pos.y) {
 				player.setInAir(true);
 			}
 
@@ -72,12 +72,12 @@ void Tile::checkCollisionWithPlayer(Player &player) {
 	}
 
 	if (player.getPos().y < m_pos.y + m_height && player.getBottom() > m_pos.y) {
-		if (player.getPos().x >= m_pos.x + m_width && player.getNextPos().x <= m_pos.x + m_width && player.getRight() > m_pos.x + m_width) {
+		if (player.getPos().x >= m_pos.x + m_width && player.getNextPos().x < m_pos.x + m_width && player.getRight() > m_pos.x + m_width) {
 			player.setNextXPos(m_pos.x + m_width);
 			player.setVel(sf::Vector2f(0, player.getVel().y));
 		}
 
-		if (player.getRight() <= m_pos.x && player.getNextRight() >= m_pos.x && player.getPos().x < m_pos.x) {
+		if (player.getRight() <= m_pos.x && player.getNextRight() > m_pos.x && player.getPos().x < m_pos.x) {
 			player.setNextXPos(m_pos.x - player.getWidth());
 			player.setVel(sf::Vector2f(0, player.getVel().y));
 		}
