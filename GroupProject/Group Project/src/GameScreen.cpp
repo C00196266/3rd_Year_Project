@@ -64,16 +64,47 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 	}
 
 	// removes any enemies that are no longer alive
-	if (gameLevel.getEnemies().empty() != true) {
-		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
+	if (gameLevel.getEnemiesRanged().empty() != true) 
+	{
+		for (int i = 0; i < gameLevel.getEnemiesRanged().size(); i++) 
+		{
+
+			//gameLevel.getEnemiesRanged().at(i)->Targeting(m_player.getPos(), m_player.getHeight());
+
+			if (m_player.getPos().x < gameLevel.getEnemiesRanged().at(i)->getPos().x && m_player.getPos().x > gameLevel.getEnemiesRanged().at(i)->getPos().x - gameLevel.getEnemiesRanged().at(i)->getRange())//Left Side
+			{
+ 				if (m_player.getPos().y < gameLevel.getEnemiesRanged().at(i)->getPos().y + gameLevel.getEnemiesRanged().at(i)->getHeight() && m_player.getPos().y + m_player.getHeight() > gameLevel.getEnemiesRanged().at(i)->getPos().y)
+				{
+					gameLevel.getEnemiesRanged().at(i)->FireProjectile(0);
+				}
+			}
+			else if (m_player.getPos().x > gameLevel.getEnemiesRanged().at(i)->getPos().x && m_player.getPos().x < gameLevel.getEnemiesRanged().at(i)->getPos().x + gameLevel.getEnemiesRanged().at(i)->getRange())//Right Side
+			{
+				if (m_player.getPos().y < gameLevel.getEnemiesRanged().at(i)->getPos().y + gameLevel.getEnemiesRanged().at(i)->getHeight() && m_player.getPos().y + m_player.getHeight() > gameLevel.getEnemiesRanged().at(i)->getPos().y)
+				{
+					gameLevel.getEnemiesRanged().at(i)->FireProjectile(1);
+				}
+			}
+			else//Not in Range
+			{
+				
+			}
+			gameLevel.getEnemiesRanged().at(i)->m_timeSinceFire = gameLevel.getEnemiesRanged().at(i)->m_timeSinceFire + 1;
+			for (int i = 0; i < gameLevel.getEnemiesRanged().at(i)->getProjectiles().size(); i++)
+			{
+				gameLevel.getEnemiesRanged().at(i)->getProjectiles().at(i)->update();
+			}
 			// allows enemy to be hit again by attacks from the player
-			if (gameLevel.getEnemies().at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) {
-				gameLevel.getEnemies().at(i)->setTaggedByAttack(false);
+			if (gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) 
+			{
+				gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(false);
 			}
 
-			if (gameLevel.getEnemies().at(i)->getIsAlive() == false) {
-				gameLevel.getEnemies().erase(gameLevel.getEnemies().begin() + i);
+			if (gameLevel.getEnemiesRanged().at(i)->getIsAlive() == false) 
+			{
+				gameLevel.getEnemiesRanged().erase(gameLevel.getEnemiesRanged().begin() + i);
 			}
+
 		}
 	}
 
@@ -113,16 +144,34 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 	m_player.setCollidesWithTile(false);
 
-	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
+	for (int i = 0; i < gameLevel.getTiles().size(); i++) 
+	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
 		
 		gameLevel.getTiles().at(i)->checkCollisionWithPlayer(m_player);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		for (int e = 0; e < gameLevel.getEnemiesRanged().size(); e++)
+		{
+				for (int j = 0; j < gameLevel.getEnemiesRanged().at(e)->getProjectiles().size(); j++)
+				{
+					if (gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->checkAlive() == true)
+					{
+						if (m_collisionDetector.boundingBoxCollision(gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().x, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().y, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getWidth(),
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
+						{
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->setAlive(false);
+						}
+					}
+				}
+		}
 
-		if (m_player.getProjectiles().empty() != true) {
-			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
+
+		if (m_player.getProjectiles().empty() != true) 
+		{
+			for (int j = 0; j < m_player.getProjectiles().size(); j++) 
+			{
 				// if the bullet collides with the terrain
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
 					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
@@ -171,8 +220,8 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		}
 	}
 
-	if (gameLevel.getEnemies().empty() != true) {
-		for (int i = 0; i < gameLevel.getEnemies().size(); i++) {
+	if (gameLevel.getEnemiesRanged().empty() != true) {
+		for (int i = 0; i < gameLevel.getEnemiesRanged().size(); i++) {
 			// if the player isn't invincible after taking damage
 			if (m_player.getInvincibilityFrames() == 0) {
 				if (m_player.getKnockback() == true) {
@@ -181,9 +230,9 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 				// player collides with enemy
 				if (m_player.getAttacking() == false) {
 					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
-						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
+						gameLevel.getEnemiesRanged().at(i)->getPos().x, gameLevel.getEnemiesRanged().at(i)->getPos().y, gameLevel.getEnemiesRanged().at(i)->getWidth(), gameLevel.getEnemiesRanged().at(i)->getHeight()) == true)
 					{
-						m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+						m_player.setHealth(-gameLevel.getEnemiesRanged().at(i)->damageDealt());
 						m_player.knockback();
 					}
 				}
@@ -191,31 +240,31 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 				else {
 					// checks if the player has collided with an enemy while attacking, and is facing left
 					if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x - 24, m_player.getPos().y, m_player.getWidth() + 18, m_player.getHeight(),
-						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
+						gameLevel.getEnemiesRanged().at(i)->getPos().x, gameLevel.getEnemiesRanged().at(i)->getPos().y, gameLevel.getEnemiesRanged().at(i)->getWidth(), gameLevel.getEnemiesRanged().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.LEFT)
 					{
 						// if the player hits an enemy on the right while facing left
-						if (m_player.getPos().x - 24 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
-							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
+						if (m_player.getPos().x - 24 < gameLevel.getEnemiesRanged().at(i)->getPos().x + gameLevel.getEnemiesRanged().at(i)->getWidth() && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemiesRanged().at(i)->setHealth(-m_player.getDamageDealt());
 
 							// if the enemy has no more health left
-							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
-								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
-								gameLevel.getEnemies().at(i)->setIsAlive(false);
+							if (gameLevel.getEnemiesRanged().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemiesRanged().at(i)->addScore());
+								gameLevel.getEnemiesRanged().at(i)->setIsAlive(false);
 							}
 
 							// if the enemy is alive
-							if (gameLevel.getEnemies().at(i)->getIsAlive() == true) {
-								gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
+							if (gameLevel.getEnemiesRanged().at(i)->getIsAlive() == true) {
+								gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(true);
 							}
 
 							audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
-						else if (m_player.getPos().x - 24 < gameLevel.getEnemies().at(i)->getPos().x + gameLevel.getEnemies().at(i)->getWidth() && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x - 24 < gameLevel.getEnemiesRanged().at(i)->getPos().x + gameLevel.getEnemiesRanged().at(i)->getWidth() && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						else {
-							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+							m_player.setHealth(-gameLevel.getEnemiesRanged().at(i)->damageDealt());
 							m_player.setAttacking(false);
 							m_player.resetAttackDuration();
 							m_player.knockback();
@@ -224,33 +273,33 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 					// checks if the player has collided with an enemy while attacking, and is facing right
 					else if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth() + 24, m_player.getHeight(),
-						gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true
+						gameLevel.getEnemiesRanged().at(i)->getPos().x, gameLevel.getEnemiesRanged().at(i)->getPos().y, gameLevel.getEnemiesRanged().at(i)->getWidth(), gameLevel.getEnemiesRanged().at(i)->getHeight()) == true
 						&& m_player.getDirection() == m_player.RIGHT)
 					{
 						// if the player hits an enemy on the left while facing right
-						if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == false) {
-							gameLevel.getEnemies().at(i)->setHealth(-m_player.getDamageDealt());
-							gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
+						if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemiesRanged().at(i)->getPos().x && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == false) {
+							gameLevel.getEnemiesRanged().at(i)->setHealth(-m_player.getDamageDealt());
+							gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(true);
 
 							// if the enemy has no more health left
-							if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
-								m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
-								gameLevel.getEnemies().at(i)->setIsAlive(false);
+							if (gameLevel.getEnemiesRanged().at(i)->getHealth() <= 0) {
+								m_player.setScore(gameLevel.getEnemiesRanged().at(i)->addScore());
+								gameLevel.getEnemiesRanged().at(i)->setIsAlive(false);
 							}
 
 							// checks if the enemy is alive
-							if (gameLevel.getEnemies().at(i)->getIsAlive() == true) {
-								gameLevel.getEnemies().at(i)->setTaggedByAttack(true);
+							if (gameLevel.getEnemiesRanged().at(i)->getIsAlive() == true) {
+								gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(true);
 							}
 
 							audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
-						else if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemies().at(i)->getPos().x && gameLevel.getEnemies().at(i)->getTaggedByAttack() == true) {
+						else if (m_player.getPos().x + m_player.getWidth() + 24 > gameLevel.getEnemiesRanged().at(i)->getPos().x && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true) {
 							// do nothing
 						}
 						// if the player hits an enemy on the left while facing right
 						else {
-							m_player.setHealth(-gameLevel.getEnemies().at(i)->damageDealt());
+							m_player.setHealth(-gameLevel.getEnemiesRanged().at(i)->damageDealt());
 							m_player.setAttacking(false);
 							m_player.resetAttackDuration();
 							m_player.knockback();
@@ -262,15 +311,15 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 			// player projectile collides with enemy
 			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
-					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getEnemies().at(i)->getPos().x, gameLevel.getEnemies().at(i)->getPos().y, gameLevel.getEnemies().at(i)->getWidth(), gameLevel.getEnemies().at(i)->getHeight()) == true)
+					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getEnemiesRanged().at(i)->getPos().x, gameLevel.getEnemiesRanged().at(i)->getPos().y, gameLevel.getEnemiesRanged().at(i)->getWidth(), gameLevel.getEnemiesRanged().at(i)->getHeight()) == true)
 				{
-					m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
-					gameLevel.getEnemies().at(i)->setIsAlive(false);
-					gameLevel.getEnemies().at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
+					m_player.setScore(gameLevel.getEnemiesRanged().at(i)->addScore());
+					gameLevel.getEnemiesRanged().at(i)->setIsAlive(false);
+					gameLevel.getEnemiesRanged().at(i)->setHealth(-m_player.getProjectiles().at(j)->getDamage());
 
-					if (gameLevel.getEnemies().at(i)->getHealth() <= 0) {
-						m_player.setScore(gameLevel.getEnemies().at(i)->addScore());
-						gameLevel.getEnemies().at(i)->setIsAlive(false);
+					if (gameLevel.getEnemiesRanged().at(i)->getHealth() <= 0) {
+						m_player.setScore(gameLevel.getEnemiesRanged().at(i)->addScore());
+						gameLevel.getEnemiesRanged().at(i)->setIsAlive(false);
 					}
 
 					m_player.getProjectiles().at(j)->setAlive(false); // projectile is no longer alive on collision with enemy

@@ -12,7 +12,7 @@
 #include "PickupScore.h"
 #include "PickupHealth.h"
 #include "PickupMana.h"
-#include "Enemy.h"
+#include "EnemyRanged.h"
 #include "Level.h"
 #include "AudioManager.h"
 

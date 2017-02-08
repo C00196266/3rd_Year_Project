@@ -35,7 +35,7 @@ public:
 
 	void setTaggedByAttack(bool tag);
 
-private:
+protected:
 	sf::Vector2f m_pos;
 
 	float m_width;

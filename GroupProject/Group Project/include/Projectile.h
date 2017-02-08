@@ -28,6 +28,8 @@ public:
 
 	int getDamage();
 
+	void setVelocity(sf::Vector2f newVelocity);
+
 private:
 	sf::Vector2f m_pos;
 
