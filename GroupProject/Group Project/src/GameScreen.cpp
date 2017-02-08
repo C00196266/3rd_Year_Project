@@ -111,7 +111,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		m_player.setVel(sf::Vector2f(0, 0));
 	}
 
-	m_player.setCollides(false);
+	m_player.setCollidesWithTile(false);
 
 	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		}
 	}
 
-	m_player.setCollides(false);
+	m_player.setCollidesWithSpike(false);
 
 	// player collides with score pickup
 	if (gameLevel.getScorePickups().empty() != true) {
@@ -284,6 +284,4 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 			gameLevel.getSpikes().at(i)->checkCollisionWithPlayer(m_player);
 		}
 	}
-
-	m_player.setCollides(false);
 }

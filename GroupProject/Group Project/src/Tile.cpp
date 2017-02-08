@@ -51,13 +51,13 @@ float Tile::getHeight() {
 }
 
 void Tile::checkCollisionWithPlayer(Player &player) {
-	if (player.getCollides() == false) {
+	if (player.getCollidesWithTile() == false) {
 		if (player.getPos().x < m_pos.x + m_width && player.getRight() > m_pos.x) {
 			if (player.getBottom() <= m_pos.y && player.getNextBottom() > m_pos.y && player.getPos().y < m_pos.y) {
-				player.setNextYPos(m_pos.y - player.getHeight());
+				player.setNextYPos((int)m_pos.y - (int)player.getHeight());
 				player.setInAir(false);
 				player.setVel(sf::Vector2f(player.getVel().x, 0));
-				player.setCollides(true);
+				player.setCollidesWithTile(true);
 			}
 
 			else if (player.getBottom() <= m_pos.y && player.getNextBottom() < m_pos.y -0.01f && player.getPos().y < m_pos.y) {

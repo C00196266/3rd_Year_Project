@@ -15,9 +15,9 @@ src\Level.cpp(78): warning C4244: 'argument': conversion from 'int' to 'float', 
 src\Level.cpp(82): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 src\Level.cpp(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  2 of 1605 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 1607 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    34 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
   Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)
