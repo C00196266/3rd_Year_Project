@@ -319,8 +319,10 @@ void Player::setHealth(int healthVal) {
 	if (m_health + healthVal > 100) {
 		m_health = 100;
 	}
-	else if (m_health + healthVal < 0) {
-		m_health = 0;
+	else if (m_health + healthVal <= 0) {
+		//m_health = 0;
+
+		reset();
 	}
 	else {
 		m_health += healthVal;
@@ -628,6 +630,18 @@ void Player::changeAnimation() {
 					else if (m_velocity.x < 0) {
 						if (m_animator.getPlayingAnimation() != "fall_left") {
 							m_animator.playAnimation("fall_left", true);
+						}
+					}
+					else {
+						if (direction == LEFT) {
+							if (m_animator.getPlayingAnimation() != "fall_left") {
+								m_animator.playAnimation("fall_left", true);
+							}
+						}
+						else {
+							if (m_animator.getPlayingAnimation() != "fall_right") {
+								m_animator.playAnimation("fall_right", true);
+							}
 						}
 					}
 				}
