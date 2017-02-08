@@ -88,6 +88,10 @@ void Level::resetLevel()
 	m_healthPickups.clear();
 	m_manaPickups.clear();
 	m_enemiesRanged.clear();
+	for (int i = 0; i < m_enemiesRanged.size(); i++)
+	{
+		m_enemiesRanged.at(i)->getProjectiles().clear();
+	}
 	m_spike.clear();
 	m_levelEnd.reset();
 }
