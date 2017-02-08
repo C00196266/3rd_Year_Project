@@ -621,7 +621,7 @@ void Player::changeAnimation() {
 				}
 			}
 			else {
-				if (m_velocity.y > 0.4f) {
+				if (m_velocity.y > 0.5f) {
 					if (m_velocity.x > 0) {
 						if (m_animator.getPlayingAnimation() != "fall_right") {
 							m_animator.playAnimation("fall_right", true);

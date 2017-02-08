@@ -104,8 +104,11 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 	if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
 		gameLevel.getExit()->getPosition().x, gameLevel.getExit()->getPosition().y, gameLevel.getExit()->getSize().x, gameLevel.getExit()->getSize().y))
 	{
-		m_player.setPos(sf::Vector2f(80, 300));
 		gameLevel.changeLevel(gameLevel.getExit()->getNextLevel());
+  		m_player.setPos(gameLevel.getNewStartPos());
+		m_player.setNextPos(gameLevel.getNewStartPos());
+		m_player.setInitialPos(gameLevel.getNewStartPos());
+		m_player.setVel(sf::Vector2f(0, 0));
 	}
 
 	m_player.setCollides(false);
