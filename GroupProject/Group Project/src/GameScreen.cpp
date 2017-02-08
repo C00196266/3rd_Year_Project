@@ -132,16 +132,34 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 
 	m_player.setCollides(false);
 
-	for (int i = 0; i < gameLevel.getTiles().size(); i++) {
+	for (int i = 0; i < gameLevel.getTiles().size(); i++) 
+	{
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// detects if player is standing on top of solid ground
 		
 		gameLevel.getTiles().at(i)->checkCollisionWithPlayer(m_player);
 		
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		for (int e = 0; e < gameLevel.getEnemiesRanged().size(); e++)
+		{
+				for (int j = 0; j < gameLevel.getEnemiesRanged().at(e)->getProjectiles().size(); j++)
+				{
+					if (gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->checkAlive() == true)
+					{
+						if (m_collisionDetector.boundingBoxCollision(gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().x, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().y, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getWidth(),
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
+						{
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->setAlive(false);
+						}
+					}
+				}
+		}
 
-		if (m_player.getProjectiles().empty() != true) {
-			for (int j = 0; j < m_player.getProjectiles().size(); j++) {
+
+		if (m_player.getProjectiles().empty() != true) 
+		{
+			for (int j = 0; j < m_player.getProjectiles().size(); j++) 
+			{
 				// if the bullet collides with the terrain
 				if (m_collisionDetector.boundingBoxCollision(m_player.getProjectiles().at(j)->getPos().x, m_player.getProjectiles().at(j)->getPos().y, m_player.getProjectiles().at(j)->getWidth(),
 					m_player.getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)

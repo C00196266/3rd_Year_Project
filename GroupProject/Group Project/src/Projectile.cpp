@@ -57,24 +57,37 @@ Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
 	m_fireCost = 10;
 
 	m_damage = 10;
-
+	if (m_direction == LEFT) 
+	{
+		m_velocity.x = -10.0f;
+	}
+	else 
+	{
+		m_velocity.x = 10.0f;
+	}
+	ttl = 100;
 	fire();
 }
 
 void Projectile::update() {
 	if (m_isAlive == true) {
 		m_pos += m_velocity;
+		std::cout << m_velocity.x << std::endl;
 	}
 	if (ttl <= 0) {
 		m_isAlive = false;
 	}
 	ttl--;
-
+	
 	m_sprite.setPosition(m_pos);
 }
 
 void Projectile::draw(sf::RenderWindow &window) {
-	window.draw(m_sprite);
+	if (m_isAlive == true) 
+	{
+		window.draw(m_sprite);
+	}
+	
 }
 
 sf::Vector2f Projectile::getPos() {
@@ -113,5 +126,10 @@ void Projectile::fire() {
 
 int Projectile::getDamage() {
 	return m_damage;
+}
+
+void Projectile::setVelocity(sf::Vector2f newVelocity)
+{
+	m_velocity = newVelocity;
 }
 
