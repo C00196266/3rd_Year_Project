@@ -59,7 +59,32 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 	{
 		for (int i = 0; i < gameLevel.getEnemiesRanged().size(); i++) 
 		{
-			gameLevel.getEnemiesRanged().at(i)->Targeting(m_player.getPos(), m_player.getHeight());
+
+			//gameLevel.getEnemiesRanged().at(i)->Targeting(m_player.getPos(), m_player.getHeight());
+
+			if (m_player.getPos().x < gameLevel.getEnemiesRanged().at(i)->getPos().x && m_player.getPos().x > gameLevel.getEnemiesRanged().at(i)->getPos().x - gameLevel.getEnemiesRanged().at(i)->getRange())//Left Side
+			{
+ 				if (m_player.getPos().y < gameLevel.getEnemiesRanged().at(i)->getPos().y + gameLevel.getEnemiesRanged().at(i)->getHeight() && m_player.getPos().y + m_player.getHeight() > gameLevel.getEnemiesRanged().at(i)->getPos().y)
+				{
+					gameLevel.getEnemiesRanged().at(i)->FireProjectile(0);
+				}
+			}
+			else if (m_player.getPos().x > gameLevel.getEnemiesRanged().at(i)->getPos().x && m_player.getPos().x < gameLevel.getEnemiesRanged().at(i)->getPos().x + gameLevel.getEnemiesRanged().at(i)->getRange())//Right Side
+			{
+				if (m_player.getPos().y < gameLevel.getEnemiesRanged().at(i)->getPos().y + gameLevel.getEnemiesRanged().at(i)->getHeight() && m_player.getPos().y + m_player.getHeight() > gameLevel.getEnemiesRanged().at(i)->getPos().y)
+				{
+					gameLevel.getEnemiesRanged().at(i)->FireProjectile(1);
+				}
+			}
+			else//Not in Range
+			{
+				
+			}
+			gameLevel.getEnemiesRanged().at(i)->m_timeSinceFire = gameLevel.getEnemiesRanged().at(i)->m_timeSinceFire + 1;
+			for (int i = 0; i < gameLevel.getEnemiesRanged().at(i)->getProjectiles().size(); i++)
+			{
+				gameLevel.getEnemiesRanged().at(i)->getProjectiles().at(i)->update();
+			}
 			// allows enemy to be hit again by attacks from the player
 			if (gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true && m_player.getAttacking() == false) 
 			{

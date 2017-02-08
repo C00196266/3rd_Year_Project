@@ -18,38 +18,29 @@ void EnemyRanged::FireProjectile(int direction)
 {
 	if (m_timeSinceFire > FIRERATE)
 	{
-		sf::Vector2f m_centre = sf::Vector2f(getPos().x - (getWidth() / 2), getPos().y - (getHeight() / 2));
-		m_projectiles.push_back(std::shared_ptr<Projectile>(new Projectile(direction, m_centre)));
+		sf::Vector2f m_centre = sf::Vector2f(getPos().x + (getWidth() / 2), getPos().y + (getHeight() / 2));
+ 		m_projectiles.push_back(std::shared_ptr<Projectile>(new Projectile(direction, m_centre)));
 		m_timeSinceFire = 0;
 	}
 }
 
 void EnemyRanged::Targeting(sf::Vector2f playerPos,float playerHeight)
 {
-	if (playerPos.x < getPos().x && playerPos.x > getPos().x - m_range)//Left Side
-	{
-		if (playerPos.y > getPos().y + getHeight() && playerPos.y + playerHeight < getPos().y)
-		{
-			FireProjectile(LEFT);
-		}
-	}
-	else if(playerPos.x > getPos().x && playerPos.x < getPos().x+m_range)//Right Side
-	{
-		if (playerPos.y > getPos().y + getHeight() && playerPos.y + playerHeight < getPos().y)
-		{
-			FireProjectile(RIGHT);
-		}
-	}
-	else//Not in Range
-	{
 
-	}
-	m_timeSinceFire++;
+
 }
 
 void EnemyRanged::Update(sf::Vector2f playerPos, float playerHeight)
 {
 	Targeting(playerPos, playerHeight);
+}
+
+void EnemyRanged::draw(sf::RenderWindow &window) {
+	window.draw(m_sprite);
+	for (int i = 0; i < m_projectiles.size(); i++)
+	{
+		m_projectiles.at(i)->draw(window);
+	}
 }
 
 EnemyRanged::~EnemyRanged()
