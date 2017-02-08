@@ -50,6 +50,8 @@ private:
 	sf::Texture m_texture;
 	sf::Sprite m_backgroundSprite;
 
+	sf::Clock clock;
+
 };
 
 #endif

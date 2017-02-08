@@ -9,7 +9,6 @@
 #include "PlayerInput.h"
 #include "Projectile.h"
 #include "AudioManager.h"
-#include "Thor\Animations.hpp"
 
 ////////////////////////////////////////////////////////////
 ///	\brief Class Creates player.
@@ -39,6 +38,8 @@ public:
 	void setNextPos(sf::Vector2f newPos);
 
 	void setNextPos(float x, float y);
+
+	void Player::setNextPos(int x, int y);
 
 	void setXPos(float x);
 
@@ -100,9 +101,11 @@ public:
 
 	void setKnockback(bool knockback);
 
-	bool getCollides();
+	bool getCollidesWithTile();
+	bool getCollidesWithSpike();
 
-	void setCollides(bool collision);
+	void setCollidesWithTile(bool collision);
+	void setCollidesWithSpike(bool collision);
 
 	void setInitialPos(sf::Vector2f newInitial);
 
@@ -189,7 +192,8 @@ private:
 	sf::RectangleShape m_manaBar;
 	sf::RectangleShape m_manaBarOutline;
 
-	bool m_collides;	
+	bool m_collidesWithTile;	
+	bool m_collidesWithSpike;
 
 	bool m_castingSpell;
 	int m_castingDuration;

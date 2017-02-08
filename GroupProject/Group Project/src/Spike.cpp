@@ -51,12 +51,12 @@ float Spike::getHeight() {
 }
 
 void Spike::checkCollisionWithPlayer(Player &player) {
-	if (player.getCollides() == false) {
+	if (player.getCollidesWithSpike() == false) {
 		if (player.getPos().x < m_pos.x + m_width && player.getRight() > m_pos.x) {
 			if (player.getBottom() <= m_pos.y && player.getNextBottom() > m_pos.y && player.getPos().y < m_pos.y) {
 				player.setInAir(false);
 				player.setVel(sf::Vector2f(0, 0));
-				player.setCollides(true);
+				player.setCollidesWithSpike(true);
 				player.reset();
 			}
 

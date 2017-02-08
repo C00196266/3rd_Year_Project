@@ -25,7 +25,8 @@ void Player::init() {
 	m_initialPos = m_pos;
 	m_nextPos = m_pos;
 
-	m_collides = false;
+	m_collidesWithTile = false;
+	m_collidesWithSpike = false;
 
 	m_spriteSheet.setPosition(m_pos);
 	m_width = 28;
@@ -309,6 +310,10 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		m_attacking = true;
 		m_attackDuration = 18;
 	}
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
+		cout << gravity * timeSinceLastUpdate.asSeconds() << endl;
+	}
 }
 
 int Player::getHealth() {
@@ -319,8 +324,10 @@ void Player::setHealth(int healthVal) {
 	if (m_health + healthVal > 100) {
 		m_health = 100;
 	}
-	else if (m_health + healthVal < 0) {
-		m_health = 0;
+	else if (m_health + healthVal <= 0) {
+		//m_health = 0;
+
+		reset();
 	}
 	else {
 		m_health += healthVal;
@@ -459,6 +466,10 @@ void Player::setNextPos(float x, float y) {
 	m_nextPos = sf::Vector2f(x, y);
 }
 
+void Player::setNextPos(int x, int y) {
+	m_nextPos = sf::Vector2f(x, y);
+}
+
 void Player::setNextXPos(float x) {
 	m_nextPos.x = x;
 }
@@ -487,12 +498,20 @@ float Player::getNextRight() {
 	return m_nextPos.x + m_width;
 }
 
-bool Player::getCollides() {
-	return m_collides;
+bool Player::getCollidesWithTile() {
+	return m_collidesWithTile;
 }
 
-void Player::setCollides(bool collision) {
-	m_collides = collision;
+void Player::setCollidesWithTile(bool collision) {
+	m_collidesWithTile = collision;
+}
+
+bool Player::getCollidesWithSpike() {
+	return m_collidesWithSpike;
+}
+
+void Player::setCollidesWithSpike(bool collision) {
+	m_collidesWithSpike = collision;
 }
 
 void Player::reset() {
@@ -619,7 +638,7 @@ void Player::changeAnimation() {
 				}
 			}
 			else {
-				if (m_velocity.y > 0.4f) {
+				if (m_velocity.y > 0.5f) {
 					if (m_velocity.x > 0) {
 						if (m_animator.getPlayingAnimation() != "fall_right") {
 							m_animator.playAnimation("fall_right", true);
@@ -628,6 +647,18 @@ void Player::changeAnimation() {
 					else if (m_velocity.x < 0) {
 						if (m_animator.getPlayingAnimation() != "fall_left") {
 							m_animator.playAnimation("fall_left", true);
+						}
+					}
+					else {
+						if (direction == LEFT) {
+							if (m_animator.getPlayingAnimation() != "fall_left") {
+								m_animator.playAnimation("fall_left", true);
+							}
+						}
+						else {
+							if (m_animator.getPlayingAnimation() != "fall_right") {
+								m_animator.playAnimation("fall_right", true);
+							}
 						}
 					}
 				}

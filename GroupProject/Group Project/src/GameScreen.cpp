@@ -33,6 +33,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 			if (gameLevel.getScorePickups().at(i)->getIsAlive() == false) {
 				gameLevel.getScorePickups().erase(gameLevel.getScorePickups().begin() + i);
 			}
+			else {
+				gameLevel.getScorePickups().at(i)->update(clock.restart());
+			}
 		}
 	}
 
@@ -42,6 +45,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 			if (gameLevel.getHealthPickups().at(i)->getIsAlive() == false) {
 				gameLevel.getHealthPickups().erase(gameLevel.getHealthPickups().begin() + i);
 			}
+			else {
+				gameLevel.getHealthPickups().at(i)->update(clock.restart());
+			}
 		}
 	}
 
@@ -50,6 +56,9 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 		for (int i = 0; i < gameLevel.getManaPickups().size(); i++) {
 			if (gameLevel.getManaPickups().at(i)->getIsAlive() == false) {
 				gameLevel.getManaPickups().erase(gameLevel.getManaPickups().begin() + i);
+			}
+			else {
+				gameLevel.getManaPickups().at(i)->update(clock.restart());
 			}
 		}
 	}
@@ -126,11 +135,14 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 	if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
 		gameLevel.getExit()->getPosition().x, gameLevel.getExit()->getPosition().y, gameLevel.getExit()->getSize().x, gameLevel.getExit()->getSize().y))
 	{
-		m_player.setPos(sf::Vector2f(80, 300));
 		gameLevel.changeLevel(gameLevel.getExit()->getNextLevel());
+  		m_player.setPos(gameLevel.getNewStartPos());
+		m_player.setNextPos(gameLevel.getNewStartPos());
+		m_player.setInitialPos(gameLevel.getNewStartPos());
+		m_player.setVel(sf::Vector2f(0, 0));
 	}
 
-	m_player.setCollides(false);
+	m_player.setCollidesWithTile(false);
 
 	for (int i = 0; i < gameLevel.getTiles().size(); i++) 
 	{
@@ -170,7 +182,7 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 		}
 	}
 
-	m_player.setCollides(false);
+	m_player.setCollidesWithSpike(false);
 
 	// player collides with score pickup
 	if (gameLevel.getScorePickups().empty() != true) {
@@ -321,6 +333,4 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 			gameLevel.getSpikes().at(i)->checkCollisionWithPlayer(m_player);
 		}
 	}
-
-	m_player.setCollides(false);
 }
