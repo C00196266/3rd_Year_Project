@@ -25,6 +25,8 @@ Enemy::Enemy() {
 	m_health = 20;
 
 	m_taggedByAttack = false;
+
+	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 }
 
 Enemy::Enemy(sf::Vector2f setPos) {
@@ -52,6 +54,8 @@ Enemy::Enemy(sf::Vector2f setPos) {
 	m_health = 20;
 
 	m_taggedByAttack = false;
+
+	m_centre = sf::Vector2f(m_pos.x + (m_width / 2), m_pos.y + (m_height / 2));
 }
 
 void Enemy::draw(sf::RenderWindow &window) {

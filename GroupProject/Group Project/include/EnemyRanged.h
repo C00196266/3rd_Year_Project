@@ -8,19 +8,25 @@ public:
 	EnemyRanged();
 	EnemyRanged(sf::Vector2f newPos);
 	~EnemyRanged();
-	void FireProjectile(int direction);
-	void Targeting(sf::Vector2f playerPos, float playerHeight);
-	float getRange();
-	void Update(sf::Vector2f playerPos, float playerHeight);
-	void setRange(float newRange);
-	float m_timeSinceFire;
+
+	void update(Player &player);
+
+	//float getRange();
+
+	//void setRange(float newRange);
+
+	//void FireProjectile(int direction);
+	//void Targeting(sf::Vector2f playerPos, float playerHeight);
+
 	void draw(sf::RenderWindow &window);
 	vector<shared_ptr<Projectile>> getProjectiles();
 private:
 	float m_range;
-	const float FIRERATE = 40.0f;
+	float m_timeBetweenShots;
+	bool m_allowFire;
+	sf::Vector2f m_fireVel;
 	vector<shared_ptr<Projectile>> m_projectiles;
-	const int LEFT = 0;
-	const int RIGHT = 1;
+	//const int LEFT = 0;
+	//const int RIGHT = 1;
 };
 

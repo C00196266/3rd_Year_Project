@@ -2,6 +2,7 @@
 #define ENEMY_H
 
 #include "stdafx.h"
+#include "Player.h"
 
 class Enemy {
 public:
@@ -10,8 +11,6 @@ public:
 	Enemy(sf::Vector2f newPos);
 
 	void draw(sf::RenderWindow &window);
-
-	//void update();
 
 	sf::Vector2f getPos();
 
@@ -41,6 +40,8 @@ protected:
 	float m_width;
 
 	float m_height;
+
+	sf::Vector2f m_centre;
 
 	bool m_isAlive;
 

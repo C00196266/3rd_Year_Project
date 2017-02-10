@@ -30,7 +30,7 @@ Projectile::Projectile() {
 	fire();
 }
 
-Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
+Projectile::Projectile(int direction, sf::Vector2f centre) {
 	if (!m_image.loadFromFile("assets/projectile.png")) {
 		// give error
 	}
@@ -43,7 +43,7 @@ Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
 	m_width = m_texture.getSize().x;
 	m_height = m_texture.getSize().y;
 
-	m_center = playerCentre;
+	m_center = centre;
 	m_pos = sf::Vector2f(m_center.x - (m_width / 2), m_center.y - (m_height / 2));
 
 	m_velocity = sf::Vector2f(0.0f, 0.0f);
@@ -67,6 +67,35 @@ Projectile::Projectile(int direction, sf::Vector2f playerCentre) {
 	}
 	ttl = 100;
 	fire();
+}
+
+Projectile::Projectile(sf::Vector2f velocity, sf::Vector2f centre) {
+	if (!m_image.loadFromFile("assets/projectile.png")) {
+		// give error
+	}
+
+	if (m_texture.loadFromImage(m_image)) {
+		// give error
+	}
+	m_sprite.setTexture(m_texture);
+
+	m_width = m_texture.getSize().x;
+	m_height = m_texture.getSize().y;
+
+	m_center = centre;
+	m_pos = sf::Vector2f(m_center.x - (m_width / 2), m_center.y - (m_height / 2));
+
+	m_velocity = velocity;
+
+	m_isAlive = true;
+
+	m_sprite.setPosition(m_pos);
+
+	m_fireCost = 10;
+
+	m_damage = 10;
+
+	ttl = 100;
 }
 
 void Projectile::update() {

@@ -6,7 +6,8 @@
 class Projectile {
 public:
 	Projectile();
-	Projectile(int direction, sf::Vector2f playerCentre);
+	Projectile(int direction, sf::Vector2f centre);
+	Projectile(sf::Vector2f velocity, sf::Vector2f centre);
 
 	void draw(sf::RenderWindow &window);
 

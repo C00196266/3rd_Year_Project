@@ -1,2 +1,10 @@
-﻿  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
+﻿  EnemyRanged.cpp
+src\EnemyRanged.cpp(77): warning C4018: '<': signed/unsigned mismatch
+src\EnemyRanged.cpp(90): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  2 of 1614 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
   Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)
