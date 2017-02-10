@@ -60,10 +60,6 @@ void Spike::checkCollisionWithPlayer(Player &player) {
 				player.reset();
 			}
 
-			else if (player.getBottom() <= m_pos.y && player.getNextBottom() < m_pos.y && player.getPos().y < m_pos.y) {
-				player.setInAir(true);
-			}
-
 			if (player.getPos().y >= m_pos.y + m_height && player.getNextPos().y < m_pos.y + m_height && player.getPos().y > m_pos.y + m_height) {
 				player.setNextYPos(m_pos.y + m_height);
 				player.setVel(sf::Vector2f(player.getVel().x, 0));
