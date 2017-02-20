@@ -67,7 +67,7 @@ void Level::createMap()
 			}
 			if (currentLevel[maxCol*(row)+column] == 5)
 			{
-				m_enemiesRanged.push_back(shared_ptr<EnemyRanged>(new EnemyRanged(sf::Vector2f(column*tileSize, row*tileSize))));
+				m_enemiesRanged.push_back(shared_ptr<EnemyRanged>(new EnemyRanged(sf::Vector2f((column*tileSize) - 8, (row*tileSize) - 8))));
 			}
 			if (currentLevel[maxCol*(row)+column] == 6)
 			{

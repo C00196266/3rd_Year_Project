@@ -20,13 +20,35 @@ public:
 
 	void draw(sf::RenderWindow &window);
 	vector<shared_ptr<Projectile>> getProjectiles();
+
+	void setupAnimations();
+
+	void changeAnimation();
+
 private:
+	sf::Clock clock;
+	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f); // updates 60 times a second
+	sf::Time timeSinceLastUpdate; // time between updates
+
 	float m_range;
 	float m_timeBetweenShots;
+	float m_castingTime;
 	bool m_allowFire;
 	sf::Vector2f m_fireVel;
 	vector<shared_ptr<Projectile>> m_projectiles;
-	//const int LEFT = 0;
-	//const int RIGHT = 1;
+
+	thor::Animator<sf::Sprite, std::string> m_animator;
+
+	thor::FrameAnimation m_idleLeft;
+	thor::FrameAnimation m_idleRight;
+	thor::FrameAnimation m_castingLeft;
+	thor::FrameAnimation m_castingRight;
+
+	const int LEFT = 0;
+	const int RIGHT = 1;
+
+	bool m_casting;
+
+	int m_direction;
 };
 
