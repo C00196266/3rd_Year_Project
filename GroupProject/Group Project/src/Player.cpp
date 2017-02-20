@@ -185,6 +185,7 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 
 		m_timeSinceFire = m_timeSinceFire + timeSinceLastUpdate.asSeconds();
 		timeSinceLastUpdate = sf::Time::Zero;
+
 		m_spriteSheet.setPosition(m_pos);
 
 		if (m_mana < 100) {
@@ -230,7 +231,6 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	if (m_input.moveRight && m_velocity.x < m_maxSpeed) {
 		if (isJumping == false) {
 			m_velocity.x += 40.0f * timeSinceLastUpdate.asSeconds();//12
-			//changeAnimation(AnimationStates::WALKING);
 		}
 		else {
 			m_velocity.x += 12.0f * timeSinceLastUpdate.asSeconds();
@@ -241,11 +241,9 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	else if (m_input.moveLeft && m_velocity.x > -m_maxSpeed) {
 		if (isJumping == false) {
 			m_velocity.x -= 40.0f * timeSinceLastUpdate.asSeconds();//13
-			//changeAnimation(AnimationStates::JUMPING);
 		}
 		else {
 			m_velocity.x -= 12.0f * timeSinceLastUpdate.asSeconds();
-			//changeAnimation(AnimationStates::WALKING);
 		}
 		direction = LEFT;
 	}
@@ -574,13 +572,13 @@ void Player::setupAnimations() {
 
 	m_attackingRight.addFrame(2, sf::Rect<int>(0, 512, 54, 54));
 	m_attackingRight.addFrame(2, sf::Rect<int>(96, 512, 66, 54));
-	m_attackingRight.addFrame(2, sf::Rect<int>(192, 518, 66, 54));
-	m_attackingRight.addFrame(3, sf::Rect<int>(288, 518, 66, 64));
+	m_attackingRight.addFrame(2, sf::Rect<int>(192, 512, 66, 54));
+	m_attackingRight.addFrame(3, sf::Rect<int>(288, 512, 66, 64));
 
-	m_attackingLeft.addFrame(2, sf::Rect<int>(38, 416, 54, 54));
+	m_attackingLeft.addFrame(2, sf::Rect<int>(26, 416, 66, 54));
 	m_attackingLeft.addFrame(2, sf::Rect<int>(122, 416, 66, 54));
-	m_attackingLeft.addFrame(2, sf::Rect<int>(218, 422, 66, 54));
-	m_attackingLeft.addFrame(3, sf::Rect<int>(320, 422, 60, 64));
+	m_attackingLeft.addFrame(2, sf::Rect<int>(218, 416, 66, 54));
+	m_attackingLeft.addFrame(3, sf::Rect<int>(314, 416, 66, 64));
 
 	m_castingRight.addFrame(1, sf::Rect<int>(0, 584, 28, 54));
 	m_castingRight.addFrame(2, sf::Rect<int>(30, 584, 32, 54));
