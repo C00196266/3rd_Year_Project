@@ -17,7 +17,7 @@ EnemyRanged::EnemyRanged(sf::Vector2f newPos) : Enemy(newPos)
 
 	m_sprite.setTexture(m_texture);
 
-	m_range = 200;
+	m_range = 250;
 	m_direction = LEFT;
 	m_pos.x -= 20;
 	m_sprite.setPosition(m_pos);
@@ -61,6 +61,7 @@ void EnemyRanged::update(Player &player)
 		m_animator.update(sf::seconds(timeSinceLastUpdate.asSeconds()));
 		m_animator.animate(m_sprite);
 
+		// range is only horizontal - need to implement for vertical
 		if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range) {
 			if (m_direction != LEFT) {
 				m_direction = LEFT;

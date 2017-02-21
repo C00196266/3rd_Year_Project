@@ -1,8 +1,9 @@
 #include "GameScreen.h"
 
 GameScreen::GameScreen() {
-	m_player.setPos(sf::Vector2f(80, 300));
-	//m_player.setInitialPos(m_player.getPos());
+	m_player.setPos(gameLevel.getNewStartPos());
+	m_player.setNextPos(gameLevel.getNewStartPos());
+	m_player.setInitialPos(gameLevel.getNewStartPos());
 
 	if (!m_image.loadFromFile("assets/Background.png")) {
 
