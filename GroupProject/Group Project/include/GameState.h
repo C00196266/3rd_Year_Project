@@ -6,5 +6,6 @@ enum class GameStates
 	Exit,
 	Game,
 	PauseMenu,
+	Transition,
 	EndGameScreen
 };

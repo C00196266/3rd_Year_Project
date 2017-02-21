@@ -31,11 +31,17 @@ public:
 
 	void draw(sf::RenderWindow &window);
 
-	void detectCollisions(shared_ptr<AudioManager> audioManager);
+	void detectCollisions(GameStates &currentGameState, shared_ptr<AudioManager> audioManager);
 
 	void changeGameState(GameStates &currentGameState, sf::View &view, sf::RenderWindow &window);
 
 	void resumeGame();
+
+	Player getPlayer();
+
+	int getLevel();
+
+	void resetLevel();
 
 private:
 	Player m_player;
@@ -51,7 +57,6 @@ private:
 	sf::Sprite m_backgroundSprite;
 
 	sf::Clock clock;
-
 };
 
 #endif

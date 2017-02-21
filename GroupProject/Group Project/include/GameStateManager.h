@@ -7,6 +7,8 @@
 #include "GameScreen.h"
 #include "PauseMenu.h"
 #include "AudioManager.h"
+#include "Transition.h"
+#include "EndScreen.h"
 #include <iostream>
 
 class GameStateManager
@@ -18,6 +20,9 @@ private:
 	GameStates currentState;
 	GameScreen m_gameScreen;
 	PauseMenu m_pauseMenu;
+	Transition m_transition;
+	EndScreen m_endScreen;
+
 	GameStates previousState;
 	shared_ptr<AudioManager> m_audioManager;
 public:

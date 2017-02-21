@@ -73,6 +73,10 @@ public:
 
 	void setScore(int scoreVal);
 
+	int getScore();
+
+	int getFinalScore();
+
 	int getMana();
 
 	bool getInAir();
@@ -120,10 +124,13 @@ public:
 
 	void changeAnimation();
 
+	void resetGame();
+
 private:
 	PlayerInput m_input;
 
 	int m_score;
+	int m_finalScore;
 
 	int m_health;
 	float m_mana;

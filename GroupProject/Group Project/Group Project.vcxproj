@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EndScreen.cpp" />
     <ClCompile Include="src\EnemyRanged.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\LevelExit.cpp" />
@@ -43,11 +44,13 @@
     <ClCompile Include="src\Spike.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\Tile.cpp" />
+    <ClCompile Include="src\Transition.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
     <ClInclude Include="include\Button.h" />
     <ClInclude Include="include\CollisionDetection.h" />
+    <ClInclude Include="include\EndScreen.h" />
     <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\EnemyRanged.h" />
     <ClInclude Include="include\GameEntryPoint.h" />
@@ -70,6 +73,7 @@
     <ClInclude Include="include\Spike.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\Tile.h" />
+    <ClInclude Include="include\Transition.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C419803E-260E-4853-AFD7-9BF843952808}</ProjectGuid>

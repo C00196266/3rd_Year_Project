@@ -34,7 +34,7 @@ void MainMenu::changeGameState(GameStates &currentGameState, shared_ptr<AudioMan
 		if (selectedIndex == 0)
 		{
 			//Change Game State to Play Game
-			currentGameState = GameStates::Game;
+			currentGameState = GameStates::Transition;
 			keyPressTimer = 0;
 			audioManager->playMusic(AudioManager::CurrentMusic::LEVEL);
 		}

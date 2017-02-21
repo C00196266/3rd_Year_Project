@@ -25,6 +25,8 @@
     <ClCompile Include="src\Tile.cpp" />
     <ClCompile Include="src\Spike.cpp" />
     <ClCompile Include="src\EnemyRanged.cpp" />
+    <ClCompile Include="src\Transition.cpp" />
+    <ClCompile Include="src\EndScreen.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\AudioManager.h" />
@@ -52,5 +54,7 @@
     <ClInclude Include="include\Tile.h" />
     <ClInclude Include="include\Spike.h" />
     <ClInclude Include="include\EnemyRanged.h" />
+    <ClInclude Include="include\Transition.h" />
+    <ClInclude Include="include\EndScreen.h" />
   </ItemGroup>
 </Project>

@@ -12,13 +12,6 @@ public:
 
 	void update(Player &player);
 
-	//float getRange();
-
-	//void setRange(float newRange);
-
-	//void FireProjectile(int direction);
-	//void Targeting(sf::Vector2f playerPos, float playerHeight);
-
 	void draw(sf::RenderWindow &window);
 	vector<shared_ptr<Projectile>> getProjectiles();
 

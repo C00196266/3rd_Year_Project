@@ -25,6 +25,8 @@ public:
 	shared_ptr<LevelExit> getExit();
 	sf::Vector2f getNewStartPos();
 	float getKillPlane();
+	int getLevel();
+	void resetLevel();
 
 private:
 	int maxCol;
@@ -46,5 +48,5 @@ private:
 	static const int level3[16][55];
 	sf::Texture grassTexture;
 	int *currentLevel;//pointer to current level array
-	void resetLevel();
+	int nextLevel;
 };

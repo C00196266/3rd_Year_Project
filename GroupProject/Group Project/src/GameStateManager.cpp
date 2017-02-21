@@ -44,9 +44,21 @@ bool GameStateManager::gameLoop(sf::RenderWindow &window,sf::View &view)
 			m_optionsMenu.setButtonStrings(previousState);
 		}
 	}
+	else if (currentState == GameStates::Transition) {
+		m_transition.changeText(m_gameScreen.getLevel(), m_gameScreen.getPlayer().getScore());
+		view.reset(sf::FloatRect(view.getViewport().left, view.getViewport().top, 1280, 720));
+		window.setView(view);
+		m_transition.update(currentState);
+		m_transition.draw(window);
+	}
+
 	else if (currentState == GameStates::EndGameScreen)
 	{
-		//std::cout << "End Game Screen Running" << std::endl;
+		m_endScreen.changeScore(m_gameScreen.getPlayer().getFinalScore());
+		view.reset(sf::FloatRect(view.getViewport().left, view.getViewport().top, 1280, 720));
+		window.setView(view);
+		m_endScreen.update(currentState);
+		m_endScreen.draw(window);
 	}
 	else
 	{

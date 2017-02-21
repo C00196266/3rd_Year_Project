@@ -69,29 +69,6 @@ EnemyRanged::EnemyRanged(sf::Vector2f newPos,bool hasDirectionalFire) : Enemy(ne
 	setupAnimations();
 }
 
-//void EnemyRanged::FireProjectile(int direction)
-//{
-//	if (m_timeSinceFire > FIRERATE)
-//	{
-//		sf::Vector2f m_centre = sf::Vector2f(getPos().x + (getWidth() / 2), getPos().y + (getHeight() / 2));
-// 		m_projectiles.push_back(std::shared_ptr<Projectile>(new Projectile(sf::Vector2f(-2, 0), m_centre)));
-//		//if (direction == 0)
-//		//{
-//		//	m_projectiles.at(m_projectiles.size() - 1)->setVelocity(sf::Vector2f(-2, 0));
-//		//}
-//		//else
-//		//{
-//		//	m_projectiles.at(m_projectiles.size() - 1)->setVelocity(sf::Vector2f(2, 0));
-//		//}
-//		m_timeSinceFire = 0;
-//	}
-//}
-
-//void EnemyRanged::Targeting(sf::Vector2f playerPos,float playerHeight)
-//{
-//
-//}
-
 void EnemyRanged::update(Player &player)
 {
 	timeSinceLastUpdate += clock.restart();
@@ -101,7 +78,6 @@ void EnemyRanged::update(Player &player)
 		m_animator.animate(m_sprite);
 		if (m_directionalFire == false)
 		{
-			// range is only horizontal - need to implement for vertical
 			if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range) {
 				if (m_direction != LEFT) {
 					m_direction = LEFT;
@@ -149,37 +125,35 @@ void EnemyRanged::update(Player &player)
 			if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range)
 			{
 
-				m_direction = LEFT;
+				if (m_direction != LEFT)
+				{
+					m_direction = LEFT;
+					m_pos.x -= 20;
+					m_sprite.setPosition(m_pos);
+				}
+
 				sf::Vector2f dist = player.getPos() - m_pos;
 				float magnitute = sqrtf((dist.x*dist.x) + (dist.y*dist.y));
 				dist = dist / magnitute;
 				m_allowFire = true;
 				m_fireVel.x = dist.x * 3;
 				m_fireVel.y = dist.y * 3;
-				std::cout << dist.x << dist.y << std::endl;
-				if (m_direction != LEFT)
-				{
-					m_pos.x -= 20;
-					m_sprite.setPosition(m_pos);
-
-				}
 			}
 			else if (player.getPos().x >= m_centre.x && player.getPos().x < m_centre.x + m_range)
 			{
+				if (m_direction != RIGHT)
+				{
+					m_direction = RIGHT;
+					m_pos.x += 20;
+					m_sprite.setPosition(m_pos);
+				}
 
-				m_direction = RIGHT;
 				sf::Vector2f dist = player.getPos() - m_pos;
 				float magnitute = sqrtf((dist.x*dist.x) + (dist.y*dist.y));
 				dist = dist / magnitute;
 				m_allowFire = true;
 				m_fireVel.x = dist.x * 3;
 				m_fireVel.y = dist.y * 3;
-				std::cout << dist.x << dist.y << std::endl;
-				if (m_direction != RIGHT)
-				{
-					m_pos.x += 20;
-					m_sprite.setPosition(m_pos);
-				}
 			}
 			else
 			{

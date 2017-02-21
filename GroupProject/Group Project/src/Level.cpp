@@ -8,6 +8,7 @@ Level::Level()
 	}
 
 	numLevel = std::shared_ptr<int>(new int(1));
+	nextLevel = 2;
 	changeLevel(*numLevel);
 }
 
@@ -67,7 +68,7 @@ void Level::createMap()
 			}
 			if (currentLevel[maxCol*(row)+column] == 6)
 			{
-				m_levelEnd = (shared_ptr<LevelExit>(new LevelExit(sf::Vector2f(column*tileSize, row*tileSize), 3)));
+				m_levelEnd = (shared_ptr<LevelExit>(new LevelExit(sf::Vector2f(column*tileSize, row*tileSize), nextLevel)));
 			}
 			if (currentLevel[maxCol*(row)+column] == 7)
 			{
@@ -112,7 +113,8 @@ void Level::changeLevel(int newLevelNum)
 	if (newLevelNum == 3)
 	{
 		resetLevel();
-		*numLevel = 0;
+		*numLevel = 3;
+		nextLevel = 1;
 		maxRow = 16;
 		maxCol = 55;
 		currentLevel = (int*)level3;
@@ -122,7 +124,8 @@ void Level::changeLevel(int newLevelNum)
 	if (newLevelNum == 2)
 	{
 		resetLevel();
-		*numLevel = 0;
+		*numLevel = 2;
+		nextLevel = 3;
 		maxRow = 16;
 		maxCol = 55;
 		currentLevel = (int*)level2;
@@ -133,6 +136,7 @@ void Level::changeLevel(int newLevelNum)
 	{
 		resetLevel();
 		*numLevel = 1;
+		nextLevel = 2;
 		maxRow = 16;
 		maxCol = 76;
 		currentLevel = (int*)level1;
@@ -165,7 +169,7 @@ const int Level::level1[16][76]
 const int Level::level2[16][55]
 {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-	{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+	{ 0, 0, 0, 0, 4, 2, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 9, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0,10, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 7, 7, 7, 0, 0, 0, 7, 0, 0, 0, 1, 1, 1, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 0, 0, 1, 1, 7, 7, 3, 3, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 7, 7, 7, 3, 3, 3, 7, 3, 3, 3, 7, 7, 7, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
 	{ 1, 1, 7, 7, 7, 7, 7, 7, 7, 3, 3, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -242,4 +246,8 @@ sf::Vector2f Level::getNewStartPos() {
 
 float Level::getKillPlane() {
 	return killPlane;
+}
+
+int Level::getLevel() {
+	return *numLevel;
 }

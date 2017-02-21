@@ -319,9 +319,9 @@ void Player::setHealth(int healthVal) {
 		m_health = 100;
 	}
 	else if (m_health + healthVal <= 0) {
-		//m_health = 0;
+		m_health = 0;
 
-		reset();
+		//reset();
 	}
 	else {
 		m_health += healthVal;
@@ -358,6 +358,14 @@ void Player::setMana(int manaVal) {
 void Player::setScore(int scoreVal) {
 	m_score += scoreVal;
 	m_textScore.setString("Score: " + std::to_string(m_score));
+}
+
+int Player::getScore() {
+	return m_score;
+}
+
+int Player::getFinalScore() {
+	return m_finalScore;
 }
 
 sf::Vector2f Player::getPos() {
@@ -524,7 +532,7 @@ void Player::reset() {
 
 	setHealth(100);
 	setMana(100);
-	//score = 0;
+	
 
 	m_spriteSheet.setPosition(m_pos);
 }
@@ -707,4 +715,10 @@ void Player::changeAnimation() {
 			}
 		}
 	}
+}
+
+void Player::resetGame() {
+	reset();
+	m_finalScore = m_score;
+	m_score = 0;
 }
