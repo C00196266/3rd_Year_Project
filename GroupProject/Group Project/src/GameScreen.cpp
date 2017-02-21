@@ -255,7 +255,7 @@ void GameScreen::detectCollisions(GameStates &currentGameState, shared_ptr<Audio
 								gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(true);
 							}
 
-							audioManager->playSound(AudioManager::SoundType::PUNCH);
+							//audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
 						else if (m_player.getPos().x - 26 < gameLevel.getEnemiesRanged().at(i)->getPos().x + gameLevel.getEnemiesRanged().at(i)->getWidth() && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true) {
 							// do nothing
@@ -296,7 +296,7 @@ void GameScreen::detectCollisions(GameStates &currentGameState, shared_ptr<Audio
 								gameLevel.getEnemiesRanged().at(i)->setTaggedByAttack(true);
 							}
 
-							audioManager->playSound(AudioManager::SoundType::PUNCH);
+							//audioManager->playSound(AudioManager::SoundType::PUNCH);
 						}
 						else if (m_player.getPos().x + m_player.getWidth() + 26 > gameLevel.getEnemiesRanged().at(i)->getPos().x && gameLevel.getEnemiesRanged().at(i)->getTaggedByAttack() == true) {
 							// do nothing

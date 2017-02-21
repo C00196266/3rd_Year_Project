@@ -138,10 +138,6 @@ void Player::update(shared_ptr<AudioManager> audioManager) {
 
 		// player is attacking
 		if (m_attacking == true) {
-			//if (m_castingSpell == true) {
-			//	m_castingSpell = false;
-			//	m_castingDuration = 90;
-			//}
 
 			m_attackDuration--;
 
@@ -307,6 +303,7 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 	if ((m_input.pressedB == true || m_input.keypressE == true || m_input.mouseLeft == true) && m_attacking == false) {
 		m_attacking = true;
 		m_attackDuration = 18;
+		audioManager->playSound(AudioManager::SoundType::PUNCH);
 	}
 }
 
