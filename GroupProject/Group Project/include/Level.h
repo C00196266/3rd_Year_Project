@@ -24,12 +24,14 @@ public:
 	vector<shared_ptr<Spike>>& getSpikes();
 	shared_ptr<LevelExit> getExit();
 	sf::Vector2f getNewStartPos();
+	float getKillPlane();
 
 private:
 	int maxCol;
 	int maxRow;
 	int maxTiles;
 	int tileSize;
+	float killPlane;
 	sf::Vector2f m_newStartPos;
 	vector<shared_ptr<Tile>> m_tileVector;
 	vector<shared_ptr<PickupScore>> m_scorePickups;
@@ -39,8 +41,9 @@ private:
 	vector<shared_ptr<Spike>> m_spike;
 	std::shared_ptr<int> numLevel;
 	std::shared_ptr<LevelExit> m_levelEnd;
-	static const int level1[15][75];
-	static const int leveltest[15][34];
+	static const int level1[16][76];
+	static const int level2[16][55];
+	static const int level3[16][55];
 	sf::Texture grassTexture;
 	int *currentLevel;//pointer to current level array
 	void resetLevel();

@@ -75,6 +75,11 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 	}
 
 	detectCollisions(audioManager);
+
+	if (m_player.getPos().y > gameLevel.getKillPlane()) {
+		m_player.reset();
+	}
+
 	changeGameState(currentGameState, view, window);
 	keyPressTimer++;
 }
@@ -128,6 +133,13 @@ void GameScreen::detectCollisions(shared_ptr<AudioManager> audioManager) {
 							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getHeight(), gameLevel.getTiles().at(i)->getPos().x, gameLevel.getTiles().at(i)->getPos().y, gameLevel.getTiles().at(i)->getWidth(), gameLevel.getTiles().at(i)->getHeight()) == true)
 						{
 							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->setAlive(false);
+						}
+
+						if (m_collisionDetector.boundingBoxCollision(m_player.getPos().x, m_player.getPos().y, m_player.getWidth(), m_player.getHeight(),
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().x, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getPos().y, gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getWidth(), gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->getHeight()) == true) 
+						{
+							gameLevel.getEnemiesRanged().at(e)->getProjectiles().at(j)->setAlive(false);
+							m_player.setHealth(-20);
 						}
 					}
 				}

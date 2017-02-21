@@ -101,7 +101,6 @@ Projectile::Projectile(sf::Vector2f velocity, sf::Vector2f centre) {
 void Projectile::update() {
 	if (m_isAlive == true) {
 		m_pos += m_velocity;
-		std::cout << m_velocity.x << std::endl;
 	}
 	if (ttl <= 0) {
 		m_isAlive = false;

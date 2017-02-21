@@ -308,10 +308,6 @@ void Player::checkInput(shared_ptr<AudioManager> audioManager) {
 		m_attacking = true;
 		m_attackDuration = 18;
 	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::I)) {
-		cout << gravity * timeSinceLastUpdate.asSeconds() << endl;
-	}
 }
 
 int Player::getHealth() {
