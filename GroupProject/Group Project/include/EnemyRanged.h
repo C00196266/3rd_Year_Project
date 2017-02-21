@@ -7,6 +7,7 @@ class EnemyRanged : public Enemy
 public:
 	EnemyRanged();
 	EnemyRanged(sf::Vector2f newPos);
+	EnemyRanged(sf::Vector2f newPos,bool hasDirectionalFire);
 	~EnemyRanged();
 
 	void update(Player &player);
@@ -50,5 +51,7 @@ private:
 	bool m_casting;
 
 	int m_direction;
+
+	bool m_directionalFire;
 };
 
