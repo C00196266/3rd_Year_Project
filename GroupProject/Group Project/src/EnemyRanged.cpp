@@ -26,6 +26,45 @@ EnemyRanged::EnemyRanged(sf::Vector2f newPos) : Enemy(newPos)
 	m_fireVel = sf::Vector2f(-3, 0);
 	m_casting = false;
 	m_castingTime = 20;
+	m_directionalFire = false;
+	setupAnimations();
+}
+
+EnemyRanged::EnemyRanged(sf::Vector2f newPos,bool hasDirectionalFire) : Enemy(newPos)
+{
+	if (hasDirectionalFire == false)
+	{
+		if (!m_image.loadFromFile("assets/Wizard_SpriteSheet.png")) {
+			// give error
+		}
+
+		if (!m_texture.loadFromImage(m_image)) {
+			// give error
+		}
+	}
+	else
+	{
+		if (!m_image.loadFromFile("assets/Wizard2_SpriteSheet.png")) {
+			// give error
+		}
+
+		if (!m_texture.loadFromImage(m_image)) {
+			// give error
+		}
+	}
+	m_directionalFire = hasDirectionalFire;
+
+	m_sprite.setTexture(m_texture);
+
+	m_range = 250;
+	m_direction = LEFT;
+	m_pos.x -= 20;
+	m_sprite.setPosition(m_pos);
+	m_timeBetweenShots = 60;
+	m_allowFire = false;
+	m_fireVel = sf::Vector2f(-3, 0);
+	m_casting = false;
+	m_castingTime = 20;
 
 	setupAnimations();
 }
@@ -60,61 +99,120 @@ void EnemyRanged::update(Player &player)
 	if (timeSinceLastUpdate > timePerFrame) {
 		m_animator.update(sf::seconds(timeSinceLastUpdate.asSeconds()));
 		m_animator.animate(m_sprite);
+		if (m_directionalFire == false)
+		{
+			// range is only horizontal - need to implement for vertical
+			if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range) {
+				if (m_direction != LEFT) {
+					m_direction = LEFT;
 
-		// range is only horizontal - need to implement for vertical
-		if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range) {
-			if (m_direction != LEFT) {
+					m_pos.x -= 20;
+					m_sprite.setPosition(m_pos);
+				}
+
+				if (m_fireVel.x > 0) {
+					m_fireVel.x = -3;
+				}
+				if (m_allowFire == false) {
+					m_allowFire = true;
+				}
+			}
+			else if (player.getPos().x >= m_centre.x && player.getPos().x < m_centre.x + m_range) {
+				if (m_direction != RIGHT) {
+					m_direction = RIGHT;
+					m_pos.x += 20;
+					m_sprite.setPosition(m_pos);
+				}
+
+				if (m_fireVel.x < 0) {
+					m_fireVel.x = 3;
+				}
+
+				if (m_allowFire == false) {
+					m_allowFire = true;
+				}
+			}
+			else
+			{
+				if (m_allowFire == true)
+				{
+					m_allowFire = false;
+				}
+				if (m_casting == true)
+				{
+					m_casting = false;
+				}
+			}
+		}
+		else
+		{
+			if (player.getRight() < m_centre.x && player.getRight() > m_centre.x - m_range)
+			{
+
 				m_direction = LEFT;
-
-				m_pos.x -= 20;
-				m_sprite.setPosition(m_pos);
-			}
-
-			if (m_fireVel.x > 0) {
-				m_fireVel.x = -3;
-			}
-			if (m_allowFire == false) {
+				sf::Vector2f dist = player.getPos() - m_pos;
+				float magnitute = sqrtf((dist.x*dist.x) + (dist.y*dist.y));
+				dist = dist / magnitute;
 				m_allowFire = true;
+				m_fireVel.x = dist.x * 3;
+				m_fireVel.y = dist.y * 3;
+				std::cout << dist.x << dist.y << std::endl;
+				if (m_direction != LEFT)
+				{
+					m_pos.x -= 20;
+					m_sprite.setPosition(m_pos);
+
+				}
 			}
-		}
-		else if (player.getPos().x >= m_centre.x && player.getPos().x < m_centre.x + m_range) {
-			if (m_direction != RIGHT) {
+			else if (player.getPos().x >= m_centre.x && player.getPos().x < m_centre.x + m_range)
+			{
+
 				m_direction = RIGHT;
-				m_pos.x += 20;
-				m_sprite.setPosition(m_pos);
-			}
-
-			if (m_fireVel.x < 0) {
-				m_fireVel.x = 3;
-			}
-
-			if (m_allowFire == false) {
+				sf::Vector2f dist = player.getPos() - m_pos;
+				float magnitute = sqrtf((dist.x*dist.x) + (dist.y*dist.y));
+				dist = dist / magnitute;
 				m_allowFire = true;
+				m_fireVel.x = dist.x * 3;
+				m_fireVel.y = dist.y * 3;
+				std::cout << dist.x << dist.y << std::endl;
+				if (m_direction != RIGHT)
+				{
+					m_pos.x += 20;
+					m_sprite.setPosition(m_pos);
+				}
 			}
-		}
-		else {
-			if (m_allowFire == true) {
-				m_allowFire = false;
-			}
-			if (m_casting == true) {
-				m_casting = false;
+			else
+			{
+				if (m_allowFire == true)
+				{
+					m_allowFire = false;
+				}
+				if (m_casting == true)
+				{
+					m_casting = false;
+				}
 			}
 		}
 
 		if (m_castingTime > 0) {
 			m_castingTime--;
 		}
-		else {
-			if (m_casting == true) {
+		else 
+		{
+			if (m_casting == true) 
+			{
 				m_casting = false;
 			}
 		}
 
-		if (m_timeBetweenShots > 0) {
+		if (m_timeBetweenShots > 0) 
+		{
 			m_timeBetweenShots--;
 		}
-		else {
-			if (m_allowFire == true) {
+		else 
+		{
+			if (m_allowFire == true) 
+			{
 				m_projectiles.push_back(std::shared_ptr<Projectile>(new Projectile(m_fireVel, m_centre)));
 				m_castingTime = 20;
 				m_timeBetweenShots = 75;
