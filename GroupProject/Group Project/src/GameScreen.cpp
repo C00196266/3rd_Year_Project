@@ -83,7 +83,8 @@ void GameScreen::update(GameStates &currentGameState, sf::View &view, sf::Render
 	detectCollisions(currentGameState, audioManager);
 
 	if (m_player.getPos().y > gameLevel.getKillPlane()) {
-		m_player.reset();
+		currentGameState = GameStates::Transition;
+		resetLevel();
 	}
 
 	changeGameState(currentGameState, view, window);

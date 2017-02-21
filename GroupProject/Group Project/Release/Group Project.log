@@ -3,20 +3,20 @@ src\GameScreen.cpp(33): warning C4018: '<': signed/unsigned mismatch
 src\GameScreen.cpp(45): warning C4018: '<': signed/unsigned mismatch
 src\GameScreen.cpp(57): warning C4018: '<': signed/unsigned mismatch
 src\GameScreen.cpp(68): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(131): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(139): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(141): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(169): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(185): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(197): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(209): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(220): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(322): warning C4018: '<': signed/unsigned mismatch
-src\GameScreen.cpp(342): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(132): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(140): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(142): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(170): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(186): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(198): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(210): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(221): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(323): warning C4018: '<': signed/unsigned mismatch
+src\GameScreen.cpp(343): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  1 of 1665 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  2 of 1665 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    53 functions had inline decision re-evaluated but remain unchanged
+    16 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.exe
   Group Project.vcxproj -> C:\Users\nover\Desktop\3rd_Year_Project\GroupProject\Release\Group Project.pdb (Full PDB)
